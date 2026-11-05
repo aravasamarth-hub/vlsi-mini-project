@@ -170,3 +170,4 @@ plt.subplots_adjust(top=0.88, bottom=0.10, left=0.06, right=0.95, wspace=0.15)
 os.makedirs(os.path.dirname(IMG_OUT), exist_ok=True)
 plt.savefig(IMG_OUT, dpi=250, facecolor=fig.get_facecolor(), edgecolor="none")
 print(f"[+] Successfully generated physical layout comparison plot: {IMG_OUT}")
+

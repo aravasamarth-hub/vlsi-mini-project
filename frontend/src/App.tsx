@@ -364,7 +364,7 @@ export default function App() {
             {/* Section 4: Project Controls */}
             <div className="pt-2 border-t border-[#1E293B]/70 space-y-1 font-mono text-xs">
               <div className="text-[10px] text-[#64748B] uppercase tracking-wider px-3 mb-1.5 font-bold">
-                QUICK CONTROLS
+                PROJECT CONTROL
               </div>
 
               <button
@@ -374,7 +374,7 @@ export default function App() {
                   triggerNotice('⚡ Live Verilog Simulation Executed: 10,014 vectors verified against golden reference model (100% Pass)!')
                 }}
                 title="Run Icarus Verilog Simulation & Open Adder Simulator"
-                className="w-full flex items-center space-x-2.5 px-3 py-1.5 rounded-lg text-[#94A3B8] hover:bg-[#0E1626] hover:text-[#00DF72] transition text-left"
+                className="w-full flex items-center space-x-2.5 px-3 py-1.5 rounded-lg text-[#94A3B8] hover:bg-[#0E1626] hover:text-[#00DF72] transition text-left cursor-pointer active:scale-95"
               >
                 <PlayCircle className="w-4 h-4 text-[#00DF72]" />
                 <span>Run Simulation</span>
@@ -386,7 +386,7 @@ export default function App() {
                   triggerNotice('⚡ Loaded Yosys 0.49 Dual Hierarchical & Flattened Synthesis Report!')
                 }}
                 title="Open Yosys Synthesis & Technology Mapping Explorer"
-                className="w-full flex items-center space-x-2.5 px-3 py-1.5 rounded-lg text-[#94A3B8] hover:bg-[#0E1626] hover:text-[#00DF72] transition text-left"
+                className="w-full flex items-center space-x-2.5 px-3 py-1.5 rounded-lg text-[#94A3B8] hover:bg-[#0E1626] hover:text-[#00DF72] transition text-left cursor-pointer active:scale-95"
               >
                 <RefreshCw className="w-4 h-4 text-[#00DF72]" />
                 <span>Run Synthesis</span>
@@ -395,10 +395,10 @@ export default function App() {
               <button
                 onClick={() => {
                   setActiveTab('PHY')
-                  triggerNotice('⚡ Loaded SkyWater 130nm DEF Floorplan & 4.18 MB GDSII Placement Stream!')
+                  triggerNotice('⚡ Loaded SkyWater 130nm DEF Floorplan & 4.19 MB Hierarchical GDSII Stream!')
                 }}
                 title="Open Physical Design (DEF/GDS) CAD Floorplan Viewer"
-                className="w-full flex items-center space-x-2.5 px-3 py-1.5 rounded-lg text-[#94A3B8] hover:bg-[#0E1626] hover:text-[#00DF72] transition text-left"
+                className="w-full flex items-center space-x-2.5 px-3 py-1.5 rounded-lg text-[#94A3B8] hover:bg-[#0E1626] hover:text-[#00DF72] transition text-left cursor-pointer active:scale-95"
               >
                 <LayoutGrid className="w-4 h-4 text-[#00DF72]" />
                 <span>Generate Layout</span>
@@ -410,7 +410,7 @@ export default function App() {
                   triggerNotice('⚡ Opened GTKWave Interactive Timing & Waveform Explorer!')
                 }}
                 title="Open GTKWave Timing Diagram & Waveform Viewer"
-                className="w-full flex items-center space-x-2.5 px-3 py-1.5 rounded-lg text-[#94A3B8] hover:bg-[#0E1626] hover:text-[#00F0FF] transition text-left"
+                className="w-full flex items-center space-x-2.5 px-3 py-1.5 rounded-lg text-[#94A3B8] hover:bg-[#0E1626] hover:text-[#00F0FF] transition text-left cursor-pointer active:scale-95"
               >
                 <Waves className="w-4 h-4 text-[#00F0FF]" />
                 <span>View Waveform</span>

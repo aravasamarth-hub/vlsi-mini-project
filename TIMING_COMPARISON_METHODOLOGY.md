@@ -77,3 +77,4 @@ To ensure complete scientific defensibility in academic evaluation, the followin
 1. The **41.7% speedup** figure is strictly the **hierarchical-to-hierarchical comparison** ($4.240\text{ ns} \to 2.471\text{ ns}$), where both adders maintain explicit submodule hierarchy.
 2. The **37.6% speedup** figure is the **cross-comparison against ABC's globally flattened RCA netlist** ($3.957\text{ ns} \to 2.471\text{ ns}$).
 3. Both figures are completely consistent, reproducible from Liberty lookup tables, and must always be labeled as **"Analytical Netlist-Level Timing Estimates"**.
+

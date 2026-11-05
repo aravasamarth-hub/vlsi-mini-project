@@ -34,3 +34,4 @@ with open('physical_design/placement/cska_sky130.def') as f:
     flat_def_text = f.read()
 
 print("Hier DEF len:", len(hier_def_text), "Flat DEF len:", len(flat_def_text))
+

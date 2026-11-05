@@ -167,3 +167,4 @@ Result: 7 passed in 2.18s (Exit Code 0)
 > - **Completed:** Synthesizable RTL, golden reference verification (60,038 vectors), hierarchical & flattened synthesis, analytical Liberty timing modeling, legal site placement (56 cells, 51.8% core utilization), and KLayout GDSII macro stream assembly.
 > - **Not Completed:** Detailed track/global routing (M1–M5 metal interconnects), parasitic extraction (SPEF), Clock Tree Synthesis (not applicable for combinational logic), and signoff DRC/LVS.
 > - **Viva Defense Position:** This project demonstrates complete mastery of the front-end to placement-level physical design flow using open-source PDKs and provides a transparent, scientifically honest academic foundation.
+

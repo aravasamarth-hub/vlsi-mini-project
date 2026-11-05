@@ -94,3 +94,4 @@ T_RCA_flat = 3.675 ns + 0.282 ns = 3.957 ns.
 > 
 > In college vivas, faculty interviews, and project presentations, always state:
 > *"The 2.471 ns CSKA and 4.240 ns RCA timings are analytical estimates calculated from the SkyWater 130nm Liberty NLDM tables under typical operating conditions ($TT, 25^\circ\text{C}, 1.80\text{V}$)."*
+

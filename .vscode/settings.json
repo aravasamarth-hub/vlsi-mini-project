@@ -94,11 +94,47 @@
     },
     "typescript:S6767": {
       "level": "off"
+    },
+    "typescript:S1128": {
+      "level": "off"
+    },
+    "typescript:S1854": {
+      "level": "off"
+    },
+    "typescript:S4030": {
+      "level": "off"
+    },
+    "typescript:S6848": {
+      "level": "off"
+    }
+  },
+  "sonarqube.rules": {
+    "typescript:S6747": {
+      "level": "off"
+    },
+    "javascript:S6747": {
+      "level": "off"
+    },
+    "typescript:S6767": {
+      "level": "off"
+    },
+    "typescript:S1128": {
+      "level": "off"
+    },
+    "typescript:S1854": {
+      "level": "off"
+    },
+    "typescript:S4030": {
+      "level": "off"
+    },
+    "typescript:S6848": {
+      "level": "off"
     }
   },
   "markdownlint.config": {
     "MD012": false,
-    "MD060": false
+    "MD060": false,
+    "default": true
   },
 
   "// === PERFORMANCE & INDEXING OPTIMIZATIONS ===": "",

@@ -1,9 +1,9 @@
 ================================================================================
 CYBERCORE 3D - OFFICIAL PROJECT SUBMISSION MANIFEST
 Archive: 16bit_carry_skip_adder_sky130_submission.zip
-Generated: 2026-11-06 02:12:37
-Total Packaged Files: 233
-Archive Size: 22.68 MB
+Generated: 2026-11-06 02:36:51
+Total Packaged Files: 237
+Archive Size: 22.70 MB
 ================================================================================
 
 KEY DELIVERABLES INCLUDED:
@@ -39,9 +39,11 @@ COMPLETE FILE INVENTORY:
   ENVIRONMENT_SETUP_GUIDE.md
   FACULTY_DEMONSTRATION_GUIDE.md
   FINAL_3D_VISUALIZATION_AUDIT.md
+  FINAL_ACADEMIC_ACCEPTANCE_REPORT.md
   FINAL_ACADEMIC_READINESS_CHECKLIST.md
   FINAL_BACKEND_TEST_REPORT.md
   FINAL_CONSISTENT_TIMING_REPORT.md
+  FINAL_CYBERCORE_INTEGRATION_REPORT.md
   FINAL_DOCUMENTATION_REPORT.md
   FINAL_EVIDENCE_VALIDATION.md
   FINAL_EXTENSION_INVENTORY.md
@@ -112,8 +114,8 @@ COMPLETE FILE INVENTORY:
   dashboard\app.py
   documentation\examiner_viva_defense.md
   documentation\seminar_speaking_script.md
-  frontend\dist\assets\index-Bc_u7AzA.js
-  frontend\dist\assets\index-D3YEbJG4.css
+  frontend\dist\assets\index-Cose5L63.js
+  frontend\dist\assets\index-vCbGPLc2.css
   frontend\dist\index.html
   frontend\index.html
   frontend\package-lock.json
@@ -204,6 +206,7 @@ COMPLETE FILE INVENTORY:
   simulation\waveforms\carry_select_adder.vcd
   simulation\waveforms\carry_skip_adder.vcd
   simulation\waveforms\ripple_carry_adder.vcd
+  sonar-project.properties
   synthesis\netlists\bk_sky130_netlist.v
   synthesis\netlists\cla_sky130_netlist.v
   synthesis\netlists\cska_hier_sky130_netlist.v
@@ -235,6 +238,7 @@ COMPLETE FILE INVENTORY:
   synthesis\yosys_scripts\synth_csla.ys
   synthesis\yosys_scripts\synth_rca.ys
   synthesis\yosys_scripts\synth_rca_hier.ys
+  tsconfig.json
   verification\common_reference_model.v
   verification\tb_all.vvp
   verification\tb_bk.vvp
