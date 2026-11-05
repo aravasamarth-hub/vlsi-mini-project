@@ -76,7 +76,8 @@ All architectures were simulated under Icarus Verilog 14.0 using self-checking t
 ---
 
 ### CHAPTER 6: ASIC SYNTHESIS & PPA COMPARISON TABLE
-Target platform: **SkyWater 130nm High-Density (`sky130_fd_sc_hd__tt_025C_1v80.lib`)**.
+Target platform: **SkyWater 130nm High-Density (`sky130_fd_sc_hd__tt_025C_1v80.lib`)**.  
+*(Methodology: Delays are analytical graph estimates derived from Sky130 HD Liberty NLDM tables at typical corner 25°C, 1.8V using topological critical path traversal. Dynamic power is modeled from switching activities at 100MHz. These represent pre-route analytical estimates rather than post-route SPEF back-annotated STA).*
 
 | Architecture | Standard Cells | Total Area ($\text{µm}^2$) | Delay ($T_{pd}$, ns) | Power @ 100MHz | Area-Delay Product | Speedup vs RCA |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
@@ -95,6 +96,7 @@ Target platform: **SkyWater 130nm High-Density (`sky130_fd_sc_hd__tt_025C_1v80.l
 - **Placed Cells:** 48 macros (`sky130_fd_sc_hd__maj3_1`, `sky130_fd_sc_hd__xnor2_1`)
 - **Output Database:** `physical_design/gds/cska_sky130.gds` (**4.09 MB**)
 - **DEF Database:** `physical_design/placement/cska_sky130.def`
+- **Physical Design Stage:** **Legalized Standard-Cell Placement Layout** (assembled via KLayout from authentic Sky130 HD polygon macros; detailed metal routing via TritonRoute and signoff DRC/LVS via Magic/Netgen were not executed on this Windows host).
 
 ---
 

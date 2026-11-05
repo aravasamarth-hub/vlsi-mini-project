@@ -160,3 +160,4 @@ The project fulfills 100% of the core requirements for an advanced undergraduate
 
 **Recommendation for Seminar / Viva Defense:**  
 Present the results with total academic honesty: highlight the 57.1% speedup of the Carry Skip Adder, explain that synthesis mapping achieved zero area penalty through majority-cell absorption, emphasize the 60,000+ vector simulation pass rate, and clearly distinguish between placement layout and full detail-routed signoff. This technical rigor will impress external examiners and guarantee top academic honors.
+

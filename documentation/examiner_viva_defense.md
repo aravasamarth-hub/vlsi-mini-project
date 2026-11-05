@@ -271,7 +271,7 @@ We used KLayout in headless batch mode (`klayout_app.exe -z -r scripts/export_gd
 2. For each placed standard cell instance, it references the authentic transistor-level polygon geometries (diffusions, poly gates, contacts, M1/M2/M3 metals) from the SkyWater macro library.
 3. Coordinates are transformed according to row flipping (R0 / MX) and legalized.
 4. The merged database is written out as `physical_design/gds/cska_sky130.gds` (4.09 MB).
-5. The GDSII file was verified in KLayout by inspecting layer geometries against the Sky130 layer properties file (`sky130hd.lyp`).
+5. The GDSII file was verified in KLayout by inspecting layer geometries against the Sky130 layer properties file (`sky130hd.lyp`). Note that this represents a legalized standard-cell placement layout; detailed metal routing (TritonRoute) and DRC/LVS signoff decks (Magic/Netgen) are subsequent steps in a full commercial physical design flow.
 
 ---
 
@@ -303,6 +303,8 @@ Our empirical characterization results under SkyWater 130nm HD typical condition
 | **CLA** | 65 | 479.21 | 0.88 | 0.151 | 421.70 | +77.55% |
 | **CSLA** | 48 | 440.42 | 1.54 | 0.156 | 678.25 | +60.71% |
 | **Brent-Kung** | 77 | 506.74 | 1.18 | 0.165 | 597.95 | +69.90% |
+
+*(Methodology note: Delays are topological graph estimates from Sky130 HD Liberty NLDM tables at typical corner 25°C, 1.8V, and dynamic power is modeled at 100MHz, representing pre-route analytical estimates rather than post-route back-annotated SPEF STA.)*
 
 **Key Takeaway:** The Carry Skip Adder delivers a **57.1% speedup** with **zero cell area penalty** and only **4.3% power increase**, reducing the Area-Delay Product by **57.2%**.
 

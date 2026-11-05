@@ -160,6 +160,9 @@ export default function PPABenchmark() {
             ))}
           </tbody>
         </table>
+        <div className="mt-3 text-[11px] font-mono text-[#64748B]">
+          * Note: Delays are topological graph estimates from Sky130 HD Liberty NLDM tables (typical corner 25°C, 1.8V); power is modeled from switching activity at 100MHz (pre-route analytical estimates).
+        </div>
       </div>
 
       {/* Engineering Trade-off Summary */}

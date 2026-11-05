@@ -128,7 +128,11 @@ npm run preview -- --port 3000
 
 ## 📊 Scientific Performance Matrix (SkyWater 130nm)
 
-| Architecture | Standard Cells | Total Area (µm²) | Delay (ns) | Power @ 100MHz | Area-Delay Product | Speedup vs RCA |
+> **Academic Methodology Note:**  
+> - **Timing & Power:** Delays are analytical graph estimates derived from Sky130 HD Liberty NLDM tables at typical corner ($25^\circ\text{C}, 1.80\text{V}$) using topological critical path traversal. Dynamic power is modeled at 100MHz. These are pre-route analytical estimates, not post-route back-annotated SPEF Static Timing Analysis (STA).
+> - **Physical Layout:** The GDSII stream database (`cska_sky130.gds`, 4.09 MB) represents a **legalized standard-cell placement layout** assembled via KLayout into 9 alternating rows. Detailed metal routing (TritonRoute) and signoff DRC/LVS (Magic/Netgen) were not executed on this Windows host.
+
+| Architecture | Standard Cells | Total Area (µm²) | Delay (Nominal ns) | Power @ 100MHz | Area-Delay Product | Speedup vs RCA |
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | **Ripple Carry (RCA)** | 48 | 440.42 | 3.92 ns | 0.117 mW | 1726.5 | Baseline (0.0%) |
 | **Carry Skip (CSKA)** | **48** | **440.42** | **1.68 ns** | **0.122 mW** | **739.9** | **+57.1%** |
@@ -139,7 +143,7 @@ npm run preview -- --port 3000
 ---
 
 ## 🎓 College Viva & Seminar Defense Highlights
-- **Why CSKA?** Delivers a **57.1% speedup** over RCA with **zero area overhead** and lower active power than CLA.
+- **Why CSKA?** Delivers a **57.1% speedup** over RCA with **zero cell area overhead** in Sky130 technology mapping and lower active power than CLA.
 - **Physical Feasibility:** Validated through actual standard cell placement into 9 rows on a 45 µm × 35 µm die.
-- **Verification Integrity:** 100% passed over 60,000 automated cycles with full 17-bit output matching.
+- **Verification Integrity:** 100% passed over 60,046 simulated test vectors (10,014 CSKA + 10,006 RCA/CLA/CSLA/BK standalone + 10,000 master lockstep vectors) with full 17-bit output matching against golden reference model {Cout, SUM} = A + B + Cin.
 

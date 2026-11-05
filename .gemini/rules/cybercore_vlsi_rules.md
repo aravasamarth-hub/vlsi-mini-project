@@ -23,3 +23,4 @@ These rules govern the development, simulation, synthesis, and physical verifica
 - React 18, Three.js, and React Three Fiber components must compile with zero TypeScript errors (`tsc --noEmit`).
 - Three.js geometries and materials must be properly disposed on unmount to prevent WebGL memory leaks.
 - All hardware telemetry and PPA figures displayed in the dashboard must pull directly from authentic JSON project artifacts (`analysis/comparison_results.json`).
+

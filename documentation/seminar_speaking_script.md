@@ -123,7 +123,7 @@
 > - **Core Dimensions:** $35.0\,\mu\text{m} \times 24.48\,\mu\text{m}$ (Core Area = $856.8\,\mu\text{m}^2$).
 > - **Core Utilization:** $\approx 51.4\%$, providing ample routing tracks for metal layers M1 through M4.
 > - **Placement Grid:** 9 standard-cell rows with site height $2.72\,\mu\text{m}$. All 48 standard cells are legalized, orientation-flipped (R0 / MX) across alternating rows to share VDD and VSS rails.
-> - **GDSII Stream File:** Generated `cska_sky130.gds` (4.09 Megabytes), containing 100% genuine GDSII layer geometries verified against SkyWater 130nm design rules.
+> - **GDSII Stream File:** Generated `cska_sky130.gds` (4.09 Megabytes), containing 100% genuine GDSII standard-cell macro layer geometries. This represents a legalized placement layout establishing physical pin and row legalization prior to detail routing.
 >
 > The layout visualizer confirms complete pin accessibility, zero cell overlap, and clear block-level physical demarcation corresponding to our 4-bit CSKA partitions."
 
@@ -164,7 +164,7 @@
 > **In conclusion:**
 > 1. We successfully designed, verified, synthesized, and physically implemented a 16-Bit Carry Skip Adder using the SkyWater 130nm PDK.
 > 2. Verified 100% functional correctness over 60,046 randomized test vectors.
-> 3. Synthesized all 5 adder architectures and produced an authentic 4.09 MB GDSII layout.
+> 3. Synthesized all 5 adder architectures and produced an authentic 4.09 MB placement GDSII layout stream.
 > 4. Proved that the 16-bit CSKA delivers a **57.1% latency reduction over RCA with zero area penalty and only 4.3% power increase**, reducing the Area-Delay Product from 1726.5 down to 739.9 $\mu\text{m}^2\cdot\text{ns}$.
 >
 > Thank you for your time and attention. I am now open to questions from the honorable committee."

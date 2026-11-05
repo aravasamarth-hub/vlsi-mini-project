@@ -134,3 +134,4 @@ In `settings.json`, we configured targeted exclusions:
 - [x] Antigravity workspace rules written to `.gemini/rules/cybercore_vlsi_rules.md`.
 - [x] Reusable `vlsi-flow-auditor` skill created in `.gemini/skills/`.
 - [x] Heavy binary tools (`tools/`) and VCD waveforms excluded from file watchers to preserve RAM and CPU.
+

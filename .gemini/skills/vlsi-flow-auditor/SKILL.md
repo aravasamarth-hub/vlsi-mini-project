@@ -33,3 +33,4 @@ To view the resulting layout in KLayout:
 - Check synthesis logs in `synthesis/reports/*_synth.log` for unmapped cells or `$scopeinfo` pseudo-cells.
 - Differentiate between structural cell count and logical gate counts.
 - Never claim routing, DRC, or LVS clean without actual tool execution reports.
+
