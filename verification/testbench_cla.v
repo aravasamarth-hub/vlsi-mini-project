@@ -79,6 +79,7 @@ module testbench_cla;
         end
 
         $display("CLA Verification: Total=%0d, Passed=%0d, Failed=%0d", pass_count + fail_count, pass_count, fail_count);
+        if (fail_count > 0) $fatal(1, "CLA verification mismatch!");
         $finish;
     end
 endmodule

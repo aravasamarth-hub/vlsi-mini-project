@@ -118,12 +118,12 @@ module testbench_cska;
         $display("  Skip Logic Activations : %0d cycles", skip_activated_count);
         if (fail_count == 0) begin
             $display("  VERIFICATION RESULT    : [100%% PASSED - ZERO DEFECTS]");
+            $finish;
         end else begin
             $display("  VERIFICATION RESULT    : [FAILED - %0d ERRORS]", fail_count);
+            $fatal(1, "Testbench verification mismatch detected!");
         end
         $display("==========================================================================");
-
-        $finish;
     end
 endmodule
 

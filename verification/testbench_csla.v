@@ -79,6 +79,7 @@ module testbench_csla;
         end
 
         $display("CSLA Verification: Total=%0d, Passed=%0d, Failed=%0d", pass_count + fail_count, pass_count, fail_count);
+        if (fail_count > 0) $fatal(1, "CSLA verification mismatch!");
         $finish;
     end
 endmodule

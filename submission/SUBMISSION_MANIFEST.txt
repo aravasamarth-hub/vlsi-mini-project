@@ -1,8 +1,8 @@
 ================================================================================
 CYBERCORE 3D - OFFICIAL PROJECT SUBMISSION MANIFEST
 Archive: 16bit_carry_skip_adder_sky130_submission.zip
-Generated: 2026-11-06 00:45:27
-Total Packaged Files: 204
+Generated: 2026-11-06 00:57:36
+Total Packaged Files: 207
 Archive Size: 21.17 MB
 ================================================================================
 
@@ -153,9 +153,12 @@ COMPLETE FILE INVENTORY:
   rtl\parameterized_cska.v
   rtl\ripple_carry_adder.v
   run_complete_project.bat
+  scripts\inspect_physical_artifacts.py
   scripts\package_submission.py
+  scripts\parse_gds.py
   scripts\setup_env.bat
   scripts\setup_env.ps1
+  scripts\verify_timing_cells.py
   simulation\run_simulation.py
   simulation\simulation_logs\bk_verification.log
   simulation\simulation_logs\cla_verification.log

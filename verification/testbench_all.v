@@ -161,11 +161,11 @@ module testbench_all;
 
         if ((rca_errors + cska_errors + cla_errors + csla_errors + bk_errors) == 0) begin
             $display(">>> OVERALL STATUS: ALL FIVE 16-BIT ARCHITECTURES SIMULATION-EQUIVALENT (10,000 VECTORS VERIFIED) <<<");
+            $finish;
         end else begin
             $display(">>> OVERALL STATUS: DISCREPANCIES DETECTED IN HARNESS <<<");
+            $fatal(1, "Harness verification failure detected!");
         end
-
-        $finish;
     end
 endmodule
 
