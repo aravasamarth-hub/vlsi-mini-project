@@ -17,3 +17,4 @@ for cell in ["sky130_fd_sc_hd__maj3_1", "sky130_fd_sc_hd__mux2_1", "sky130_fd_sc
             print(snippet[px:px+2500])
         else:
             print(snippet[:1500])
+

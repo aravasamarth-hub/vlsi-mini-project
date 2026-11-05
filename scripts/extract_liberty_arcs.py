@@ -136,3 +136,4 @@ out_file = r"X:\scripts\liberty_timing_arcs.json"
 with open(out_file, "w") as f:
     json.dump(results, f, indent=2)
 print("Saved to", out_file)
+

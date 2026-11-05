@@ -67,3 +67,4 @@ print("\n=== PATH 3: Pure Ripple Carry Path (Un-skipped RCA Baseline) ===")
 t_rca_avg = arcs["maj3_1"]["A->X"]["avg"] + 15 * arcs["maj3_1"]["C->X"]["avg"] + arcs["xor3_1"]["C->X"]["avg"]
 print(f"Pure RCA 16-Stage Delay: {t_rca_avg:.4f} ns")
 print(f"CSKA Speedup over Pure RCA: {(t_rca_avg - t_avg) / t_rca_avg * 100:.1f}%")
+

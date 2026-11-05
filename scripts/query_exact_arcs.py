@@ -68,3 +68,4 @@ for cell in ["sky130_fd_sc_hd__maj3_1", "sky130_fd_sc_hd__mux2_1", "sky130_fd_sc
         cf = f"{t['cell_fall_nom']:.4f} ns" if t['cell_fall_nom'] is not None else "None"
         when_str = f" [when: {t['when']}]" if t['when'] else ""
         print(f"  {t['related_pin']} -> X ({t['sense']}){when_str}: rise={cr}, fall={cf}")
+
