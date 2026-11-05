@@ -1,9 +1,9 @@
 ================================================================================
 CYBERCORE 3D - OFFICIAL PROJECT SUBMISSION MANIFEST
 Archive: 16bit_carry_skip_adder_sky130_submission.zip
-Generated: 2026-11-06 00:57:36
-Total Packaged Files: 207
-Archive Size: 21.17 MB
+Generated: 2026-11-06 01:10:58
+Total Packaged Files: 208
+Archive Size: 21.18 MB
 ================================================================================
 
 KEY DELIVERABLES INCLUDED:
@@ -39,6 +39,7 @@ COMPLETE FILE INVENTORY:
   FINAL_ACADEMIC_READINESS_CHECKLIST.md
   FINAL_BACKEND_TEST_REPORT.md
   FINAL_DOCUMENTATION_REPORT.md
+  FINAL_EVIDENCE_VALIDATION.md
   FINAL_EXTENSION_INVENTORY.md
   FINAL_FRONTEND_QA_REPORT.md
   FINAL_FUNCTIONAL_VERIFICATION_REPORT.md
@@ -104,8 +105,8 @@ COMPLETE FILE INVENTORY:
   dashboard\app.py
   documentation\examiner_viva_defense.md
   documentation\seminar_speaking_script.md
-  frontend\dist\assets\index-BHjf89ih.css
-  frontend\dist\assets\index-kvVGQMsA.js
+  frontend\dist\assets\index-CIT6fsYE.js
+  frontend\dist\assets\index-cRyPUSFE.css
   frontend\dist\index.html
   frontend\index.html
   frontend\package-lock.json

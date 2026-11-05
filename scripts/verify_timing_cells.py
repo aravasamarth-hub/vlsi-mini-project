@@ -44,3 +44,4 @@ print(f"2. RCA Critical Path : {tau_setup} + 15*{tau_fa_cout} + {tau_fa_sum} = {
 speedup = (t_rca - t_cska) / t_rca * 100
 ratio = t_rca / t_cska
 print(f"Speedup: {speedup:.1f}% ({ratio:.2f}x faster)")
+

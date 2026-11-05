@@ -44,3 +44,4 @@ print(f"Direct Sub-Cell SREFs in carry_skip_adder: {len(srefs)} instances")
 print(f"Cell types in carry_skip_adder: {set(srefs)}")
 print(f"Physical Mask Layers Present ({len(layers)} layers): {sorted(list(layers))}")
 print("GDSII Status: VALID BINARY STREAM, PLACEMENT HIERARCHY CONFIRMED")
+
