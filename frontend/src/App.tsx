@@ -20,7 +20,6 @@ import {
   Laptop,
   GraduationCap,
   Lightbulb,
-  Sparkles,
   CheckCircle2
 } from 'lucide-react'
 

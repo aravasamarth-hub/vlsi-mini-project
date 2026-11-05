@@ -80,3 +80,4 @@ To ensure 100% academic transparency and zero fabricated claims:
    - Derived from Liberty cell lookup tables (`sky130_fd_sc_hd__tt_025C_1v80.lib`) and analytical topological delay equations:
      $$T_{CSKA} = (k-1)\tau_{ripple} + (M-2)\tau_{skip} + (k-1)\tau_{ripple} + \tau_{sum}$$
    - **No post-route wire parasitics (SPEF) or signoff STA tool (OpenSTA) were executed.** It is strictly labeled as an analytical netlist estimate.
+

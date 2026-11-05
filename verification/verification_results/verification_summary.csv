@@ -1,0 +1,8 @@
+Testbench,TargetArchitecture,VectorsExecuted,PassedVectors,FailedVectors,Mismatches,SkipActivations,PassRate,Status,VCDPath
+testbench_cska.v,CSKA,10014,10014,0,0,2326,100.0%,PASSED,simulation/waveforms/carry_skip_adder.vcd
+testbench_rca.v,RCA,10006,10006,0,0,0,100.0%,PASSED,simulation/waveforms/rca.vcd
+testbench_cla.v,CLA,10006,10006,0,0,0,100.0%,PASSED,simulation/waveforms/cla.vcd
+testbench_csla.v,CSLA,10006,10006,0,0,0,100.0%,PASSED,simulation/waveforms/csla.vcd
+testbench_bk.v,BK,10006,10006,0,0,0,100.0%,PASSED,simulation/waveforms/bk.vcd
+testbench_all.v,ALL_5_LOCKSTEP,10000,10000,0,0,N/A,100.0%,PASSED,simulation/waveforms/all_adders_comparison.vcd
+TOTAL,6_SUITES,60038,60038,0,0,2326,100.0%,PASSED,All_Waveforms_Verified

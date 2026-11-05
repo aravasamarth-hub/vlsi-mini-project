@@ -64,3 +64,4 @@ During the 10,000 randomized cycle run of `testbench_cska.v`:
   - `simulation/waveforms/carry_skip_adder.vcd` (1.2 MB)
   - `simulation/waveforms/all_adders_comparison.vcd` (3.8 MB)
 - Simulation executables: `simulation/tb_cska.vvp`, `simulation/tb_all.vvp`
+

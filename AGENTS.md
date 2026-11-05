@@ -25,3 +25,4 @@ Explicit user consent is mandatory for:
 - Destructive Git operations (`git reset --hard`, `git push -f`).
 - Deleting core RTL, synthesis outputs, DEF/GDSII files, or verification logs.
 - Modifying host system security or modifying files outside `D:\mini project`.
+

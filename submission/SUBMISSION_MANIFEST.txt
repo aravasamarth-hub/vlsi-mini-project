@@ -1,9 +1,9 @@
 ================================================================================
 CYBERCORE 3D - OFFICIAL PROJECT SUBMISSION MANIFEST
 Archive: 16bit_carry_skip_adder_sky130_submission.zip
-Generated: 2026-11-06 00:05:09
-Total Packaged Files: 162
-Archive Size: 21.02 MB
+Generated: 2026-11-06 00:28:49
+Total Packaged Files: 177
+Archive Size: 21.05 MB
 ================================================================================
 
 KEY DELIVERABLES INCLUDED:
@@ -24,15 +24,24 @@ COMPLETE FILE INVENTORY:
   3D_VISUALIZATION_GUIDE.md
   ACADEMIC_RESULTS_AND_LIMITATIONS.md
   AGENTS.md
+  ANTIGRAVITY_CONFIGURATION_REPORT.md
   ANTIGRAVITY_OPTIMIZATION_REPORT.md
+  COMPLETE_EXTENSION_INVENTORY.md
+  COMPLETE_PROGRAM_INVENTORY.md
+  COMPLETE_PROJECT_INVENTORY.md
+  COMPLETE_SOFTWARE_INVENTORY.md
+  DEPENDENCY_REPORT.md
   DEVELOPMENT_LOG.md
+  ENVIRONMENT_SETUP_GUIDE.md
   FINAL_ACADEMIC_READINESS_CHECKLIST.md
   FINAL_DOCUMENTATION_REPORT.md
+  FINAL_INDEPENDENT_ACCEPTANCE_AUDIT.md
   FINAL_PHYSICAL_DESIGN_REPORT.md
   FINAL_PROJECT_STATUS.md
   FINAL_SCREENSHOTS\chip_studio_viewport.png
   FINAL_SCREENSHOTS\master_dashboard_full.png
   FINAL_SYSTEM_AUDIT.md
+  FINAL_SYSTEM_COMPLETION_REPORT.md
   FINAL_VERIFICATION_REPORT.md
   GDSII_LAYOUT_EXPLANATION.md
   INDEPENDENT_AUDIT_REPORT.md
@@ -43,9 +52,13 @@ COMPLETE FILE INVENTORY:
   PROJECT_FILE_TREE.md
   PROJECT_INVENTORY.md
   PROJECT_WORKFLOW.md
+  PROJECT_WORKFLOW_EXPLANATION.md
   RCA_CSKA_TIMING_INVESTIGATION.md
   README.md
   SOFTWARE_AND_EXTENSION_INVENTORY.md
+  SOFTWARE_AND_HARDWARE_INVENTORY.md
+  SOFTWARE_SETUP_REPORT.md
+  SYNTHESIS_ANALYSIS_REPORT.md
   SYSTEM_AUDIT.md
   TEST_RESULTS.md
   UI_REDESIGN_REPORT.md
@@ -70,8 +83,8 @@ COMPLETE FILE INVENTORY:
   dashboard\app.py
   documentation\examiner_viva_defense.md
   documentation\seminar_speaking_script.md
-  frontend\dist\assets\index-F-yDl48a.css
-  frontend\dist\assets\index-jeN6zJ0c.js
+  frontend\dist\assets\index-BHjf89ih.css
+  frontend\dist\assets\index-kvVGQMsA.js
   frontend\dist\index.html
   frontend\index.html
   frontend\package-lock.json
@@ -180,3 +193,5 @@ COMPLETE FILE INVENTORY:
   verification\testbench_csla.v
   verification\testbench_rca.v
   verification\verification_results\summary.json
+  verification\verification_results\verification_summary.csv
+  verification\verification_results\verification_summary.json

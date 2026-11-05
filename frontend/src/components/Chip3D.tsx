@@ -768,13 +768,16 @@ function CameraRig({
   viewPreset: '3d' | 'top' | 'side' | 'iso'
   controlsRef: React.RefObject<any>
 }) {
-  const { camera } = useThree()
+  const { camera, gl } = useThree()
   const targetPos = useRef(new THREE.Vector3(11.5, 9.5, 11.5))
   const targetLook = useRef(new THREE.Vector3(0, 1.2, 0))
   const isTransitioning = useRef<boolean>(false)
+  const prevPreset = useRef<string>(viewPreset)
 
+  // Trigger smooth transition only when preset actively changes
   useEffect(() => {
-    if (!controlsRef.current) return
+    if (viewPreset === prevPreset.current) return
+    prevPreset.current = viewPreset
 
     if (viewPreset === 'iso' || viewPreset === '3d') {
       targetPos.current.set(11.5, 9.5, 11.5)
@@ -787,17 +790,23 @@ function CameraRig({
       targetLook.current.set(0, 1.2, 0)
     }
     isTransitioning.current = true
-  }, [viewPreset, controlsRef])
+  }, [viewPreset])
 
+  // Cancel auto-lerp the instant user interacts with canvas (pointer down, wheel, touch)
   useEffect(() => {
-    const controls = controlsRef.current
-    if (!controls) return
-    const handleStart = () => {
+    const dom = gl.domElement
+    const stopTransition = () => {
       isTransitioning.current = false
     }
-    controls.addEventListener('start', handleStart)
-    return () => controls.removeEventListener('start', handleStart)
-  }, [controlsRef])
+    dom.addEventListener('pointerdown', stopTransition)
+    dom.addEventListener('wheel', stopTransition, { passive: true })
+    dom.addEventListener('touchstart', stopTransition, { passive: true })
+    return () => {
+      dom.removeEventListener('pointerdown', stopTransition)
+      dom.removeEventListener('wheel', stopTransition)
+      dom.removeEventListener('touchstart', stopTransition)
+    }
+  }, [gl])
 
   useFrame(() => {
     if (controlsRef.current && isTransitioning.current) {
@@ -955,6 +964,7 @@ export default function Chip3D(props: Readonly<Chip3DProps>) {
           {/* Orbit Controls */}
           <OrbitControls
             ref={controlsRef}
+            makeDefault
             enableDamping
             dampingFactor={0.06}
             minDistance={4}

@@ -46,3 +46,4 @@ In accordance with strict academic guidelines:
 2. No DRC/LVS zero-violation signoff badges are claimed.
 3. Every test vector count (60,038) is extracted directly from actual simulation logs.
 4. Every silicon area figure (440.42 µm² flat vs 760.73 µm² hier) is extracted directly from Yosys standard-cell statistics.
+

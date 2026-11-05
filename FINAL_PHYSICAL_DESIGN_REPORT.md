@@ -73,3 +73,4 @@ In KLayout, the layer properties file (`sky130hd.lyp`) maps GDSII records to phy
 3. **Clock Tree Synthesis (CTS):** This is a combinational adder; no clock tree or clock buffers were required or inserted.
 4. **Signoff DRC/LVS:** Standard cells are individually DRC clean from SkyWater foundry, but inter-cell DRC rules (such as well-tap proximity rules and antenna diode rules) have not been signoff-closed.
 5. **Tapeout Readiness:** The generated GDSII is an **academic placement stream**, not an industrial tapeout-ready fabrication package.
+

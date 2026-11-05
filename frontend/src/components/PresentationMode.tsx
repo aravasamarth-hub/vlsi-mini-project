@@ -390,7 +390,7 @@ export default function PresentationMode({ onClose }: PresentationModeProps) {
 
   return (
     <div
-      className="fixed inset-0 z-50 flex flex-col justify-between p-6 sm:p-10 text-white font-sans overflow-y-auto"
+      className="fixed inset-0 z-[100] flex flex-col justify-between p-6 sm:p-10 text-white font-sans overflow-y-auto bg-[#050811]"
       style={{ backgroundColor: '#050811' }}
     >
       {/* Top App Bar */}
