@@ -12,10 +12,10 @@ import {
 } from 'lucide-react'
 
 interface InspectionPanelProps {
-  activeBlock: number | null
-  onSelectBlock: (id: number) => void
-  telemetry: any
-  simulating: boolean
+  readonly activeBlock: number | null
+  readonly onSelectBlock: (id: number) => void
+  readonly telemetry: any
+  readonly simulating: boolean
 }
 
 export default function InspectionPanel({
@@ -23,7 +23,7 @@ export default function InspectionPanel({
   onSelectBlock,
   telemetry,
   simulating
-}: InspectionPanelProps) {
+}: Readonly<InspectionPanelProps>) {
   const [showPackage, setShowPackage] = useState(true)
   const [showDieLayers, setShowDieLayers] = useState(true)
   const [showRouting, setShowRouting] = useState(true)

@@ -12,14 +12,12 @@ import {
 
 // Props & Types
 export interface Chip3DProps {
-  exploded: boolean
-  activeBlock: number | null
-  onSelectBlock: (id: number) => void
-  telemetry: any
-  simulating: boolean
-  explosionDistance?: number
-  setExplosionDistance?: (val: number) => void
-  onTabChange?: (tab: string) => void
+  readonly exploded: boolean
+  readonly activeBlock: number | null
+  readonly onSelectBlock: (id: number) => void
+  readonly telemetry: any
+  readonly simulating: boolean
+  readonly onTabChange?: (tab: string) => void
 }
 
 export interface LayerVisibility {
@@ -818,7 +816,7 @@ function CameraRig({
 // ----------------------------------------------------------------------
 // Main 3D Chip Studio Component
 // ----------------------------------------------------------------------
-export default function Chip3D(props: Chip3DProps) {
+export default function Chip3D(props: Readonly<Chip3DProps>) {
   const [activeCanvasTab, setActiveCanvasTab] = useState<string>('3D Chip Visualization')
   const [explosionDistance, setExplosionDistance] = useState<number>(props.exploded ? 60 : 45)
   const [renderMode, setRenderMode] = useState<'solid' | 'transparent' | 'wireframe'>('solid')

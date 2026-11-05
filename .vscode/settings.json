@@ -84,6 +84,23 @@
     "typescriptreact"
   ],
 
+  "// === SONARLINT & THREE.JS REACT THREE FIBER CONFIGURATION ===": "",
+  "sonarlint.rules": {
+    "typescript:S6747": {
+      "level": "off"
+    },
+    "javascript:S6747": {
+      "level": "off"
+    },
+    "typescript:S6767": {
+      "level": "off"
+    }
+  },
+  "markdownlint.config": {
+    "MD012": false,
+    "MD060": false
+  },
+
   "// === PERFORMANCE & INDEXING OPTIMIZATIONS ===": "",
   "files.watcherExclude": {
     "**/.git/objects/**": true,

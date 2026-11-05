@@ -8,11 +8,8 @@ import {
   Sliders,
   FolderDown,
   BookOpen,
-  Sparkles,
   Activity,
-  Terminal,
   FileCode,
-  HardDrive,
   Code2,
   Settings,
   Waves,
@@ -33,7 +30,7 @@ import PresentationMode from './components/PresentationMode'
 
 export default function App() {
   const [activeTab, setActiveTab] = useState<'3D' | 'SIM' | 'VIS' | 'PPA' | 'PHY' | 'GATES' | 'REPORTS'>('3D')
-  const [exploded, setExploded] = useState<boolean>(true)
+  const [exploded] = useState<boolean>(true)
   const [activeBlock, setActiveBlock] = useState<number | null>(0)
   const [architecture, setArchitecture] = useState<string>('CSKA')
   const [simulating, setSimulating] = useState<boolean>(false)
@@ -77,13 +74,9 @@ export default function App() {
     for (let b = 0; b < 4; b++) {
       const p_bits = bit_p.slice(b * 4, (b + 1) * 4)
       const p_group = p_bits[0] && p_bits[1] && p_bits[2] && p_bits[3] ? 1 : 0
-      const a_bits = [(A >> (b * 4)) & 1, (A >> (b * 4 + 1)) & 1, (A >> (b * 4 + 2)) & 1, (A >> (b * 4 + 3)) & 1]
-      const b_bits = [(B >> (b * 4)) & 1, (B >> (b * 4 + 1)) & 1, (B >> (b * 4 + 2)) & 1, (B >> (b * 4 + 3)) & 1]
 
       let c_temp = c_curr
-      const sum_bits = []
       for (let i = 0; i < 4; i++) {
-        sum_bits.push(p_bits[i] ^ c_temp)
         c_temp = bit_g[b * 4 + i] | (c_temp & p_bits[i])
       }
       const c_ripple = c_temp
@@ -132,7 +125,11 @@ export default function App() {
       {/* Top Application Bar (Reference 1) */}
       <header className="h-16 border-b border-[#1E293B] bg-[#070D1A]/95 backdrop-blur-md px-6 flex items-center justify-between sticky top-0 z-40 shadow-xl">
         <div className="flex items-center space-x-4">
-          <div className="flex items-center space-x-3 cursor-pointer" onClick={() => setActiveTab('3D')}>
+          <button
+            type="button"
+            className="flex items-center space-x-3 cursor-pointer text-left focus:outline-none"
+            onClick={() => setActiveTab('3D')}
+          >
             <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-[#00F0FF] to-[#0066FF] flex items-center justify-center shadow-lg shadow-[#00F0FF]/30">
               <Cpu className="w-5 h-5 text-black" />
             </div>
@@ -149,7 +146,7 @@ export default function App() {
                 VLSI ENGINEERING LAB • SKY130 PDK
               </span>
             </div>
-          </div>
+          </button>
 
           {/* Badges Bar (Reference 1) */}
           <div className="hidden xl:flex items-center space-x-2.5 pl-6 border-l border-[#1E293B] text-xs font-mono">
@@ -223,7 +220,7 @@ export default function App() {
       {/* Main Workspace Layout */}
       <div className="flex-1 flex overflow-hidden">
         {/* Left Sidebar (Reference 1) */}
-        <aside className="w-64 border-r border-[#1E293B] bg-[#060A14] p-4 flex flex-col justify-between hidden md:flex shrink-0">
+        <aside className="w-64 border-r border-[#1E293B] bg-[#060A14] p-4 hidden md:flex flex-col justify-between shrink-0">
           <div className="space-y-4">
             {/* Workspace Section */}
             <div className="space-y-1 font-mono text-xs">

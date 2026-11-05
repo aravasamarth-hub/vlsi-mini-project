@@ -37,3 +37,4 @@
 - **Master Full-Page Screenshot:** [`FINAL_SCREENSHOTS/master_dashboard_full.png`](file:///D:/mini%20project/FINAL_SCREENSHOTS/master_dashboard_full.png)
 - **3D Studio Viewport Screenshot:** [`FINAL_SCREENSHOTS/chip_studio_viewport.png`](file:///D:/mini%20project/FINAL_SCREENSHOTS/chip_studio_viewport.png)
 - **Redesign Engineering Report:** [`UI_REDESIGN_REPORT.md`](file:///D:/mini%20project/UI_REDESIGN_REPORT.md)
+

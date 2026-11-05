@@ -1,25 +1,19 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect } from 'react'
 import {
   Play,
-  RotateCcw,
-  Cpu,
-  Sparkles,
   CheckCircle,
   Zap,
-  StepForward,
-  Pause,
   Shuffle,
   ChevronDown,
-  ChevronUp,
-  ArrowRight
+  ChevronUp
 } from 'lucide-react'
 
 interface AdderSimulatorProps {
-  telemetry: any
-  onSimulate: (a: number, b: number, cin: number, arch: string) => void
-  simulating: boolean
-  architecture: string
-  setArchitecture: (a: string) => void
+  readonly telemetry: any
+  readonly onSimulate: (a: number, b: number, cin: number, arch: string) => void
+  readonly simulating: boolean
+  readonly architecture: string
+  readonly setArchitecture: (a: string) => void
 }
 
 export default function AdderSimulator({
@@ -28,19 +22,13 @@ export default function AdderSimulator({
   simulating,
   architecture,
   setArchitecture
-}: AdderSimulatorProps) {
+}: Readonly<AdderSimulatorProps>) {
   const [aDec, setADec] = useState<number>(43690) // 0xAAAA
   const [bDec, setBDec] = useState<number>(21845) // 0x5555
   const [cin, setCin] = useState<number>(1)
   const [hexA, setHexA] = useState<string>('AAAA')
   const [hexB, setHexB] = useState<string>('5555')
   const [showAdvanced, setShowAdvanced] = useState<boolean>(false)
-
-  // Step-by-step carry propagation animation state
-  const [animStep, setAnimStep] = useState<number>(4)
-  const [isPlaying, setIsPlaying] = useState<boolean>(false)
-  const [animSpeed] = useState<number>(1000)
-  const timerRef = useRef<any>(null)
 
   useEffect(() => {
     setHexA(aDec.toString(16).toUpperCase().padStart(4, '0'))
@@ -50,28 +38,7 @@ export default function AdderSimulator({
     setHexB(bDec.toString(16).toUpperCase().padStart(4, '0'))
   }, [bDec])
 
-  useEffect(() => {
-    if (isPlaying) {
-      timerRef.current = setInterval(() => {
-        setAnimStep((prev) => {
-          if (prev >= 4) {
-            setIsPlaying(false)
-            return 4
-          }
-          return prev + 1
-        })
-      }, animSpeed)
-    } else {
-      if (timerRef.current) clearInterval(timerRef.current)
-    }
-    return () => {
-      if (timerRef.current) clearInterval(timerRef.current)
-    }
-  }, [isPlaying, animSpeed])
-
   const handleRun = () => {
-    setAnimStep(4)
-    setIsPlaying(false)
     onSimulate(aDec, bDec, cin, architecture)
   }
 
@@ -79,8 +46,6 @@ export default function AdderSimulator({
     setADec(presetA)
     setBDec(presetB)
     setCin(presetCin)
-    setAnimStep(4)
-    setIsPlaying(false)
     onSimulate(presetA, presetB, presetCin, architecture)
   }
 
@@ -94,8 +59,8 @@ export default function AdderSimulator({
   const handleHexAChange = (val: string) => {
     setHexA(val)
     const clean = val.replace(/[^0-9A-Fa-f]/g, '').slice(0, 4)
-    const num = parseInt(clean, 16)
-    if (!isNaN(num)) {
+    const num = Number.parseInt(clean, 16)
+    if (!Number.isNaN(num)) {
       setADec(num)
       onSimulate(num, bDec, cin, architecture)
     }
@@ -104,8 +69,8 @@ export default function AdderSimulator({
   const handleHexBChange = (val: string) => {
     setHexB(val)
     const clean = val.replace(/[^0-9A-Fa-f]/g, '').slice(0, 4)
-    const num = parseInt(clean, 16)
-    if (!isNaN(num)) {
+    const num = Number.parseInt(clean, 16)
+    if (!Number.isNaN(num)) {
       setBDec(num)
       onSimulate(aDec, num, cin, architecture)
     }
@@ -201,6 +166,8 @@ export default function AdderSimulator({
                 <span className="text-[#64748B] text-[10px]">0x</span>
                 <input
                   type="text"
+                  id="operand-a-hex"
+                  name="operand-a-hex"
                   maxLength={4}
                   value={hexA}
                   onChange={(e) => handleHexAChange(e.target.value)}
@@ -215,6 +182,8 @@ export default function AdderSimulator({
                 <span className="text-[#64748B] text-[10px]">0x</span>
                 <input
                   type="text"
+                  id="operand-b-hex"
+                  name="operand-b-hex"
                   maxLength={4}
                   value={hexB}
                   onChange={(e) => handleHexBChange(e.target.value)}

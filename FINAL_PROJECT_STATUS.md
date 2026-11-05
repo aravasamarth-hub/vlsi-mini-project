@@ -26,7 +26,7 @@
 | **Phase 12: 3D Semiconductor Chip Simulator** | **COMPLETED** | React 18 + Three.js + React Three Fiber in `frontend/` (built and verified with Vite). |
 | **Phase 13: Technical Project Documentation** | **COMPLETED** | [`PROJECT_DOCUMENTATION.md`](file:///D:/mini%20project/PROJECT_DOCUMENTATION.md) — 8 extensive academic chapters. |
 | **Phase 14: Seminar Presentation & Viva Mode** | **COMPLETED** | [`documentation/seminar_speaking_script.md`](file:///D:/mini%20project/documentation/seminar_speaking_script.md) (15-min script) and [`documentation/examiner_viva_defense.md`](file:///D:/mini%20project/documentation/examiner_viva_defense.md) (30-question defense guide). |
-| **Phase 15: Master Automation Execution Script**| **COMPLETED** | [`run_complete_project.bat`](file:///D:/mini%20project/run_complete_project.bat) — 1-click execution pipeline. |
+| **Phase 15: Master Automation Execution Script** | **COMPLETED** | [`run_complete_project.bat`](file:///D:/mini%20project/run_complete_project.bat) — 1-click execution pipeline. |
 | **Phase 16: Recommendation Engine & Packaging** | **COMPLETED** | [`analysis/recommendation_engine.py`](file:///D:/mini%20project/analysis/recommendation_engine.py) & [`submission/16bit_carry_skip_adder_sky130_submission.zip`](file:///D:/mini%20project/submission/16bit_carry_skip_adder_sky130_submission.zip) (19.58 MB). |
 
 ---
