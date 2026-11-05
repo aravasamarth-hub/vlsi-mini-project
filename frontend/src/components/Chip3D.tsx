@@ -1,6 +1,6 @@
 import React, { useRef, useState, useMemo, useEffect } from 'react'
 import { Canvas, useFrame, useThree } from '@react-three/fiber'
-import { OrbitControls, Text, Line, Float } from '@react-three/drei'
+import { OrbitControls, Text, Billboard, Line } from '@react-three/drei'
 import * as THREE from 'three'
 import {
   Layers,
@@ -15,7 +15,8 @@ import {
   CheckCircle,
   Download,
   Box,
-  Compass
+  Compass,
+  Focus
 } from 'lucide-react'
 
 // Types
@@ -39,58 +40,61 @@ export interface LayerVisibility {
   substrate: boolean
 }
 
-// -------------------------------------------------------------
-// Realistic Wire-Bond Component
-// Connects die perimeter pads to package substrate lead fingers
-// -------------------------------------------------------------
-function WireBonds({ explodedOffset }: { explodedOffset: number }) {
+// ----------------------------------------------------------------------
+// Package Cavity Gold Wire-Bond Loops
+// Fixed to die & substrate perimeter - never stretched into the sky
+// ----------------------------------------------------------------------
+function CavityWireBonds({ visible }: { visible: boolean }) {
   const bondCurves = useMemo(() => {
+    if (!visible) return []
     const curves: THREE.Vector3[][] = []
-    const countX = 10
-    const countZ = 6
+    const countX = 8
+    const countZ = 5
 
-    // North side bonds
+    // North side bonds (die edge to package cavity finger)
     for (let i = 0; i < countX; i++) {
-      const x = -4.2 + (i * 8.4) / (countX - 1)
-      const diePoint = new THREE.Vector3(x * 0.85, 0.28 + explodedOffset * 0.1, 2.1)
-      const pkgPoint = new THREE.Vector3(x * 1.1, 0.05, 3.2)
-      const midPoint = new THREE.Vector3(x * 0.98, 0.75 + explodedOffset * 0.05, 2.65)
-      const curve = new THREE.QuadraticBezierCurve3(diePoint, midPoint, pkgPoint)
-      curves.push(curve.getPoints(12))
+      const x = -3.4 + (i * 6.8) / (countX - 1)
+      const diePt = new THREE.Vector3(x, 0.16, 1.85)
+      const pkgPt = new THREE.Vector3(x * 1.15, 0.04, 2.5)
+      const archPt = new THREE.Vector3(x * 1.05, 0.32, 2.15)
+      const curve = new THREE.QuadraticBezierCurve3(diePt, archPt, pkgPt)
+      curves.push(curve.getPoints(10))
     }
 
     // South side bonds
     for (let i = 0; i < countX; i++) {
-      const x = -4.2 + (i * 8.4) / (countX - 1)
-      const diePoint = new THREE.Vector3(x * 0.85, 0.28 + explodedOffset * 0.1, -2.1)
-      const pkgPoint = new THREE.Vector3(x * 1.1, 0.05, -3.2)
-      const midPoint = new THREE.Vector3(x * 0.98, 0.75 + explodedOffset * 0.05, -2.65)
-      const curve = new THREE.QuadraticBezierCurve3(diePoint, midPoint, pkgPoint)
-      curves.push(curve.getPoints(12))
+      const x = -3.4 + (i * 6.8) / (countX - 1)
+      const diePt = new THREE.Vector3(x, 0.16, -1.85)
+      const pkgPt = new THREE.Vector3(x * 1.15, 0.04, -2.5)
+      const archPt = new THREE.Vector3(x * 1.05, 0.32, -2.15)
+      const curve = new THREE.QuadraticBezierCurve3(diePt, archPt, pkgPt)
+      curves.push(curve.getPoints(10))
     }
 
     // East side bonds
     for (let i = 0; i < countZ; i++) {
-      const z = -1.8 + (i * 3.6) / (countZ - 1)
-      const diePoint = new THREE.Vector3(4.0, 0.28 + explodedOffset * 0.1, z * 0.85)
-      const pkgPoint = new THREE.Vector3(4.9, 0.05, z * 1.1)
-      const midPoint = new THREE.Vector3(4.45, 0.75 + explodedOffset * 0.05, z * 0.98)
-      const curve = new THREE.QuadraticBezierCurve3(diePoint, midPoint, pkgPoint)
-      curves.push(curve.getPoints(12))
+      const z = -1.4 + (i * 2.8) / (countZ - 1)
+      const diePt = new THREE.Vector3(3.65, 0.16, z)
+      const pkgPt = new THREE.Vector3(4.35, 0.04, z * 1.12)
+      const archPt = new THREE.Vector3(3.98, 0.32, z * 1.05)
+      const curve = new THREE.QuadraticBezierCurve3(diePt, archPt, pkgPt)
+      curves.push(curve.getPoints(10))
     }
 
     // West side bonds
     for (let i = 0; i < countZ; i++) {
-      const z = -1.8 + (i * 3.6) / (countZ - 1)
-      const diePoint = new THREE.Vector3(-4.0, 0.28 + explodedOffset * 0.1, z * 0.85)
-      const pkgPoint = new THREE.Vector3(-4.9, 0.05, z * 1.1)
-      const midPoint = new THREE.Vector3(-4.45, 0.75 + explodedOffset * 0.05, z * 0.98)
-      const curve = new THREE.QuadraticBezierCurve3(diePoint, midPoint, pkgPoint)
-      curves.push(curve.getPoints(12))
+      const z = -1.4 + (i * 2.8) / (countZ - 1)
+      const diePt = new THREE.Vector3(-3.65, 0.16, z)
+      const pkgPt = new THREE.Vector3(-4.35, 0.04, z * 1.12)
+      const archPt = new THREE.Vector3(-3.98, 0.32, z * 1.05)
+      const curve = new THREE.QuadraticBezierCurve3(diePt, archPt, pkgPt)
+      curves.push(curve.getPoints(10))
     }
 
     return curves
-  }, [explodedOffset])
+  }, [visible])
+
+  if (!visible) return null
 
   return (
     <group>
@@ -99,83 +103,124 @@ function WireBonds({ explodedOffset }: { explodedOffset: number }) {
           key={idx}
           points={pts}
           color="#FFD700"
-          lineWidth={1.5}
+          lineWidth={1.6}
           transparent
-          opacity={0.85}
+          opacity={0.9}
         />
       ))}
     </group>
   )
 }
 
-// -------------------------------------------------------------
-// BGA Solder Ball Grid & Peripheral Lead Pins
-// -------------------------------------------------------------
-function PackageInterconnects() {
-  const pinCount = 14
-  const pins: JSX.Element[] = []
+// ----------------------------------------------------------------------
+// Inter-Layer Vertical Conductive Vias / Contact Plugs
+// Realistic cylindrical metal pillars connecting layer planes
+// ----------------------------------------------------------------------
+function InterLayerVias({
+  yBottom,
+  yTop,
+  color = '#B87333'
+}: {
+  yBottom: number
+  yTop: number
+  color?: string
+}) {
+  const height = Math.max(0.01, yTop - yBottom)
+  const yMid = yBottom + height / 2
 
-  // North/South Lead Pins
-  for (let i = 0; i < pinCount; i++) {
-    const x = -5.0 + (i * 10.0) / (pinCount - 1)
-    pins.push(
-      <mesh key={`pin-n-${i}`} position={[x, -0.15, 3.75]}>
-        <boxGeometry args={[0.26, 0.09, 0.75]} />
-        <meshStandardMaterial color="#E2E8F0" metalness={0.96} roughness={0.12} />
-      </mesh>,
-      <mesh key={`pin-s-${i}`} position={[x, -0.15, -3.75]}>
-        <boxGeometry args={[0.26, 0.09, 0.75]} />
-        <meshStandardMaterial color="#E2E8F0" metalness={0.96} roughness={0.12} />
-      </mesh>
-    )
-  }
-
-  // East/West Lead Pins
-  for (let i = 0; i < 9; i++) {
-    const z = -2.8 + (i * 5.6) / 8
-    pins.push(
-      <mesh key={`pin-e-${i}`} position={[5.55, -0.15, z]}>
-        <boxGeometry args={[0.75, 0.09, 0.26]} />
-        <meshStandardMaterial color="#E2E8F0" metalness={0.96} roughness={0.12} />
-      </mesh>,
-      <mesh key={`pin-w-${i}`} position={[-5.55, -0.15, z]}>
-        <boxGeometry args={[0.75, 0.09, 0.26]} />
-        <meshStandardMaterial color="#E2E8F0" metalness={0.96} roughness={0.12} />
-      </mesh>
-    )
-  }
-
-  // Bottom BGA Solder Ball Matrix
-  const bgaBalls: JSX.Element[] = []
-  for (let bx = -4.0; bx <= 4.0; bx += 0.8) {
-    for (let bz = -2.4; bz <= 2.4; bz += 0.8) {
-      // Cavity center empty
-      if (Math.abs(bx) < 2.0 && Math.abs(bz) < 1.2) continue
-      bgaBalls.push(
-        <mesh key={`bga-${bx}-${bz}`} position={[bx, -0.42, bz]}>
-          <sphereGeometry args={[0.1, 10, 10]} />
-          <meshStandardMaterial color="#CBD5E1" metalness={0.92} roughness={0.15} />
-        </mesh>
-      )
-    }
-  }
+  // Defined via coordinates along block boundaries
+  const viaCoords = [
+    [-3.0, -1.2], [-1.0, -1.2], [1.0, -1.2], [3.0, -1.2],
+    [-3.0, 1.2], [-1.0, 1.2], [1.0, 1.2], [3.0, 1.2],
+    [-2.0, 0], [0, 0], [2.0, 0]
+  ]
 
   return (
     <group>
-      {pins}
-      {bgaBalls}
+      {viaCoords.map(([vx, vz], idx) => (
+        <group key={idx} position={[vx, yMid, vz]}>
+          {/* Vertical Via Cylinder */}
+          <mesh>
+            <cylinderGeometry args={[0.035, 0.035, height, 10]} />
+            <meshStandardMaterial
+              color={color}
+              metalness={0.92}
+              roughness={0.2}
+              emissive={color}
+              emissiveIntensity={0.2}
+            />
+          </mesh>
+          {/* Bottom Landing Pad */}
+          <mesh position={[0, -height / 2, 0]}>
+            <cylinderGeometry args={[0.07, 0.07, 0.015, 10]} />
+            <meshStandardMaterial color={color} metalness={0.95} roughness={0.15} />
+          </mesh>
+          {/* Top Capture Pad */}
+          <mesh position={[0, height / 2, 0]}>
+            <cylinderGeometry args={[0.07, 0.07, 0.015, 10]} />
+            <meshStandardMaterial color={color} metalness={0.95} roughness={0.15} />
+          </mesh>
+        </group>
+      ))}
     </group>
   )
 }
 
-// -------------------------------------------------------------
+// ----------------------------------------------------------------------
+// Corner Alignment Fiducial Guide Lasers
+// Keeps exploded layers visually anchored to common vertical axis
+// ----------------------------------------------------------------------
+function CentralAxisFiducials({
+  yBottom,
+  yTop,
+  active
+}: {
+  yBottom: number
+  yTop: number
+  active: boolean
+}) {
+  if (!active || yTop - yBottom < 0.2) return null
+
+  const corners = [
+    [-4.3, -2.7],
+    [4.3, -2.7],
+    [4.3, 2.7],
+    [-4.3, 2.7]
+  ]
+
+  return (
+    <group>
+      {corners.map(([cx, cz], idx) => {
+        const pts = [
+          new THREE.Vector3(cx, yBottom, cz),
+          new THREE.Vector3(cx, yTop, cz)
+        ]
+        return (
+          <Line
+            key={idx}
+            points={pts}
+            color="#00F0FF"
+            lineWidth={0.8}
+            dashed
+            dashScale={12}
+            dashSize={0.1}
+            gapSize={0.06}
+            transparent
+            opacity={0.35}
+          />
+        )
+      })}
+    </group>
+  )
+}
+
+// ----------------------------------------------------------------------
 // Detailed 4-Bit CSKA Block in 3D
-// Includes 4 Full Adders, 4-input AND propagate, and 2:1 Skip MUX
-// -------------------------------------------------------------
+// Realistic standard-cell layout with Full Adders, AND4, and 2:1 MUX
+// ----------------------------------------------------------------------
 function DetailedCSKABlock({
   id,
   position,
-  explodedY,
   isSelected,
   onSelect,
   isSkipActive,
@@ -185,7 +230,6 @@ function DetailedCSKABlock({
 }: {
   id: number
   position: [number, number, number]
-  explodedY: number
   isSelected: boolean
   onSelect: () => void
   isSkipActive: boolean
@@ -193,42 +237,41 @@ function DetailedCSKABlock({
   simulating: boolean
   renderMode: 'solid' | 'transparent' | 'wireframe'
 }) {
-  const meshRef = useRef<THREE.Group>(null)
   const pulseRef = useRef<THREE.Mesh>(null)
   const [hovered, setHovered] = useState(false)
 
-  // Pulsing animation along active path
+  // Dynamic signal photon pulse along the active route
   useFrame((state) => {
     if (pulseRef.current && (simulating || isSkipActive)) {
-      const t = (state.clock.getElapsedTime() * 3 + id * 0.8) % 2.5
+      const t = (state.clock.getElapsedTime() * 3 + id * 0.8) % 2.4
       if (isSkipActive) {
-        // Skip highway pulse: jumps from Cin to Cout
-        pulseRef.current.position.set(0, 0.32, -0.7 + t * 0.55)
+        // Skip bypass highway: jumps directly from Cin to Cout across the block
+        pulseRef.current.position.set(0, 0.22, -0.55 + t * 0.45)
       } else {
-        // Ripple path pulse: travels across the 4 full adders
-        pulseRef.current.position.set(-0.7 + t * 0.6, 0.28, 0)
+        // Ripple chain: travels sequentially across the 4 full adders
+        pulseRef.current.position.set(-0.6 + t * 0.5, 0.18, 0.15)
       }
     }
   })
 
-  const blockBaseColor = isSkipActive
-    ? '#FF8800'
+  // Material colors
+  const blockWellColor = isSelected
+    ? '#1A2E4C'
+    : hovered
+    ? '#16253D'
+    : '#0F1A2C'
+
+  const blockBorderColor = isSkipActive
+    ? '#FF7A00'
     : isSelected
     ? '#00F0FF'
     : hovered
     ? '#38BDF8'
-    : '#121C30'
-
-  const blockEmissive = isSkipActive
-    ? '#FF5500'
-    : isSelected
-    ? '#00B4D8'
-    : '#040914'
+    : '#1E293B'
 
   return (
     <group
-      ref={meshRef}
-      position={[position[0], position[1] + explodedY, position[2]]}
+      position={position}
       onClick={(e) => {
         e.stopPropagation()
         onSelect()
@@ -236,170 +279,189 @@ function DetailedCSKABlock({
       onPointerOver={() => setHovered(true)}
       onPointerOut={() => setHovered(false)}
     >
-      {/* Block Silicon Well / Substrate Boundary */}
-      <mesh position={[0, 0, 0]}>
-        <boxGeometry args={[1.92, 0.2, 1.48]} />
+      {/* 4-Bit Core Silicon Well Block */}
+      <mesh position={[0, 0.05, 0]}>
+        <boxGeometry args={[1.82, 0.12, 1.42]} />
         <meshStandardMaterial
-          color={blockBaseColor}
-          metalness={0.82}
-          roughness={0.22}
-          emissive={blockEmissive}
-          emissiveIntensity={isSkipActive ? 0.75 : isSelected ? 0.45 : 0.08}
-          transparent={renderMode === 'transparent'}
-          opacity={renderMode === 'transparent' ? 0.45 : 0.95}
+          color={blockWellColor}
+          metalness={0.8}
+          roughness={0.25}
           wireframe={renderMode === 'wireframe'}
         />
       </mesh>
 
-      {/* 4 Individual Full Adder Cells (FA0, FA1, FA2, FA3) */}
-      {[-0.66, -0.22, 0.22, 0.66].map((xOff, faIdx) => {
-        const bitIdx = id * 4 + faIdx
+      {/* Block Perimeter Scribe Frame / Boundary */}
+      <mesh position={[0, 0.115, 0]}>
+        <boxGeometry args={[1.84, 0.015, 1.44]} />
+        <meshStandardMaterial
+          color={blockBorderColor}
+          metalness={0.9}
+          roughness={0.2}
+          emissive={isSkipActive ? '#FF6600' : isSelected ? '#00A3FF' : '#051020'}
+          emissiveIntensity={isSkipActive ? 0.8 : isSelected ? 0.5 : 0.1}
+        />
+      </mesh>
+
+      {/* Four Individual Full Adder Cells (FA0, FA1, FA2, FA3) */}
+      {[-0.58, -0.19, 0.19, 0.58].map((xOff, faIdx) => {
         const pBit = blockData?.p_bits?.[faIdx]
-        const faColor = isSkipActive ? '#FFAA33' : '#00F0FF'
+        const bitIndex = id * 4 + faIdx
+        const faColor = isSkipActive ? '#E68A00' : '#00D4E6'
+
         return (
-          <group key={faIdx} position={[xOff, 0.12, 0.12]}>
-            {/* Standard Cell Body */}
+          <group key={faIdx} position={[xOff, 0.12, 0.15]}>
+            {/* Standard Cell Body (sky130_fd_sc_hd__fa) */}
             <mesh>
-              <boxGeometry args={[0.36, 0.12, 0.72]} />
+              <boxGeometry args={[0.34, 0.09, 0.68]} />
               <meshStandardMaterial
                 color={faColor}
                 metalness={0.88}
-                roughness={0.25}
-                emissive={isSkipActive ? '#FF6600' : '#0077B6'}
-                emissiveIntensity={pBit ? 0.6 : 0.2}
-                transparent={renderMode === 'transparent'}
-                opacity={renderMode === 'transparent' ? 0.55 : 1}
+                roughness={0.2}
+                emissive={isSkipActive ? '#FF6600' : '#0088AA'}
+                emissiveIntensity={pBit ? 0.65 : 0.2}
                 wireframe={renderMode === 'wireframe'}
+              />
+            </mesh>
+
+            {/* Transistor Diffusion Islands inside Cell */}
+            <mesh position={[0, 0.05, 0]}>
+              <boxGeometry args={[0.26, 0.015, 0.54]} />
+              <meshStandardMaterial
+                color="#061224"
+                metalness={0.95}
+                roughness={0.1}
               />
             </mesh>
 
             {/* Ripple Carry Segment Interconnecting FAs */}
             {faIdx < 3 && (
-              <mesh position={[0.22, 0.02, 0]}>
-                <boxGeometry args={[0.12, 0.04, 0.06]} />
+              <mesh position={[0.19, 0.02, 0]}>
+                <boxGeometry args={[0.1, 0.03, 0.05]} />
                 <meshStandardMaterial
                   color="#00F0FF"
                   emissive="#00F0FF"
-                  emissiveIntensity={0.8}
+                  emissiveIntensity={0.85}
                 />
               </mesh>
             )}
 
-            {/* FA Cell Identification */}
-            <Text
-              position={[0, 0.12, 0]}
-              rotation={[-Math.PI / 2, 0, 0]}
-              fontSize={0.09}
-              color="#030712"
-              anchorX="center"
-              anchorY="middle"
-            >
-              {`FA${faIdx}`}
-            </Text>
+            {/* Billboarded Camera-Facing Cell Label */}
+            <Billboard follow={true} lockX={false} lockY={false} lockZ={false} position={[0, 0.16, 0]}>
+              <Text
+                fontSize={0.075}
+                color="#FFFFFF"
+                anchorX="center"
+                anchorY="middle"
+              >
+                {`FA${faIdx} [b${bitIndex}]`}
+              </Text>
+            </Billboard>
           </group>
         )
       })}
 
       {/* 4-Input AND Group Propagate Gate (Pgroup = P0·P1·P2·P3) */}
-      <group position={[-0.42, 0.12, -0.48]}>
+      <group position={[-0.42, 0.12, -0.42]}>
         <mesh>
-          <boxGeometry args={[0.55, 0.1, 0.32]} />
+          <boxGeometry args={[0.54, 0.08, 0.32]} />
           <meshStandardMaterial
-            color={blockData?.p_group ? '#00DF72' : '#334155'}
+            color={blockData?.p_group ? '#00DF72' : '#2A374A'}
             metalness={0.9}
             roughness={0.2}
-            emissive={blockData?.p_group ? '#00DF72' : '#0F172A'}
+            emissive={blockData?.p_group ? '#00DF72' : '#0B1320'}
             emissiveIntensity={blockData?.p_group ? 0.9 : 0.1}
             wireframe={renderMode === 'wireframe'}
           />
         </mesh>
-        <Text
-          position={[0, 0.08, 0]}
-          rotation={[-Math.PI / 2, 0, 0]}
-          fontSize={0.075}
-          color="#030712"
-          anchorX="center"
-          anchorY="middle"
-        >
-          AND4:Pgrp
-        </Text>
+        <Billboard follow={true} lockX={false} lockY={false} lockZ={false} position={[0, 0.12, 0]}>
+          <Text
+            fontSize={0.065}
+            color="#FFFFFF"
+            anchorX="center"
+            anchorY="middle"
+          >
+            AND4:Pgrp
+          </Text>
+        </Billboard>
       </group>
 
-      {/* 2:1 Carry Skip Multiplexer (MUX2_1) */}
-      <group position={[0.55, 0.14, -0.48]}>
+      {/* 2:1 Carry Skip Multiplexer (sky130_fd_sc_hd__mux2_1) */}
+      <group position={[0.52, 0.13, -0.42]}>
         <mesh>
-          <boxGeometry args={[0.48, 0.14, 0.36]} />
+          <boxGeometry args={[0.46, 0.1, 0.34]} />
           <meshStandardMaterial
             color={isSkipActive ? '#FF7A00' : '#00F0FF'}
-            metalness={0.9}
-            roughness={0.18}
-            emissive={isSkipActive ? '#FF5500' : '#0077B6'}
+            metalness={0.92}
+            roughness={0.16}
+            emissive={isSkipActive ? '#FF5500' : '#0088CC'}
             emissiveIntensity={0.85}
             wireframe={renderMode === 'wireframe'}
           />
         </mesh>
-        <Text
-          position={[0, 0.1, 0]}
-          rotation={[-Math.PI / 2, 0, 0]}
-          fontSize={0.08}
-          color="#030712"
-          anchorX="center"
-          anchorY="middle"
-        >
-          MUX2:1
-        </Text>
+        <Billboard follow={true} lockX={false} lockY={false} lockZ={false} position={[0, 0.13, 0]}>
+          <Text
+            fontSize={0.07}
+            color="#FFFFFF"
+            anchorX="center"
+            anchorY="middle"
+          >
+            MUX2:1
+          </Text>
+        </Billboard>
       </group>
 
-      {/* Dedicated Carry Skip Bypass Highway (Runs over the block) */}
-      <mesh position={[0, 0.18, -0.48]}>
-        <boxGeometry args={[1.5, 0.04, 0.06]} />
+      {/* Dedicated Carry Skip Bypass Highway Trace (Overhead line) */}
+      <mesh position={[0, 0.16, -0.42]}>
+        <boxGeometry args={[1.5, 0.035, 0.05]} />
         <meshStandardMaterial
           color={isSkipActive ? '#FF8800' : '#475569'}
           emissive={isSkipActive ? '#FF8800' : '#1E293B'}
-          emissiveIntensity={isSkipActive ? 1.0 : 0.1}
+          emissiveIntensity={isSkipActive ? 1.0 : 0.15}
         />
       </mesh>
 
-      {/* Animated Signal Photon Pulse */}
-      <mesh ref={pulseRef} position={[0, 0.28, -0.48]}>
-        <sphereGeometry args={[0.07, 12, 12]} />
+      {/* Dynamic Animated Photon Pulse */}
+      <mesh ref={pulseRef} position={[0, 0.22, -0.42]}>
+        <sphereGeometry args={[0.065, 12, 12]} />
         <meshStandardMaterial
           color={isSkipActive ? '#FF7A00' : '#00F0FF'}
           emissive={isSkipActive ? '#FF7A00' : '#00F0FF'}
-          emissiveIntensity={2.0}
+          emissiveIntensity={2.2}
         />
       </mesh>
 
-      {/* Block Title & Range */}
-      <Text
-        position={[0, 0.18, 0.62]}
-        rotation={[-Math.PI / 2, 0, 0]}
-        fontSize={0.13}
-        color={isSelected ? '#00F0FF' : '#E2E8F0'}
-        anchorX="center"
-        anchorY="middle"
-      >
-        {`BLOCK ${id} [${id * 4 + 3}:${id * 4}]`}
-      </Text>
+      {/* Billboarded Block Title */}
+      <Billboard follow={true} lockX={false} lockY={false} lockZ={false} position={[0, 0.28, 0.6]}>
+        <Text
+          fontSize={0.11}
+          color={isSelected ? '#00F0FF' : '#E2E8F0'}
+          anchorX="center"
+          anchorY="middle"
+        >
+          {`BLOCK ${id} [${id * 4 + 3}:${id * 4}]`}
+        </Text>
+      </Billboard>
 
-      {/* Dynamic Telemetry Status Badge */}
-      <Text
-        position={[0, 0.32, 0]}
-        fontSize={0.11}
-        color={isSkipActive ? '#FF7A00' : '#00DF72'}
-        anchorX="center"
-        anchorY="middle"
-      >
-        {isSkipActive ? '⚡ BYPASS (SKIP)' : '🔗 RIPPLE CARRY'}
-      </Text>
+      {/* Billboarded Status Badge */}
+      <Billboard follow={true} lockX={false} lockY={false} lockZ={false} position={[0, 0.38, 0]}>
+        <Text
+          fontSize={0.09}
+          color={isSkipActive ? '#FF7A00' : '#00DF72'}
+          anchorX="center"
+          anchorY="middle"
+        >
+          {isSkipActive ? '⚡ BYPASS (SKIP)' : '🔗 RIPPLE CARRY'}
+        </Text>
+      </Billboard>
     </group>
   )
 }
 
-// -------------------------------------------------------------
-// The 7 Semiconductor Layers (Physical Cross-Section Stack)
-// -------------------------------------------------------------
-function SemiconductorLayerStack({
+// ----------------------------------------------------------------------
+// Rebuilt Semiconductor Package & 7 Stacked Layers
+// Carefully calibrated vertical separation so layers never clip viewport
+// ----------------------------------------------------------------------
+function SemiconductorStack({
   explosionDistance,
   visibility,
   activeBlock,
@@ -416,128 +478,157 @@ function SemiconductorLayerStack({
   simulating: boolean
   renderMode: 'solid' | 'transparent' | 'wireframe'
 }) {
-  // Height multiplier for 7 distinct semiconductor levels
-  // scale is 0.0 to 1.0 based on explosionDistance (0 to 100)
+  // Controlled vertical explosion: normalized s from 0.0 to 1.0
+  // Total vertical span at 100% explosion is ~2.4 units, fitting perfectly in camera frustum
   const s = explosionDistance / 100
 
-  // Vertical offsets for each layer
-  const ySubstrate = 0.05
-  const ySTI = ySubstrate + 0.25 + s * 0.65
-  const yPoly = ySTI + 0.25 + s * 0.75
-  const yM1 = yPoly + 0.28 + s * 0.85
-  const yM2 = yM1 + 0.28 + s * 0.95
-  const yM3 = yM2 + 0.28 + s * 1.05
-  const yLid = yM3 + 0.35 + s * 1.25
+  const ySubstrate = 0.08
+  const ySTI = ySubstrate + 0.18 + s * 0.35
+  const yPoly = ySTI + 0.18 + s * 0.45
+  const yM1 = yPoly + 0.18 + s * 0.45
+  const yM2 = yM1 + 0.18 + s * 0.45
+  const yM3 = yM2 + 0.18 + s * 0.45
+  const yLid = yM3 + 0.22 + s * 0.55
 
   return (
     <group>
-      {/* -------------------------------------------------------
-          LAYER 7: BULK SILICON SUBSTRATE
-          Monocrystalline Silicon Wafer Base with Gold Backing
-      -------------------------------------------------------- */}
+      {/* Central Axis Alignment Fiducials */}
+      <CentralAxisFiducials
+        yBottom={ySubstrate}
+        yTop={yLid}
+        active={s > 0.1}
+      />
+
+      {/* --------------------------------------------------------------
+          L7: BULK SILICON SUBSTRATE
+          Solid monocrystalline wafer with gold backside metallization
+      --------------------------------------------------------------- */}
       {visibility.substrate && (
         <group position={[0, ySubstrate, 0]}>
+          {/* Main Silicon Wafer Body */}
           <mesh receiveShadow>
-            <boxGeometry args={[9.4, 0.3, 5.8]} />
+            <boxGeometry args={[9.2, 0.16, 5.8]} />
             <meshStandardMaterial
-              color="#0A101D"
-              metalness={0.94}
-              roughness={0.18}
+              color="#131B2A"
+              metalness={0.85}
+              roughness={0.3}
               wireframe={renderMode === 'wireframe'}
             />
           </mesh>
-          {/* Gold Wafer Backing Contact */}
-          <mesh position={[0, -0.16, 0]}>
-            <boxGeometry args={[9.42, 0.02, 5.82]} />
-            <meshStandardMaterial color="#FFD700" metalness={0.98} roughness={0.1} />
-          </mesh>
-          {/* Wafer Grid Lines */}
-          <gridHelper args={[9.4, 18, '#00F0FF', '#1E293B']} position={[0, 0.16, 0]} />
 
-          {/* 3D Layer Tag Label */}
+          {/* Gold Backside Wafer Metallization Contact */}
+          <mesh position={[0, -0.085, 0]}>
+            <boxGeometry args={[9.22, 0.012, 5.82]} />
+            <meshStandardMaterial
+              color="#FFD700"
+              metalness={0.96}
+              roughness={0.12}
+            />
+          </mesh>
+
+          {/* Wafer Scribe Grid Pattern */}
+          <gridHelper args={[9.2, 18, '#00F0FF', '#1E293B']} position={[0, 0.082, 0]} />
+
+          {/* Billboarded Camera-Facing Layer Label */}
           {s > 0.15 && (
-            <Text
-              position={[-5.2, 0.1, 0]}
-              rotation={[0, 0, 0]}
-              fontSize={0.18}
-              color="#64748B"
-              anchorX="right"
-              anchorY="middle"
-            >
-              L7: BULK SILICON SUBSTRATE (Wafer Base)
-            </Text>
+            <Billboard follow={true} lockX={false} lockY={false} lockZ={false} position={[-5.0, 0.1, 0]}>
+              <Text fontSize={0.13} color="#94A3B8" anchorX="right" anchorY="middle">
+                L7: BULK SILICON SUBSTRATE (Wafer Base)
+              </Text>
+            </Billboard>
           )}
         </group>
       )}
 
-      {/* -------------------------------------------------------
-          LAYER 6: STI / WELL ISOLATION LAYER
+      {/* Inter-layer Vias: Substrate to STI */}
+      {s > 0.25 && visibility.substrate && visibility.sti && (
+        <InterLayerVias yBottom={ySubstrate + 0.08} yTop={ySTI - 0.05} color="#475569" />
+      )}
+
+      {/* --------------------------------------------------------------
+          L6: STI / WELL ISOLATION LAYER
           Shallow Trench Isolation & N-Well / P-Substrate Barriers
-      -------------------------------------------------------- */}
+      --------------------------------------------------------------- */}
       {visibility.sti && (
         <group position={[0, ySTI, 0]}>
           <mesh>
-            <boxGeometry args={[8.8, 0.12, 5.2]} />
+            <boxGeometry args={[8.8, 0.1, 5.4]} />
             <meshStandardMaterial
-              color="#1E1B4B"
+              color="#1A1C38"
               metalness={0.7}
-              roughness={0.3}
+              roughness={0.35}
               transparent
               opacity={renderMode === 'transparent' ? 0.35 : 0.8}
               wireframe={renderMode === 'wireframe'}
             />
           </mesh>
-          {/* N-Well Stripe Visualizers */}
+
+          {/* Alternating N-Well / P-Well Isolation Barriers */}
           {[-2.8, -0.9, 1.0, 2.9].map((wx, idx) => (
-            <mesh key={idx} position={[wx, 0.07, 0]}>
-              <boxGeometry args={[1.5, 0.03, 4.8]} />
+            <mesh key={idx} position={[wx, 0.052, 0]}>
+              <boxGeometry args={[1.5, 0.02, 5.1]} />
               <meshStandardMaterial
-                color="#4338CA"
-                emissive="#312E81"
-                emissiveIntensity={0.4}
+                color="#3730A3"
+                emissive="#1E1B4B"
+                emissiveIntensity={0.5}
                 transparent
-                opacity={0.6}
+                opacity={0.65}
               />
             </mesh>
           ))}
+
           {s > 0.15 && (
-            <Text
-              position={[-5.2, 0.05, 0]}
-              fontSize={0.18}
-              color="#818CF8"
-              anchorX="right"
-              anchorY="middle"
-            >
-              L6: STI / N-WELL ISOLATION (CMOS Boundaries)
-            </Text>
+            <Billboard follow={true} lockX={false} lockY={false} lockZ={false} position={[-5.0, 0.08, 0]}>
+              <Text fontSize={0.13} color="#818CF8" anchorX="right" anchorY="middle">
+                L6: STI / WELL ISOLATION (CMOS Wells)
+              </Text>
+            </Billboard>
           )}
         </group>
       )}
 
-      {/* -------------------------------------------------------
-          LAYER 5: ACTIVE / POLYSILICON LAYER
-          Contains the 4 CSKA Blocks, 16 FAs, AND4, & MUX Standard Cells
-      -------------------------------------------------------- */}
+      {/* Inter-layer Vias: STI to Active/Poly */}
+      {s > 0.25 && visibility.sti && visibility.poly && (
+        <InterLayerVias yBottom={ySTI + 0.05} yTop={yPoly - 0.05} color="#818CF8" />
+      )}
+
+      {/* --------------------------------------------------------------
+          L5: ACTIVE & POLYSILICON LAYER
+          Contains the 4 CSKA Blocks with 16 Full Adders, AND4, and MUX
+      --------------------------------------------------------------- */}
       {visibility.poly && (
         <group position={[0, yPoly, 0]}>
-          {/* Active Die Bounding Outline */}
-          <mesh position={[0, -0.05, 0]}>
-            <boxGeometry args={[8.6, 0.08, 5.0]} />
+          {/* Active Die Scribe Ring & Base Plate */}
+          <mesh position={[0, 0.01, 0]}>
+            <boxGeometry args={[8.6, 0.08, 5.2]} />
             <meshStandardMaterial
-              color="#050B14"
-              metalness={0.92}
-              roughness={0.15}
+              color="#0B1322"
+              metalness={0.9}
+              roughness={0.2}
               transparent={renderMode === 'transparent'}
-              opacity={renderMode === 'transparent' ? 0.35 : 0.9}
+              opacity={renderMode === 'transparent' ? 0.35 : 0.95}
               wireframe={renderMode === 'wireframe'}
             />
           </mesh>
 
-          {/* Four 4-Bit CSKA Functional Blocks */}
+          {/* Perimeter Gold Bond Pads Ring on Die Edge */}
+          {[-3.8, -2.6, -1.4, -0.2, 1.0, 2.2, 3.4].map((px, idx) => (
+            <React.Fragment key={idx}>
+              <mesh position={[px, 0.055, 2.35]}>
+                <boxGeometry args={[0.18, 0.015, 0.18]} />
+                <meshStandardMaterial color="#FFD700" metalness={0.96} roughness={0.12} />
+              </mesh>
+              <mesh position={[px, 0.055, -2.35]}>
+                <boxGeometry args={[0.18, 0.015, 0.18]} />
+                <meshStandardMaterial color="#FFD700" metalness={0.96} roughness={0.12} />
+              </mesh>
+            </React.Fragment>
+          ))}
+
+          {/* Four Distinct 4-Bit CSKA Functional Blocks */}
           <DetailedCSKABlock
             id={0}
-            position={[-3.3, 0.05, 0]}
-            explodedY={0}
+            position={[-2.85, 0.06, 0]}
             isSelected={activeBlock === 0}
             onSelect={() => onSelectBlock(0)}
             isSkipActive={Boolean(telemetry?.blocks?.[0]?.skip_active)}
@@ -547,8 +638,7 @@ function SemiconductorLayerStack({
           />
           <DetailedCSKABlock
             id={1}
-            position={[-1.1, 0.05, 0]}
-            explodedY={0}
+            position={[-0.95, 0.06, 0]}
             isSelected={activeBlock === 1}
             onSelect={() => onSelectBlock(1)}
             isSkipActive={Boolean(telemetry?.blocks?.[1]?.skip_active)}
@@ -558,8 +648,7 @@ function SemiconductorLayerStack({
           />
           <DetailedCSKABlock
             id={2}
-            position={[1.1, 0.05, 0]}
-            explodedY={0}
+            position={[0.95, 0.06, 0]}
             isSelected={activeBlock === 2}
             onSelect={() => onSelectBlock(2)}
             isSkipActive={Boolean(telemetry?.blocks?.[2]?.skip_active)}
@@ -569,8 +658,7 @@ function SemiconductorLayerStack({
           />
           <DetailedCSKABlock
             id={3}
-            position={[3.3, 0.05, 0]}
-            explodedY={0}
+            position={[2.85, 0.06, 0]}
             isSelected={activeBlock === 3}
             onSelect={() => onSelectBlock(3)}
             isSkipActive={Boolean(telemetry?.blocks?.[3]?.skip_active)}
@@ -580,197 +668,202 @@ function SemiconductorLayerStack({
           />
 
           {s > 0.15 && (
-            <Text
-              position={[-5.2, 0.1, 0]}
-              fontSize={0.18}
-              color="#00DF72"
-              anchorX="right"
-              anchorY="middle"
-            >
-              L5: ACTIVE & POLYSILICON (56 Standard Cells)
-            </Text>
+            <Billboard follow={true} lockX={false} lockY={false} lockZ={false} position={[-5.0, 0.1, 0]}>
+              <Text fontSize={0.13} color="#00DF72" anchorX="right" anchorY="middle">
+                L5: ACTIVE & POLYSILICON (56 Standard Cells)
+              </Text>
+            </Billboard>
           )}
         </group>
       )}
 
-      {/* -------------------------------------------------------
-          LAYER 4: METAL-1 LOCAL INTERCONNECT
-          Standard Cell Pin Access & Fine Local Interconnect
-      -------------------------------------------------------- */}
+      {/* Inter-layer Vias: Active/Poly to M1 */}
+      {s > 0.25 && visibility.poly && visibility.m1 && (
+        <InterLayerVias yBottom={yPoly + 0.08} yTop={yM1 - 0.04} color="#38BDF8" />
+      )}
+
+      {/* --------------------------------------------------------------
+          L4: METAL-1 LOCAL INTERCONNECT
+          Dense cell pin routing and tungsten contact plug access
+      --------------------------------------------------------------- */}
       {visibility.m1 && (
         <group position={[0, yM1, 0]}>
           <mesh>
-            <boxGeometry args={[8.4, 0.06, 4.8]} />
+            <boxGeometry args={[8.4, 0.06, 5.0]} />
             <meshStandardMaterial
               color="#0F172A"
-              metalness={0.9}
-              roughness={0.2}
+              metalness={0.92}
+              roughness={0.22}
               transparent
-              opacity={renderMode === 'transparent' ? 0.2 : 0.65}
+              opacity={renderMode === 'transparent' ? 0.2 : 0.6}
               wireframe={renderMode === 'wireframe'}
             />
           </mesh>
-          {/* Dense Local M1 Wiring Strips */}
+
+          {/* Dense Local M1 Wiring Tracks */}
           {[-3.5, -2.5, -1.5, -0.5, 0.5, 1.5, 2.5, 3.5].map((mx, idx) => (
-            <mesh key={idx} position={[mx, 0.04, 0]}>
-              <boxGeometry args={[0.08, 0.02, 4.4]} />
+            <mesh key={idx} position={[mx, 0.035, 0]}>
+              <boxGeometry args={[0.07, 0.015, 4.6]} />
               <meshStandardMaterial
                 color="#38BDF8"
                 metalness={0.95}
                 roughness={0.1}
                 emissive="#0284C7"
-                emissiveIntensity={0.5}
+                emissiveIntensity={0.45}
               />
             </mesh>
           ))}
+
           {s > 0.15 && (
-            <Text
-              position={[-5.2, 0.05, 0]}
-              fontSize={0.18}
-              color="#38BDF8"
-              anchorX="right"
-              anchorY="middle"
-            >
-              L4: METAL-1 (Local Cell Pin Routing)
-            </Text>
+            <Billboard follow={true} lockX={false} lockY={false} lockZ={false} position={[-5.0, 0.06, 0]}>
+              <Text fontSize={0.13} color="#38BDF8" anchorX="right" anchorY="middle">
+                L4: METAL-1 (Local Cell Pin Routing)
+              </Text>
+            </Billboard>
           )}
         </group>
       )}
 
-      {/* -------------------------------------------------------
-          LAYER 3: METAL-2 INTERMEDIATE SIGNAL ROUTING
-          Inter-Block Ripple Lines & 4 Carry-Skip Highway Tracks
-      -------------------------------------------------------- */}
+      {/* Inter-layer Vias: M1 to M2 */}
+      {s > 0.25 && visibility.m1 && visibility.m2 && (
+        <InterLayerVias yBottom={yM1 + 0.04} yTop={yM2 - 0.04} color="#00F0FF" />
+      )}
+
+      {/* --------------------------------------------------------------
+          L3: METAL-2 INTERMEDIATE SIGNAL ROUTING
+          Inter-block ripple lines & dedicated carry-skip highway tracks
+      --------------------------------------------------------------- */}
       {visibility.m2 && (
         <group position={[0, yM2, 0]}>
           <mesh>
-            <boxGeometry args={[8.4, 0.06, 4.8]} />
+            <boxGeometry args={[8.4, 0.06, 5.0]} />
             <meshStandardMaterial
-              color="#0B132B"
-              metalness={0.9}
+              color="#091428"
+              metalness={0.92}
               roughness={0.2}
               transparent
-              opacity={renderMode === 'transparent' ? 0.25 : 0.65}
+              opacity={renderMode === 'transparent' ? 0.25 : 0.6}
               wireframe={renderMode === 'wireframe'}
             />
           </mesh>
+
           {/* Orthogonal M2 Traces */}
           {[-1.6, -0.8, 0, 0.8, 1.6].map((mz, idx) => {
             const isSkipRoute = idx === 1 || idx === 3
-            const color = isSkipRoute ? '#FF7A00' : '#00F0FF'
+            const traceColor = isSkipRoute ? '#FF7A00' : '#00F0FF'
             return (
-              <mesh key={idx} position={[0, 0.04, mz]}>
-                <boxGeometry args={[7.8, 0.04, 0.12]} />
+              <mesh key={idx} position={[0, 0.035, mz]}>
+                <boxGeometry args={[7.8, 0.02, 0.1]} />
                 <meshStandardMaterial
-                  color={color}
-                  metalness={0.95}
+                  color={traceColor}
+                  metalness={0.96}
                   roughness={0.1}
-                  emissive={color}
-                  emissiveIntensity={isSkipRoute ? 0.85 : 0.5}
+                  emissive={traceColor}
+                  emissiveIntensity={isSkipRoute ? 0.9 : 0.5}
                 />
               </mesh>
             )
           })}
+
           {s > 0.15 && (
-            <Text
-              position={[-5.2, 0.05, 0]}
-              fontSize={0.18}
-              color="#00F0FF"
-              anchorX="right"
-              anchorY="middle"
-            >
-              L3: METAL-2 (Skip Bypass & Signal Routing)
-            </Text>
+            <Billboard follow={true} lockX={false} lockY={false} lockZ={false} position={[-5.0, 0.06, 0]}>
+              <Text fontSize={0.13} color="#00F0FF" anchorX="right" anchorY="middle">
+                L3: METAL-2 (Skip Bypass & Signal Routing)
+              </Text>
+            </Billboard>
           )}
         </group>
       )}
 
-      {/* -------------------------------------------------------
-          LAYER 2: METAL-3 POWER & GLOBAL HIGHWAY GRID
-          Thick Copper VDD/VSS Power Rails & Global Inter-Block Busses
-      -------------------------------------------------------- */}
+      {/* Inter-layer Vias: M2 to M3 */}
+      {s > 0.25 && visibility.m2 && visibility.m3 && (
+        <InterLayerVias yBottom={yM2 + 0.04} yTop={yM3 - 0.04} color="#B87333" />
+      )}
+
+      {/* --------------------------------------------------------------
+          L2: METAL-3 POWER & GLOBAL HIGHWAY GRID
+          Thick copper VDD/VSS power rails & global inter-block buses
+      --------------------------------------------------------------- */}
       {visibility.m3 && (
         <group position={[0, yM3, 0]}>
           <mesh>
-            <boxGeometry args={[8.4, 0.08, 4.8]} />
+            <boxGeometry args={[8.4, 0.08, 5.0]} />
             <meshStandardMaterial
-              color="#1C1917"
-              metalness={0.85}
-              roughness={0.3}
+              color="#161414"
+              metalness={0.88}
+              roughness={0.25}
               transparent
-              opacity={renderMode === 'transparent' ? 0.3 : 0.7}
+              opacity={renderMode === 'transparent' ? 0.28 : 0.65}
               wireframe={renderMode === 'wireframe'}
             />
           </mesh>
-          {/* Thick Copper Power Stripes */}
+
+          {/* Thick Copper VDD/VSS Power Rails */}
           {[-3.0, -1.0, 1.0, 3.0].map((px, idx) => (
-            <mesh key={idx} position={[px, 0.05, 0]}>
-              <boxGeometry args={[0.35, 0.04, 4.6]} />
+            <mesh key={idx} position={[px, 0.045, 0]}>
+              <boxGeometry args={[0.36, 0.025, 4.8]} />
               <meshStandardMaterial
-                color="#FB923C"
+                color="#C87D55"
                 metalness={0.96}
-                roughness={0.1}
-                emissive="#C2410C"
-                emissiveIntensity={0.6}
+                roughness={0.12}
+                emissive="#9A3412"
+                emissiveIntensity={0.5}
               />
             </mesh>
           ))}
+
           {s > 0.15 && (
-            <Text
-              position={[-5.2, 0.06, 0]}
-              fontSize={0.18}
-              color="#FB923C"
-              anchorX="right"
-              anchorY="middle"
-            >
-              L2: METAL-3 (VDD/VSS Power Grid & Highway)
-            </Text>
+            <Billboard follow={true} lockX={false} lockY={false} lockZ={false} position={[-5.0, 0.08, 0]}>
+              <Text fontSize={0.13} color="#FB923C" anchorX="right" anchorY="middle">
+                L2: METAL-3 (VDD/VSS Power Grid & Highway)
+              </Text>
+            </Billboard>
           )}
         </group>
       )}
 
-      {/* -------------------------------------------------------
-          LAYER 1: PACKAGE LID / PASSIVATION
-          Brushed Aluminum/Nickel Heat Spreader with Laser Markings
-      -------------------------------------------------------- */}
+      {/* --------------------------------------------------------------
+          L1: PACKAGE LID / PASSIVATION (HEAT SPREADER)
+          Brushed nickel-aluminum metallic plate with laser engraving
+      --------------------------------------------------------------- */}
       {visibility.lid && (
         <group position={[0, yLid, 0]}>
-          {/* Main Metallic Heat-Spreader Plate */}
+          {/* Main Brushed Metallic Heat Spreader Body */}
           <mesh>
-            <boxGeometry args={[9.2, 0.14, 5.6]} />
+            <boxGeometry args={[9.4, 0.14, 5.8]} />
             <meshStandardMaterial
-              color="#1E293B"
-              metalness={0.96}
-              roughness={0.12}
+              color="#243044"
+              metalness={0.92}
+              roughness={0.22}
               transparent={s > 0.05 || renderMode === 'transparent'}
               opacity={s > 0.05 ? 0.45 : renderMode === 'transparent' ? 0.35 : 0.98}
               wireframe={renderMode === 'wireframe'}
             />
           </mesh>
 
-          {/* Chamfered Outer Bevel Border */}
+          {/* Chamfered Beveled Lip Rim */}
           <mesh position={[0, 0.08, 0]}>
-            <boxGeometry args={[9.0, 0.04, 5.4]} />
+            <boxGeometry args={[9.1, 0.03, 5.5]} />
             <meshStandardMaterial
-              color="#0F172A"
-              metalness={0.9}
-              roughness={0.2}
+              color="#182232"
+              metalness={0.88}
+              roughness={0.25}
               transparent={s > 0.05}
               opacity={s > 0.05 ? 0.4 : 1}
             />
           </mesh>
 
-          {/* Pin 1 Index Dot Indentation */}
-          <mesh position={[-4.0, 0.11, -2.2]}>
-            <cylinderGeometry args={[0.18, 0.18, 0.04, 16]} />
+          {/* Gold Pin 1 Index Dot Indentation */}
+          <mesh position={[-4.1, 0.1, -2.3]}>
+            <cylinderGeometry args={[0.16, 0.16, 0.03, 16]} />
             <meshStandardMaterial color="#FFD700" metalness={0.98} roughness={0.1} />
           </mesh>
 
-          {/* Laser-Etched Package Typography */}
+          {/* Laser-Engraved Identification Markings */}
           <Text
-            position={[0, 0.12, -0.4]}
+            position={[0, 0.105, -0.45]}
             rotation={[-Math.PI / 2, 0, 0]}
-            fontSize={0.36}
+            fontSize={0.34}
             color="#00F0FF"
             anchorX="center"
             anchorY="middle"
@@ -779,7 +872,7 @@ function SemiconductorLayerStack({
           </Text>
 
           <Text
-            position={[0, 0.12, 0.3]}
+            position={[0, 0.105, 0.25]}
             rotation={[-Math.PI / 2, 0, 0]}
             fontSize={0.18}
             color="#94A3B8"
@@ -790,9 +883,9 @@ function SemiconductorLayerStack({
           </Text>
 
           <Text
-            position={[0, 0.12, 0.9]}
+            position={[0, 0.105, 0.85]}
             rotation={[-Math.PI / 2, 0, 0]}
-            fontSize={0.14}
+            fontSize={0.13}
             color="#FF7A00"
             anchorX="center"
             anchorY="middle"
@@ -801,15 +894,11 @@ function SemiconductorLayerStack({
           </Text>
 
           {s > 0.15 && (
-            <Text
-              position={[-5.2, 0.1, 0]}
-              fontSize={0.18}
-              color="#E2E8F0"
-              anchorX="right"
-              anchorY="middle"
-            >
-              L1: PACKAGE LID / PASSIVATION (Heat Spreader)
-            </Text>
+            <Billboard follow={true} lockX={false} lockY={false} lockZ={false} position={[-5.0, 0.1, 0]}>
+              <Text fontSize={0.13} color="#E2E8F0" anchorX="right" anchorY="middle">
+                L1: PACKAGE LID / PASSIVATION (Heat Spreader)
+              </Text>
+            </Billboard>
           )}
         </group>
       )}
@@ -817,44 +906,120 @@ function SemiconductorLayerStack({
   )
 }
 
-// -------------------------------------------------------------
-// Camera Angle Controller Helper
-// -------------------------------------------------------------
-function CameraPresetController({
+// ----------------------------------------------------------------------
+// Package Lead Pins & BGA Solder Balls
+// ----------------------------------------------------------------------
+function PackageSubstrateContacts() {
+  const pinCount = 14
+  const pins: JSX.Element[] = []
+
+  // North and South Gull-Wing / QFP Lead Pins
+  for (let i = 0; i < pinCount; i++) {
+    const x = -5.1 + (i * 10.2) / (pinCount - 1)
+    pins.push(
+      <mesh key={`p-n-${i}`} position={[x, -0.15, 3.8]}>
+        <boxGeometry args={[0.26, 0.08, 0.7]} />
+        <meshStandardMaterial color="#E2E8F0" metalness={0.96} roughness={0.12} />
+      </mesh>,
+      <mesh key={`p-s-${i}`} position={[x, -0.15, -3.8]}>
+        <boxGeometry args={[0.26, 0.08, 0.7]} />
+        <meshStandardMaterial color="#E2E8F0" metalness={0.96} roughness={0.12} />
+      </mesh>
+    )
+  }
+
+  // East and West Lead Pins
+  for (let i = 0; i < 9; i++) {
+    const z = -2.7 + (i * 5.4) / 8
+    pins.push(
+      <mesh key={`p-e-${i}`} position={[5.65, -0.15, z]}>
+        <boxGeometry args={[0.7, 0.08, 0.26]} />
+        <meshStandardMaterial color="#E2E8F0" metalness={0.96} roughness={0.12} />
+      </mesh>,
+      <mesh key={`p-w-${i}`} position={[-5.65, -0.15, z]}>
+        <boxGeometry args={[0.7, 0.08, 0.26]} />
+        <meshStandardMaterial color="#E2E8F0" metalness={0.96} roughness={0.12} />
+      </mesh>
+    )
+  }
+
+  // Bottom BGA Solder Ball Matrix
+  const bgaBalls: JSX.Element[] = []
+  for (let bx = -4.2; bx <= 4.2; bx += 0.84) {
+    for (let bz = -2.5; bz <= 2.5; bz += 0.84) {
+      if (Math.abs(bx) < 2.2 && Math.abs(bz) < 1.3) continue // Central thermal cavity
+      bgaBalls.push(
+        <mesh key={`bga-${bx}-${bz}`} position={[bx, -0.38, bz]}>
+          <sphereGeometry args={[0.09, 10, 10]} />
+          <meshStandardMaterial color="#CBD5E1" metalness={0.94} roughness={0.14} />
+        </mesh>
+      )
+    }
+  }
+
+  return (
+    <group>
+      {pins}
+      {bgaBalls}
+    </group>
+  )
+}
+
+// ----------------------------------------------------------------------
+// Smooth Camera Controller with Lerp & Target Centering
+// ----------------------------------------------------------------------
+function CameraRig({
   viewPreset,
+  activeBlock,
   controlsRef
 }: {
   viewPreset: 'iso' | 'top' | 'front' | 'side'
+  activeBlock: number | null
   controlsRef: React.RefObject<any>
 }) {
   const { camera } = useThree()
+  const targetPos = useRef(new THREE.Vector3(0, 9, 12))
+  const targetLook = useRef(new THREE.Vector3(0, 0.6, 0))
 
   useEffect(() => {
     if (!controlsRef.current) return
 
-    if (viewPreset === 'iso') {
-      camera.position.set(0, 9, 12)
-      controlsRef.current.target.set(0, 1, 0)
+    // Block focus positions
+    const blockX = activeBlock === 0 ? -2.85 : activeBlock === 1 ? -0.95 : activeBlock === 2 ? 0.95 : activeBlock === 3 ? 2.85 : 0
+
+    if (activeBlock !== null && viewPreset === 'iso') {
+      targetPos.current.set(blockX, 6.5, 8.5)
+      targetLook.current.set(blockX, 0.8, 0)
+    } else if (viewPreset === 'iso') {
+      targetPos.current.set(0, 9, 12)
+      targetLook.current.set(0, 0.6, 0)
     } else if (viewPreset === 'top') {
-      camera.position.set(0, 16, 0.01)
-      controlsRef.current.target.set(0, 0, 0)
+      targetPos.current.set(0, 15, 0.01)
+      targetLook.current.set(0, 0, 0)
     } else if (viewPreset === 'front') {
-      camera.position.set(0, 2, 14)
-      controlsRef.current.target.set(0, 1, 0)
+      targetPos.current.set(0, 2.2, 13)
+      targetLook.current.set(0, 1.0, 0)
     } else if (viewPreset === 'side') {
-      camera.position.set(15, 2, 0)
-      controlsRef.current.target.set(0, 1, 0)
+      targetPos.current.set(14, 2.2, 0)
+      targetLook.current.set(0, 1.0, 0)
     }
-    controlsRef.current.update()
-  }, [viewPreset, camera, controlsRef])
+  }, [viewPreset, activeBlock, controlsRef])
+
+  useFrame(() => {
+    if (controlsRef.current) {
+      camera.position.lerp(targetPos.current, 0.08)
+      controlsRef.current.target.lerp(targetLook.current, 0.08)
+      controlsRef.current.update()
+    }
+  })
 
   return null
 }
 
-// -------------------------------------------------------------
-// Complete 3D Scene Root
-// -------------------------------------------------------------
-function StudioScene({
+// ----------------------------------------------------------------------
+// Complete Studio Scene
+// ----------------------------------------------------------------------
+function CompleteStudioScene({
   exploded,
   activeBlock,
   onSelectBlock,
@@ -873,45 +1038,47 @@ function StudioScene({
 }) {
   return (
     <>
-      <CameraPresetController viewPreset={viewPreset} controlsRef={controlsRef} />
+      <CameraRig
+        viewPreset={viewPreset}
+        activeBlock={activeBlock}
+        controlsRef={controlsRef}
+      />
 
       {/* Realistic Multi-Point Studio Lighting */}
       <ambientLight intensity={0.45} />
       <directionalLight position={[12, 18, 12]} intensity={1.8} castShadow />
-      <directionalLight position={[-12, 14, -10]} intensity={0.9} color="#00F0FF" />
+      <directionalLight position={[-12, 14, -10]} intensity={0.8} color="#00F0FF" />
       <pointLight position={[0, 6, 0]} intensity={1.2} color="#FFFFFF" />
       <pointLight position={[-8, -2, 6]} intensity={0.8} color="#FF7A00" />
       <pointLight position={[8, -2, -6]} intensity={0.8} color="#00DF72" />
 
-      {/* Futuristic PCB Motherboard Base */}
-      <mesh position={[0, -0.65, 0]} receiveShadow>
-        <boxGeometry args={[16, 0.2, 11]} />
+      {/* PCB Base Motherboard with Ground Plane */}
+      <mesh position={[0, -0.6, 0]} receiveShadow>
+        <boxGeometry args={[16.5, 0.2, 11.5]} />
         <meshStandardMaterial color="#060A14" roughness={0.65} metalness={0.4} />
       </mesh>
-
-      {/* PCB Circuit Traces Ground Plane */}
-      <gridHelper args={[16, 32, '#00F0FF', '#0F1E36']} position={[0, -0.54, 0]} />
+      <gridHelper args={[16.5, 33, '#00F0FF', '#0F1E36']} position={[0, -0.49, 0]} />
 
       {/* IC Package Ceramic Substrate */}
       <mesh position={[0, -0.22, 0]}>
-        <boxGeometry args={[11.2, 0.38, 7.6]} />
-        <meshStandardMaterial color="#0B101D" metalness={0.9} roughness={0.25} />
+        <boxGeometry args={[11.2, 0.36, 7.6]} />
+        <meshStandardMaterial color="#0E1626" metalness={0.85} roughness={0.3} />
       </mesh>
 
-      {/* Gold Cavity Bond Ring */}
-      <mesh position={[0, -0.02, 0]}>
-        <boxGeometry args={[9.8, 0.04, 6.2]} />
+      {/* Cavity Gold Ring */}
+      <mesh position={[0, -0.03, 0]}>
+        <boxGeometry args={[9.6, 0.03, 6.2]} />
         <meshStandardMaterial color="#FFD700" metalness={0.98} roughness={0.12} />
       </mesh>
 
-      {/* Package Lead Pins & BGA Matrix */}
-      <PackageInterconnects />
+      {/* Lead Pins & BGA Contacts */}
+      <PackageSubstrateContacts />
 
-      {/* Gold Wire-Bonds Linking Die to Package */}
-      <WireBonds explodedOffset={explosionDistance} />
+      {/* Perimeter Gold Wire-Bonds (Attached to cavity rim, low explosion only) */}
+      <CavityWireBonds visible={explosionDistance < 30} />
 
-      {/* The 7 Semiconductor Layers */}
-      <SemiconductorLayerStack
+      {/* The 7 Physically Stacked & Exploded Semiconductor Layers */}
+      <SemiconductorStack
         explosionDistance={explosionDistance}
         visibility={visibility}
         activeBlock={activeBlock}
@@ -921,7 +1088,7 @@ function StudioScene({
         renderMode={renderMode}
       />
 
-      {/* Interactive Orbit Controls with Smooth Damping */}
+      {/* Orbit Controls with Damping */}
       <OrbitControls
         ref={controlsRef}
         enableDamping
@@ -934,12 +1101,12 @@ function StudioScene({
   )
 }
 
-// -------------------------------------------------------------
-// Main Exported Chip3D Component with Full Studio HUD Controls
-// -------------------------------------------------------------
+// ----------------------------------------------------------------------
+// Main Exported Component
+// ----------------------------------------------------------------------
 export default function Chip3D(props: Chip3DProps) {
   const [explosionDistance, setExplosionDistance] = useState<number>(
-    props.exploded ? 70 : 0
+    props.exploded ? 60 : 0
   )
   const [renderMode, setRenderMode] = useState<'solid' | 'transparent' | 'wireframe'>('solid')
   const [viewPreset, setViewPreset] = useState<'iso' | 'top' | 'front' | 'side'>('iso')
@@ -953,12 +1120,11 @@ export default function Chip3D(props: Chip3DProps) {
     substrate: true
   })
   const [showLayerDrawer, setShowLayerDrawer] = useState<boolean>(false)
-  const canvasRef = useRef<HTMLCanvasElement>(null)
   const controlsRef = useRef<any>(null)
 
   // Sync external exploded prop
   useEffect(() => {
-    setExplosionDistance(props.exploded ? 75 : 0)
+    setExplosionDistance(props.exploded ? 60 : 0)
   }, [props.exploded])
 
   const toggleLayer = (key: keyof LayerVisibility) => {
@@ -973,6 +1139,14 @@ export default function Chip3D(props: Chip3DProps) {
     link.download = `CYBERCORE_CSKA16_3D_${Date.now()}.png`
     link.href = canvas.toDataURL('image/png')
     link.click()
+  }
+
+  const handleResetCamera = () => {
+    setViewPreset('iso')
+    props.onSelectBlock(-1) // deselect
+    if (controlsRef.current) {
+      controlsRef.current.reset()
+    }
   }
 
   return (
@@ -1049,11 +1223,20 @@ export default function Chip3D(props: Chip3DProps) {
             <span>LAYERS ({Object.values(visibility).filter(Boolean).length}/7)</span>
           </button>
 
+          {/* Reset Camera Button */}
+          <button
+            onClick={handleResetCamera}
+            title="Reset View Angle & Focus"
+            className="p-1.5 rounded-lg bg-[#0A101D] border border-[#1E293B] text-[#94A3B8] hover:text-[#00F0FF] transition"
+          >
+            <RotateCcw className="w-4 h-4" />
+          </button>
+
           {/* Snapshot Exporter */}
           <button
             onClick={handleExportSnapshot}
             title="Export High-Res 3D Snapshot (PNG)"
-            className="p-1.5 rounded-lg bg-[#0A101D] border border-[#1E293B] text-[#94A3B8] hover:text-[#00F0FF] hover:border-[#00F0FF]/40 transition"
+            className="p-1.5 rounded-lg bg-[#0A101D] border border-[#1E293B] text-[#94A3B8] hover:text-[#00F0FF] transition"
           >
             <Camera className="w-4 h-4" />
           </button>
@@ -1065,9 +1248,9 @@ export default function Chip3D(props: Chip3DProps) {
         <Canvas
           shadows
           gl={{ antialias: true, alpha: true, preserveDrawingBuffer: true }}
-          camera={{ position: [0, 9, 12], fov: 42 }}
+          camera={{ position: [0, 9, 12], fov: 40 }}
         >
-          <StudioScene
+          <CompleteStudioScene
             {...props}
             explosionDistance={explosionDistance}
             visibility={visibility}
@@ -1095,12 +1278,12 @@ export default function Chip3D(props: Chip3DProps) {
 
             <div className="space-y-1.5">
               {[
-                { key: 'lid', name: 'L1: Package Lid / Heat Spreader', color: '#E2E8F0' },
-                { key: 'm3', name: 'L2: Metal-3 (Power & Highway)', color: '#FB923C' },
+                { key: 'lid', name: 'L1: Package Lid / Passivation', color: '#E2E8F0' },
+                { key: 'm3', name: 'L2: Metal-3 (Power & Highway)', color: '#C87D55' },
                 { key: 'm2', name: 'L3: Metal-2 (Signal & Bypass)', color: '#00F0FF' },
                 { key: 'm1', name: 'L4: Metal-1 (Cell Local Pins)', color: '#38BDF8' },
                 { key: 'poly', name: 'L5: Active & Polysilicon (56 Cells)', color: '#00DF72' },
-                { key: 'sti', name: 'L6: STI / N-Well Isolation', color: '#818CF8' },
+                { key: 'sti', name: 'L6: STI / Well Isolation', color: '#818CF8' },
                 { key: 'substrate', name: 'L7: Bulk Silicon Substrate', color: '#94A3B8' }
               ].map((layer) => {
                 const isVisible = visibility[layer.key as keyof LayerVisibility]
@@ -1186,7 +1369,7 @@ export default function Chip3D(props: Chip3DProps) {
               {explosionDistance}%
             </span>
             <button
-              onClick={() => setExplosionDistance(explosionDistance > 0 ? 0 : 75)}
+              onClick={() => setExplosionDistance(explosionDistance > 0 ? 0 : 60)}
               className="px-2 py-0.5 rounded bg-[#1E293B] hover:bg-[#334155] text-[10px] font-mono text-[#E2E8F0] transition"
             >
               {explosionDistance > 0 ? 'REASSEMBLE' : 'EXPLODE'}
@@ -1205,7 +1388,7 @@ export default function Chip3D(props: Chip3DProps) {
             </span>
             <span className="flex items-center space-x-1.5 text-[#00DF72]">
               <span className="w-2.5 h-2.5 rounded-full bg-[#00DF72]"></span>
-              <span>Active Gate</span>
+              <span>Active Logic</span>
             </span>
           </div>
         </div>
@@ -1213,7 +1396,7 @@ export default function Chip3D(props: Chip3DProps) {
         {/* Viewport Nav Hint */}
         <div className="absolute top-4 left-4 pointer-events-none text-[11px] font-mono text-[#64748B] flex items-center space-x-1.5">
           <Compass className="w-3.5 h-3.5 text-[#00F0FF]" />
-          <span>Rotate: Left Drag • Zoom: Scroll • Pan: Right Drag</span>
+          <span>Rotate: Left Drag • Zoom: Scroll • Pan: Right Drag • Click Block to Inspect</span>
         </div>
       </div>
     </div>

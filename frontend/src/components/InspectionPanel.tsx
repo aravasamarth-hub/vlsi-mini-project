@@ -160,7 +160,7 @@ export default function InspectionPanel({
             <Layers className="w-4 h-4 text-[#00DF72]" />
             <span className="font-bold text-white tracking-wider">LAYOUT & PDK OVERVIEW</span>
           </div>
-          <span className="text-[10px] text-[#00DF72] font-bold">OPENROAD READY</span>
+          <span className="text-[10px] text-[#FF7A00] font-bold">PLACEMENT-ONLY GDSII (CUSTOM SCRIPTS)</span>
         </div>
 
         <div className="space-y-2 text-[11px]">
@@ -213,3 +213,4 @@ export default function InspectionPanel({
     </div>
   )
 }
+
