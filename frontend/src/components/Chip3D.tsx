@@ -1165,40 +1165,7 @@ export default function Chip3D(props: Chip3DProps) {
           />
         </Canvas>
 
-        {/* Clean Interactive HUD Layer Stack Pill Column on Left */}
-        {explosionDistance > 10 && (
-          <div className="absolute top-12 left-4 pointer-events-auto flex flex-col space-y-1 z-10 font-mono text-[10px] animate-in fade-in duration-300">
-            {[
-              { key: 'lid', tag: 'L1', name: 'Passivation Lid', color: '#E2E8F0' },
-              { key: 'm3', tag: 'L2', name: 'Metal-3 Power Rails', color: '#C87D55' },
-              { key: 'm2', tag: 'L3', name: 'Metal-2 Carry Highway', color: '#00F0FF' },
-              { key: 'm1', tag: 'L4', name: 'Metal-1 Local Pins', color: '#38BDF8' },
-              { key: 'poly', tag: 'L5', name: 'Active & Poly (56 Cells)', color: '#00DF72' },
-              { key: 'sti', tag: 'L6', name: 'STI Isolation', color: '#818CF8' },
-              { key: 'substrate', tag: 'L7', name: 'Silicon Substrate', color: '#94A3B8' }
-            ].map((layer) => {
-              const isVis = visibility[layer.key as keyof LayerVisibility]
-              return (
-                <div
-                  key={layer.key}
-                  onClick={() => toggleLayer(layer.key as keyof LayerVisibility)}
-                  className={`px-2 py-1 rounded-md flex items-center space-x-1.5 cursor-pointer backdrop-blur-md transition border ${
-                    isVis
-                      ? 'bg-[#091122]/85 text-white border-[#1E293B] hover:border-[#00F0FF]/40'
-                      : 'bg-black/40 text-[#64748B] border-transparent line-through'
-                  }`}
-                >
-                  <span
-                    className="w-2 h-2 rounded-full shrink-0"
-                    style={{ backgroundColor: layer.color }}
-                  ></span>
-                  <span className="font-bold">{layer.tag}:</span>
-                  <span>{layer.name}</span>
-                </div>
-              )
-            })}
-          </div>
-        )}
+
 
         {/* Floating Layer Visibility Drawer */}
         {showLayerDrawer && (
