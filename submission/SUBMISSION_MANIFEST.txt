@@ -1,9 +1,9 @@
 ================================================================================
 CYBERCORE 3D - OFFICIAL PROJECT SUBMISSION MANIFEST
 Archive: 16bit_carry_skip_adder_sky130_submission.zip
-Generated: 2026-11-05 22:10:26
-Total Packaged Files: 137
-Archive Size: 19.65 MB
+Generated: 2026-11-05 22:49:32
+Total Packaged Files: 142
+Archive Size: 20.91 MB
 ================================================================================
 
 KEY DELIVERABLES INCLUDED:
@@ -26,6 +26,8 @@ COMPLETE FILE INVENTORY:
   DEVELOPMENT_LOG.md
   FINAL_ACADEMIC_READINESS_CHECKLIST.md
   FINAL_PROJECT_STATUS.md
+  FINAL_SCREENSHOTS\chip_studio_viewport.png
+  FINAL_SCREENSHOTS\master_dashboard_full.png
   INDEPENDENT_AUDIT_REPORT.md
   INSTALLATION_GUIDE.md
   PROJECT_DOCUMENTATION.md
@@ -33,6 +35,8 @@ COMPLETE FILE INVENTORY:
   README.md
   SYSTEM_AUDIT.md
   TEST_RESULTS.md
+  UI_REDESIGN_REPORT.md
+  VISUAL_QA_REPORT.md
   analysis\block_size_experiment.csv
   analysis\block_size_experiment.py
   analysis\comparison_results.csv
@@ -53,8 +57,8 @@ COMPLETE FILE INVENTORY:
   dashboard\app.py
   documentation\examiner_viva_defense.md
   documentation\seminar_speaking_script.md
-  frontend\dist\assets\index-C5x3k1uA.css
-  frontend\dist\assets\index-anvFKhG7.js
+  frontend\dist\assets\index-CDDaRH6U.css
+  frontend\dist\assets\index-FujpHjb1.js
   frontend\dist\index.html
   frontend\index.html
   frontend\package-lock.json
@@ -67,6 +71,7 @@ COMPLETE FILE INVENTORY:
   frontend\src\components\InspectionPanel.tsx
   frontend\src\components\LogicGateLab.tsx
   frontend\src\components\PPABenchmark.tsx
+  frontend\src\components\PPAComparisonCard.tsx
   frontend\src\components\PhysicalDesignViewer.tsx
   frontend\src\components\PresentationMode.tsx
   frontend\src\index.css
