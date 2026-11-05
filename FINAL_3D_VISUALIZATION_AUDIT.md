@@ -53,3 +53,4 @@ The 3D visualization is engineered to resemble an advanced semiconductor visuali
 An essential academic boundary is enforced in the user interface:
 - **3D Semiconductor Model (`Chip3D.tsx`):** An educational, exploded 3D representation designed to visualize layer stacks, pin leadframes, and conceptual carry-skip bypass pulses.
 - **Physical Layout Viewer (`PhysicalDesignViewer.tsx`):** An accurate 2D CAD floorplan derived directly from `layout/cska_sky130.def` and `layout/cska_sky130.gds`, displaying the real 45 µm × 35 µm die, 9 cell rows, and legal standard-cell sites.
+

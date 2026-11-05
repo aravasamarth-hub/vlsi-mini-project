@@ -46,3 +46,4 @@
 - **Laptop (1366 × 768):** Flex wrap adjusts seamlessly with sticky top navigation.
 - **Tablet (768px):** Collapsible sidebar shifts into slide-out drawer mode.
 - **Mobile (375px):** Input operand grids stack vertically with legible high-contrast typography.
+

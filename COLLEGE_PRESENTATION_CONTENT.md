@@ -152,3 +152,4 @@
   - 4.18 MB GDSII binary placement layout stream.
   - Full-stack web application + 21 MB release package.
 - **Speaker Notes:** "In conclusion, the CYBERCORE 3D project delivers an end-to-end, scientifically verified VLSI design flow. Thank you, and I invite your questions."
+

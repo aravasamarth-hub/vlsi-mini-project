@@ -25,3 +25,4 @@
 3. **Physical Layout Viewer:** 2D CAD floorplan rendering the 45 µm × 35 µm die boundary, 9 standard cell rows, and 48 cell instances in crisp neon vectors.
 4. **Project Overview & Learning Academy:** High-density glassmorphic cards with the global `[ SIMPLE (BEGINNER) | ENGINEERING ]` header toggle adapting explanations dynamically.
 5. **Seminar Presentation Mode:** Full-screen slide theater with slide progress indicators, speaker notes boxes, and smooth slide navigation.
+

@@ -53,3 +53,4 @@ A critical academic insight demonstrated in this project is the impact of Boolea
 - Hierarchical Netlist: `synthesis/netlists/cska_hier_sky130_netlist.v`
 - Flattened Netlist: `synthesis/netlists/cska_sky130_netlist.v`
 - Both netlists verified cleanly without syntax errors and without sequential element warnings.
+

@@ -97,3 +97,4 @@ The 16-bit Carry Skip Adder project successfully proves the viability of open-so
 2. N. H. E. Weste and D. M. Harris, *CMOS VLSI Design: A Circuits and Systems Perspective*, 4th ed., Boston: Addison-Wesley, 2011.
 3. SkyWater Technology Foundry, *SkyWater SKY130 PDK Documentation and Standard Cell Models*, Google Open Source, 2020.
 4. C. Wolf, *Yosys Open SYNThesis Suite Manual*, 2024.
+

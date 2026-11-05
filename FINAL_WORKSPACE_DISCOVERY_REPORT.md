@@ -82,3 +82,4 @@
 2. **Flattened vs Hierarchical Logic Preservation:** Documented and verified. ABC optimizes away bypass multiplexers when unconstrained; hierarchical synthesis preserves all 4 `mux2_1` and `and4_1` gates.
 3. **Physical Layout Boundary:** Honest documentation verified: GDSII file is an authentic standard-cell placement stream; detailed metal routing, CTS, and signoff DRC/LVS were not completed due to native Windows OpenROAD constraints.
 4. **Active Services:** All 3 daemons (Vite on port 3000, FastAPI on port 8000, Streamlit on port 8501) tested and responding 200 OK.
+

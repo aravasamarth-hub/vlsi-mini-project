@@ -43,3 +43,4 @@ Implemented in `CarryVisualizer.tsx`:
   6. Final 16-bit sum and carry-out generation.
 - Interactive controls: Play, Pause, Step Forward, Step Backward, Reset, and Speed Slider.
 - Color Coded: Cyan = Ripple Carry, Orange = Skip Bypass Highway, Green = Active Logic.
+

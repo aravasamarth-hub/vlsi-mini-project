@@ -28,3 +28,4 @@
 | **TypeScript** | Type Checker | `5.5.3` | `frontend/node_modules/typescript` | **Installed & Verified** | `npx tsc --noEmit` -> 0 errors |
 | **Tailwind CSS** | Styling Framework | `3.4.17` | `frontend/node_modules/tailwindcss` | **Installed & Verified** | Glassmorphic design system |
 | **OpenROAD (Native Win)** | Full ASIC Flow | Limited | Not native on Windows | **Available but Limited** | Documented academic constraint; DEF/GDS generated via KLayout |
+

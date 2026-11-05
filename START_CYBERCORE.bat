@@ -56,3 +56,4 @@ echo Press any key to open the application in your default web browser...
 pause >nul
 start http://localhost:3000
 exit /b 0
+

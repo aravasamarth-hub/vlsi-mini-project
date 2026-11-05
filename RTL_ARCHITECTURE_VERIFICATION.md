@@ -72,3 +72,4 @@ assign Cout = P_group ? Cin : C_ripple;
 ## 4. Verification Conclusion
 
 The Verilog RTL implementation strictly satisfies all digital logic, arithmetic, and physical synthesizability criteria.
+

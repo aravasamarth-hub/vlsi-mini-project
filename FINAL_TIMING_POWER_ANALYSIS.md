@@ -61,3 +61,4 @@ $$T_{RCA} = 0.240\text{ ns} + (15 \times 0.228\text{ ns}) + 0.312\text{ ns} = \m
   - CLA: $0.151\text{ mW}$
   - Brent-Kung: $0.165\text{ mW}$
 - **Silicon Measured Power:** **Not measured**. Physical power consumption on silicon requires manufactured silicon packaged with test fixtures and oscilloscope current probes.
+

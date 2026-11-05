@@ -36,3 +36,4 @@ The submission package was generated using the automated packaging script `scrip
 ## 2. Extraction & Reproducibility Verification
 
 The archive has been verified to extract cleanly on any standard Windows 10/11 x64 machine. Double-clicking `START_CYBERCORE.bat` after extraction automatically maps the project directory to `X:`, activates dependencies, and launches the web interface at `http://localhost:3000`.
+

@@ -67,3 +67,4 @@ Inspected via KLayout 0.30.0 Pya engine:
 | **Antenna Checking** | **NO** | Academic placement-only deliverable |
 
 **Summary:** The GDSII deliverable is an authentic **standard-cell placement stream**. It must not be presented as a tapeout-ready routed silicon chip.
+

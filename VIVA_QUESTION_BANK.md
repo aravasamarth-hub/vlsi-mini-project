@@ -96,3 +96,4 @@
 
 ### Q13: Why did you partition the 16-bit CSKA into 4-4-4-4 uniform blocks rather than variable block sizes?
 - **Answer:** Uniform 4-bit blocks provide modular symmetry, identical sub-module layout, and ease of verification for an academic mini-project. However, in advanced commercial CSKAs, **variable block sizes** (e.g., 3-4-5-4 bits) are preferred. Because the carry ripples through Block 0 while earlier propagate signals are already being computed, widening the middle blocks equalizes the arrival times of ripple and skip signals, minimizing overall critical path latency. This is identified as our primary future improvement.
+
