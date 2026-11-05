@@ -389,7 +389,10 @@ export default function PresentationMode({ onClose }: PresentationModeProps) {
   const Icon = slide.icon
 
   return (
-    <div className="fixed inset-0 z-50 bg-[#050811] flex flex-col justify-between p-6 sm:p-10 text-white font-sans cyber-grid cyber-radial-glow overflow-y-auto">
+    <div
+      className="fixed inset-0 z-50 flex flex-col justify-between p-6 sm:p-10 text-white font-sans overflow-y-auto"
+      style={{ backgroundColor: '#050811' }}
+    >
       {/* Top App Bar */}
       <div className="flex items-center justify-between border-b border-[#1E293B] pb-4">
         <div className="flex items-center space-x-3">
@@ -407,10 +410,10 @@ export default function PresentationMode({ onClose }: PresentationModeProps) {
         </div>
         <button
           onClick={onClose}
-          className="px-3 py-1.5 rounded-lg bg-[#1E293B] hover:bg-[#334155] text-white transition flex items-center space-x-1.5 text-xs font-mono font-bold border border-[#334155]"
+          className="px-4 py-2 rounded-xl bg-[#1E293B] hover:bg-[#334155] text-white transition flex items-center space-x-2 text-xs font-mono font-bold border border-[#334155] shadow-lg"
         >
-          <X className="w-4 h-4" />
-          <span>EXIT (ESC)</span>
+          <X className="w-4 h-4 text-[#00F0FF]" />
+          <span>EXIT PRESENTATION (ESC)</span>
         </button>
       </div>
 
@@ -423,12 +426,12 @@ export default function PresentationMode({ onClose }: PresentationModeProps) {
           {slide.title}
         </h1>
 
-        <div className="glass-panel p-6 sm:p-8 rounded-2xl border border-[#00F0FF]/30 shadow-2xl">
+        <div className="bg-[#0A1224] p-6 sm:p-8 rounded-2xl border border-[#00F0FF]/35 shadow-2xl">
           {slide.content}
         </div>
 
         {/* Presenter Notes Box */}
-        <div className="mt-5 p-3.5 rounded-xl bg-[#070D1A] border border-[#1E293B] text-xs font-mono text-[#94A3B8]">
+        <div className="mt-5 p-4 rounded-xl bg-[#070D1A] border border-[#1E293B] text-xs font-mono text-[#94A3B8]">
           <span className="text-[#00F0FF] font-bold">SPEAKER NOTES: </span>
           {slide.speakerNotes}
         </div>
