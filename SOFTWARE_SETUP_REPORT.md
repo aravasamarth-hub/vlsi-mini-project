@@ -40,3 +40,4 @@ The open-source SkyWater 130nm High-Density PDK subset (`synthesis/sky130_pdk/`)
 1. `sky130_fd_sc_hd__tt_025C_1v80.lib` (12,800,135 bytes): Formally validated against Yosys `dfflibmap` and `abc -liberty`.
 2. `sky130_fd_sc_hd.gds` (4,182,250 bytes): Formally verified containing all 433 base cell layout structures in KLayout.
 3. `sky130_fd_sc_hd_merged.lef` (2,258,431 bytes): Formally verified for cell dimensions and pin geometries.
+

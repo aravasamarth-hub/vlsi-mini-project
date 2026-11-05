@@ -208,3 +208,4 @@ $$T_{CSKA} = 0.240\text{ ns} + (3 \cdot 0.228\text{ ns}) + (2 \cdot 0.156\text{ 
 | **Synthesis** | `yosys -s synthesis/synth_hierarchical.ys` | `cska_hierarchical_netlist.v` | 56 cells, 4 MUX2, 4 AND4 |
 | **Physical DEF** | `python layout/scripts/generate_def.py` | `cska_sky130.def` | 48 cells placed across 9 rows |
 | **GDSII Stream** | `klayout -b -r layout/scripts/def2gds.py` | `cska_sky130.gds` | 4.18 MB GDSII binary stream |
+

@@ -176,3 +176,4 @@ Every result reported in this project is anchored in empirical artifacts on disk
 3. **4.18 MB GDSII File:** Generated as a standard-cell placement stream from DEF coordinates. Detailed signal routing between standard cell pins, CTS, and signoff DRC/LVS were not run and are documented as placement-only.
 
 **PROJECT SIGN-OFF COMPLETE — READY FOR ACADEMIC EVALUATION.**
+

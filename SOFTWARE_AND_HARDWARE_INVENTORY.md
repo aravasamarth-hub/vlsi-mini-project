@@ -52,3 +52,4 @@
 | **Three.js** | 0.170.0 | `frontend/node_modules/three` | 3D WebGL semiconductor rendering | **ACTIVE** |
 | **Vite** | 6.0.1 | `frontend/node_modules/vite` | Fast frontend bundler (Serving on Port 3000)| **ACTIVE** |
 | **Tailwind CSS** | 4.0.0 | `frontend/node_modules/tailwindcss`| Obsidian glassmorphic styling | **ACTIVE** |
+

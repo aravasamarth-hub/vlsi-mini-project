@@ -77,3 +77,4 @@ It is calculated using non-linear cell delay lookup tables from `sky130_fd_sc_hd
 $$T_{CSKA} = (k-1)\tau_{ripple} + (M-2)\tau_{skip} + (k-1)\tau_{ripple} + \tau_{sum}$$
 where $k=4$, $M=4$, $\tau_{ripple} \approx 0.22\text{ ns}$, and $\tau_{skip} \approx 0.15\text{ ns}$.
 Interconnect wire resistance and capacitance were not back-annotated from SPEF; therefore, it is never referred to as measured post-route silicon timing.
+

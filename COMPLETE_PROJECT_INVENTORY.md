@@ -89,3 +89,4 @@ The workspace `D:\mini project` is partitioned into distinct modular domains:
 2. `backend/app.py` (FastAPI + Uvicorn): Serving at `http://127.0.0.1:8000`.
 3. `dashboard/app.py` (Streamlit): Serving at `http://localhost:8501`.
 4. `submission/16bit_carry_skip_adder_sky130_submission.zip` (21.02 MB): Distributable package.
+

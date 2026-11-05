@@ -52,3 +52,4 @@ Every extension in `C:\Users\arava\.antigravity-ide\extensions\extensions.json` 
 
 ### `AGENTS.md`
 - Established workspace rules enforcing the 5-step engineering lifecycle (`Plan` -> `Implement` -> `Test` -> `Review` -> `Report`), verification standards (60,038 vectors), and timing terminology restrictions.
+

@@ -37,3 +37,4 @@
 | **Docker Tools** | `Microsoft` | `ms-azuretools.vscode-docker`| 2.0.0 | WSL2 / Docker containerization tools (native Windows flow is containerless). |
 | **Playwright** | `Microsoft` | `ms-playwright.playwright` | 1.1.19 | Browser automation harness. |
 | **Snyk Vulnerability Scanner** | `Snyk` | `snyk-security.snyk-vulnerability-scanner` | 2.33.1 | Security scanning tool. |
+

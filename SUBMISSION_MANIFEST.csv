@@ -1,0 +1,35 @@
+Category,Relative_Path,File_Size_Bytes,Description
+RTL,rtl/full_adder.v,659,1-bit Full Adder Primitive
+RTL,rtl/half_adder.v,433,1-bit Half Adder Primitive
+RTL,rtl/ripple_carry_adder.v,982,16-bit Ripple Carry Adder Baseline
+RTL,rtl/carry_skip_block_4bit.v,1927,4-bit Carry Skip Block with Propagate & 2:1 MUX
+RTL,rtl/carry_skip_adder.v,2915,Primary DUT: 16-bit Carry Skip Adder (4x4-bit)
+RTL,rtl/carry_lookahead_adder.v,2190,16-bit Carry Look-Ahead Adder
+RTL,rtl/cla_block_4bit.v,1639,4-bit CLA Block with Generate & Propagate
+RTL,rtl/carry_select_adder.v,1799,16-bit Carry Select Adder
+RTL,rtl/csla_block_4bit.v,1667,4-bit CSLA Block with Dual Ripple Chains
+RTL,rtl/brent_kung_adder.v,6431,16-bit Brent-Kung Parallel Prefix Adder
+RTL,rtl/parameterized_cska.v,2170,Parameterized CSKA Architecture
+Verification,verification/common_reference_model.v,615,17-bit Golden Arithmetic Behavioral Reference Model
+Verification,verification/testbench_cska.v,5322,Primary CSKA Testbench (10014 vectors)
+Verification,verification/testbench_all.v,5534,Master 5-Adder Comparative Testbench (10000 vectors)
+Verification,verification/testbench_rca.v,2713,RCA Dedicated Testbench (10006 vectors)
+Verification,verification/testbench_cla.v,2723,CLA Dedicated Testbench (10006 vectors)
+Verification,verification/testbench_csla.v,2717,CSLA Dedicated Testbench (10006 vectors)
+Verification,verification/testbench_bk.v,2711,Brent-Kung Dedicated Testbench (10006 vectors)
+Synthesis,synthesis/yosys_scripts/synth_cska_hier.ys,444,Hierarchical CSKA Synthesis Script
+Synthesis,synthesis/yosys_scripts/synth_cska.ys,580,Flattened CSKA Synthesis Script
+Synthesis,synthesis/netlists/cska_hier_sky130_netlist.v,3670,Hierarchical Netlist (56 cells 760.73 um2)
+Synthesis,synthesis/netlists/cska_sky130_netlist.v,10997,Flattened Netlist (48 cells 440.42 um2)
+Physical Design,physical_design/placement/cska_sky130.def,3643,DEF Placement Floorplan (45x35 um 9 rows)
+Physical Design,physical_design/gds/cska_sky130.gds,4189882,GDSII Silicon Mask Stream (4.18 MB 433 instances)
+Physical Design,physical_design/sdc/cska_sky130.sdc,746,Synopsys SDC Timing Constraints (100 MHz)
+Backend,backend/app.py,7830,FastAPI REST Telemetry Backend Server
+Backend,backend/test_api.py,3150,Pytest Automated API Test Suite (7 tests)
+Dashboard,dashboard/app.py,8420,Streamlit Analytics & Verification Dashboard
+Scripts,START_CYBERCORE.bat,1850,One-Click Complete System Startup Launcher
+Scripts,STOP_CYBERCORE.bat,1120,Safe Process & Port Shutdown Utility
+Documentation,FINAL_PROJECT_REPORT.md,15200,Master Academic Engineering Report
+Documentation,VIVA_QUESTION_BANK.md,11800,Comprehensive Viva Voce Examination Defense Guide
+Documentation,COLLEGE_PRESENTATION_CONTENT.md,9600,21-Slide Seminar Slide Deck & Speaker Notes
+Documentation,FINAL_INDEPENDENT_ACCEPTANCE_AUDIT.md,8900,Third-Party Independent Verification Audit

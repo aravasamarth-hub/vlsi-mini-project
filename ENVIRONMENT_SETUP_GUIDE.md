@@ -91,3 +91,4 @@ yosys -s synthesis/yosys_scripts/synth_cska_hier.ys
 # Run flattened CSKA synthesis (ABC Boolean logic optimization)
 yosys -s synthesis/yosys_scripts/synth_cska.ys
 ```
+

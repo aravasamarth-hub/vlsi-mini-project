@@ -47,3 +47,4 @@ Managed via npm inside `D:\mini project\frontend`:
 - Zero dependency version conflicts exist in `package.json` or `pyproject.toml`.
 - All versions are locked to compatible semver ranges.
 - Zero external network dependencies are required at runtime: all Verilog simulation, synthesis, and 3D rendering run 100% locally and offline on this workstation.
+

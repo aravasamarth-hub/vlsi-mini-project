@@ -106,3 +106,4 @@ Every important source file across Verilog, Python, TypeScript, JSON, and PowerS
    - **Purpose:** Simulates CSKA latency across 2, 4, and 8-bit block partitions.
 3. **`scripts/package_submission.py`**
    - **Purpose:** Generates clean distributable ZIP archive `16bit_carry_skip_adder_sky130_submission.zip` (21.02 MB) with 162 packaged files.
+

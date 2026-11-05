@@ -1,9 +1,9 @@
 ================================================================================
 CYBERCORE 3D - OFFICIAL PROJECT SUBMISSION MANIFEST
 Archive: 16bit_carry_skip_adder_sky130_submission.zip
-Generated: 2026-11-06 00:28:49
-Total Packaged Files: 177
-Archive Size: 21.05 MB
+Generated: 2026-11-06 00:45:27
+Total Packaged Files: 204
+Archive Size: 21.17 MB
 ================================================================================
 
 KEY DELIVERABLES INCLUDED:
@@ -26,6 +26,7 @@ COMPLETE FILE INVENTORY:
   AGENTS.md
   ANTIGRAVITY_CONFIGURATION_REPORT.md
   ANTIGRAVITY_OPTIMIZATION_REPORT.md
+  COLLEGE_PRESENTATION_CONTENT.md
   COMPLETE_EXTENSION_INVENTORY.md
   COMPLETE_PROGRAM_INVENTORY.md
   COMPLETE_PROJECT_INVENTORY.md
@@ -33,16 +34,31 @@ COMPLETE FILE INVENTORY:
   DEPENDENCY_REPORT.md
   DEVELOPMENT_LOG.md
   ENVIRONMENT_SETUP_GUIDE.md
+  FACULTY_DEMONSTRATION_GUIDE.md
+  FINAL_3D_VISUALIZATION_AUDIT.md
   FINAL_ACADEMIC_READINESS_CHECKLIST.md
+  FINAL_BACKEND_TEST_REPORT.md
   FINAL_DOCUMENTATION_REPORT.md
+  FINAL_EXTENSION_INVENTORY.md
+  FINAL_FRONTEND_QA_REPORT.md
+  FINAL_FUNCTIONAL_VERIFICATION_REPORT.md
   FINAL_INDEPENDENT_ACCEPTANCE_AUDIT.md
   FINAL_PHYSICAL_DESIGN_REPORT.md
+  FINAL_PROJECT_REPORT.md
   FINAL_PROJECT_STATUS.md
   FINAL_SCREENSHOTS\chip_studio_viewport.png
   FINAL_SCREENSHOTS\master_dashboard_full.png
+  FINAL_SIMULATOR_VERIFICATION.md
+  FINAL_SKY130_PHYSICAL_DESIGN_AUDIT.md
+  FINAL_SOFTWARE_INVENTORY.md
+  FINAL_SUBMISSION_AUDIT.md
+  FINAL_SYNTHESIS_AUDIT.md
   FINAL_SYSTEM_AUDIT.md
   FINAL_SYSTEM_COMPLETION_REPORT.md
+  FINAL_TIMING_POWER_ANALYSIS.md
   FINAL_VERIFICATION_REPORT.md
+  FINAL_VISUAL_QA_REPORT.md
+  FINAL_WORKSPACE_DISCOVERY_REPORT.md
   GDSII_LAYOUT_EXPLANATION.md
   INDEPENDENT_AUDIT_REPORT.md
   INSTALLATION_GUIDE.md
@@ -55,14 +71,19 @@ COMPLETE FILE INVENTORY:
   PROJECT_WORKFLOW_EXPLANATION.md
   RCA_CSKA_TIMING_INVESTIGATION.md
   README.md
+  RTL_ARCHITECTURE_VERIFICATION.md
   SOFTWARE_AND_EXTENSION_INVENTORY.md
   SOFTWARE_AND_HARDWARE_INVENTORY.md
   SOFTWARE_SETUP_REPORT.md
+  START_CYBERCORE.bat
+  STOP_CYBERCORE.bat
+  SUBMISSION_MANIFEST.csv
   SYNTHESIS_ANALYSIS_REPORT.md
   SYSTEM_AUDIT.md
   TEST_RESULTS.md
   UI_REDESIGN_REPORT.md
   VISUAL_QA_REPORT.md
+  VIVA_QUESTION_BANK.md
   analysis\block_size_experiment.csv
   analysis\block_size_experiment.py
   analysis\comparison_results.csv
@@ -186,6 +207,12 @@ COMPLETE FILE INVENTORY:
   synthesis\yosys_scripts\synth_rca.ys
   synthesis\yosys_scripts\synth_rca_hier.ys
   verification\common_reference_model.v
+  verification\tb_all.vvp
+  verification\tb_bk.vvp
+  verification\tb_cla.vvp
+  verification\tb_cska.vvp
+  verification\tb_csla.vvp
+  verification\tb_rca.vvp
   verification\testbench_all.v
   verification\testbench_bk.v
   verification\testbench_cla.v
