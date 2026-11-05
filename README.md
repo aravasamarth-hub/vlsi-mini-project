@@ -142,3 +142,4 @@ npm run preview -- --port 3000
 - **Why CSKA?** Delivers a **57.1% speedup** over RCA with **zero area overhead** and lower active power than CLA.
 - **Physical Feasibility:** Validated through actual standard cell placement into 9 rows on a 45 µm × 35 µm die.
 - **Verification Integrity:** 100% passed over 60,000 automated cycles with full 17-bit output matching.
+

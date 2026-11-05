@@ -56,3 +56,4 @@ module csla_block_4bit (
     assign Cout = Cin ? cout1 : cout0;
 
 endmodule
+

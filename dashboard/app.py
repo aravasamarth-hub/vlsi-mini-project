@@ -477,3 +477,4 @@ elif page == "💾 Export Center":
         if os.path.exists(gds_path):
             with open(gds_path, "rb") as f:
                 st.download_button("📥 Download Complete GDSII Layout", f, "cska_sky130.gds", "application/octet-stream")
+

@@ -14,3 +14,4 @@ set "GDK_PIXBUF_MODULE_FILE=%ToolRoot%\lib\gdk-pixbuf-2.0\2.10.0\loaders.cache"
 
 set "PATH=%ToolRoot%\bin;%ToolRoot%\lib;%KLayoutRoot%;%VenvRoot%;%PATH%"
 echo Local EDA Environment Ready.
+

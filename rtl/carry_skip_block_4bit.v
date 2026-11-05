@@ -60,3 +60,4 @@ module carry_skip_block_4bit (
     assign Cout = P_group ? Cin : C_ripple;
 
 endmodule
+

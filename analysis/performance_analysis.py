@@ -299,3 +299,4 @@ def generate_charts(data):
 
 if __name__ == "__main__":
     analyze_all()
+

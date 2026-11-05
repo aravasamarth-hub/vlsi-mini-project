@@ -1,0 +1,5 @@
+partition_name,blocks,num_blocks,total_cells,cell_area_um2,delay_ns,area_delay_product,skip_logic_overhead_pct
+8x2 (Eight 2-bit blocks),"[2, 2, 2, 2, 2, 2, 2, 2]",8,32,390.34,2.325,907.5,30.0
+4x4 (Four 4-bit blocks - Baseline),"[4, 4, 4, 4]",4,24,355.31,2.433,864.5,18.3
+2x8 (Two 8-bit blocks),"[8, 8]",2,20,337.8,4.175,1410.3,12.5
+Variable-5 (2+3+4+4+3 non-uniform),"[2, 3, 4, 4, 3]",5,26,366.57,1.916,702.3,22.1

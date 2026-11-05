@@ -233,6 +233,56 @@ def get_project_status():
         }
     }
 
+class RecommendRequest(BaseModel):
+    profile: Optional[str] = "balanced"
+    delay_weight: Optional[float] = None
+    area_weight: Optional[float] = None
+    power_weight: Optional[float] = None
+    routing_weight: Optional[float] = None
+    max_delay_ns: Optional[float] = None
+    max_area_um2: Optional[float] = None
+    max_power_mw: Optional[float] = None
+
+@app.post("/api/recommendation")
+def get_recommendation(req: RecommendRequest):
+    try:
+        import sys
+        sys.path.insert(0, os.path.join(PROJECT_ROOT, "analysis"))
+        from recommendation_engine import ArchitectureRecommendationEngine, APPLICATION_PROFILES
+        
+        engine = ArchitectureRecommendationEngine()
+        if req.profile != "custom" and req.profile in APPLICATION_PROFILES:
+            weights = dict(APPLICATION_PROFILES[req.profile]["weights"])
+        else:
+            weights = {
+                "delay": req.delay_weight if req.delay_weight is not None else 0.35,
+                "area": req.area_weight if req.area_weight is not None else 0.25,
+                "power": req.power_weight if req.power_weight is not None else 0.25,
+                "routing": req.routing_weight if req.routing_weight is not None else 0.15,
+            }
+        
+        if req.delay_weight is not None:
+            weights["delay"] = req.delay_weight
+        if req.area_weight is not None:
+            weights["area"] = req.area_weight
+        if req.power_weight is not None:
+            weights["power"] = req.power_weight
+        if req.routing_weight is not None:
+            weights["routing"] = req.routing_weight
+            
+        result = engine.evaluate(
+            weights=weights,
+            max_delay_ns=req.max_delay_ns,
+            max_area_um2=req.max_area_um2,
+            max_power_mw=req.max_power_mw,
+            profile_name=req.profile
+        )
+        return result
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run("app:app", host="0.0.0.0", port=8000, reload=True)
+

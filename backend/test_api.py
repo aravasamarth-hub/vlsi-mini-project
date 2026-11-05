@@ -1,6 +1,6 @@
 import sys, os
 sys.path.insert(0, r"D:\mini project")
-from backend.app import read_root, simulate, simulate_all, get_ppa_metrics, get_physical_design_info, get_project_status, SimRequest
+from backend.app import read_root, simulate, simulate_all, get_ppa_metrics, get_physical_design_info, get_project_status, get_recommendation, SimRequest, RecommendRequest
 
 print("=== TESTING FASTAPI BACKEND FUNCTIONS DIRECTLY ===")
 r1 = read_root()
@@ -26,5 +26,8 @@ print("GET /api/physical-design -> Placed Cells:", r4["placed_cell_count"], "| G
 
 r5 = get_project_status()
 print("GET /api/project-status -> Toolchain Verified:", r5["toolchain"]["iverilog"], "| Vectors:", r5["functional_verification"]["random_vectors_tested"])
+
+r6 = get_recommendation(RecommendRequest(profile="balanced"))
+print("POST /api/recommendation -> Recommended:", r6["recommended_architecture"], "| Score:", r6["winner_details"]["score"])
 
 print(">>> ALL API BACKEND FUNCTIONS VERIFIED 100% OPERATIONAL <<<")

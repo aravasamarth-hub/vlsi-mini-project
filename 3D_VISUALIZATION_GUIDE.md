@@ -88,3 +88,4 @@ Open **`http://localhost:3000`** in Google Chrome or Microsoft Edge.
 - **Power Preference:** Configured for `high-performance` discrete GPU.
 - **Damping & Interpolation:** OrbitControls configured with damping factor `0.05` for smooth cinematic motion.
 - **Geometry Instancing:** Repeated metallic pins and full-adder sub-units use shared box/cylinder buffers to minimize draw calls.
+

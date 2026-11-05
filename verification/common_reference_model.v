@@ -16,3 +16,4 @@ module common_reference_model (
     assign SUM_exp   = Full_exp[15:0];
     assign Cout_exp  = Full_exp[16];
 endmodule
+

@@ -1,10 +1,11 @@
 .venv/
 node_modules/
-tools/oss-cad-suite/
-tools/oss-cad-suite.tgz
+tools/
+submission/*.zip
 *.vvp
 *.vcd
 frontend/dist/
 frontend/node_modules/
 __pycache__/
 *.pyc
+

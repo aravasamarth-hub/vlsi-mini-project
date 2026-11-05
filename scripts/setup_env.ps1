@@ -19,3 +19,4 @@ Write-Host "  Icarus Verilog : $(iverilog -V | Select-Object -First 1)"
 Write-Host "  Yosys          : $(yosys -V)"
 Write-Host "  Python         : $(python --version)"
 Write-Host "  KLayout Path   : $KLayoutRoot"
+

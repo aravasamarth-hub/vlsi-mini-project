@@ -1,0 +1,186 @@
+{
+  "profile": "high_speed",
+  "weights_used": {
+    "delay": 0.65,
+    "area": 0.1,
+    "power": 0.15,
+    "routing": 0.1
+  },
+  "constraints": {
+    "max_delay_ns": 1.0,
+    "max_area_um2": null,
+    "max_power_mw": null
+  },
+  "recommended_architecture": "CLA",
+  "recommended_name": "16-bit Carry Look-Ahead Adder (Hierarchical 4x4)",
+  "winner_details": {
+    "architecture": "CLA",
+    "name": "16-bit Carry Look-Ahead Adder (Hierarchical 4x4)",
+    "score": 76.03,
+    "raw_score": 76.03,
+    "is_eligible": true,
+    "violations": [],
+    "delay_ns": 0.88,
+    "cell_area_um2": 479.21,
+    "power_mw": 0.151,
+    "adp": 421.7,
+    "max_freq_mhz": 1136.4,
+    "routing_complexity": 4,
+    "advantages": [
+      "Fastest single-cycle addition (0.88 ns, 1.13 GHz theoretical)",
+      "77.5% faster than baseline RCA",
+      "Lowest Area-Delay Product (421.7 \u00b5m\u00b2\u00b7ns)"
+    ],
+    "drawbacks": [
+      "8.8% silicon area penalty (65 cells vs 48)",
+      "29.1% higher dynamic power dissipation",
+      "High fan-out carry generator cells (AOI/OA gates) increase wire capacitive loading"
+    ]
+  },
+  "cska_recommended_partition": {
+    "name": "Uniform 4x4 (Baseline)",
+    "blocks": [
+      4,
+      4,
+      4,
+      4
+    ],
+    "delay_ns": 1.68,
+    "area_um2": 440.42,
+    "skip_logic_overhead_pct": 18.3,
+    "recommendation": "Optimal general-purpose choice for 16-bit words. Perfect balance of bypass MUX count and local ripple delay."
+  },
+  "engineering_rationale": [
+    "The Carry Look-Ahead Adder (CLA) won the selection (76.03/100) due to its sub-nanosecond propagation delay (0.88 ns), delivering theoretical fmax of 1.13 GHz.",
+    "Its 8.8% area overhead (479.2 \u00b5m\u00b2) and 29% power increase are fully justified under high-throughput design constraints."
+  ],
+  "all_rankings": [
+    {
+      "architecture": "CLA",
+      "name": "16-bit Carry Look-Ahead Adder (Hierarchical 4x4)",
+      "score": 76.03,
+      "raw_score": 76.03,
+      "is_eligible": true,
+      "violations": [],
+      "delay_ns": 0.88,
+      "cell_area_um2": 479.21,
+      "power_mw": 0.151,
+      "adp": 421.7,
+      "max_freq_mhz": 1136.4,
+      "routing_complexity": 4,
+      "advantages": [
+        "Fastest single-cycle addition (0.88 ns, 1.13 GHz theoretical)",
+        "77.5% faster than baseline RCA",
+        "Lowest Area-Delay Product (421.7 \u00b5m\u00b2\u00b7ns)"
+      ],
+      "drawbacks": [
+        "8.8% silicon area penalty (65 cells vs 48)",
+        "29.1% higher dynamic power dissipation",
+        "High fan-out carry generator cells (AOI/OA gates) increase wire capacitive loading"
+      ]
+    },
+    {
+      "architecture": "CSKA",
+      "name": "16-bit Carry Skip Adder (Uniform 4x4)",
+      "score": 0.0,
+      "raw_score": 78.83,
+      "is_eligible": false,
+      "violations": [
+        "Delay (1.68 ns) > Limit (1.0 ns)"
+      ],
+      "delay_ns": 1.68,
+      "cell_area_um2": 440.42,
+      "power_mw": 0.122,
+      "adp": 739.91,
+      "max_freq_mhz": 595.2,
+      "routing_complexity": 2,
+      "advantages": [
+        "Optimal balance between latency and silicon overhead",
+        "Zero area penalty vs RCA in Sky130 technology mapping",
+        "57.1% latency reduction over RCA with identical cell count",
+        "Extremely low dynamic switching power in skip multiplexers",
+        "Regular, abuttable physical layout structure"
+      ],
+      "drawbacks": [
+        "Slower than full tree adders (CLA/BK) for extreme frequency targets"
+      ]
+    },
+    {
+      "architecture": "RCA",
+      "name": "16-bit Ripple Carry Adder",
+      "score": 0.0,
+      "raw_score": 35.0,
+      "is_eligible": false,
+      "violations": [
+        "Delay (3.92 ns) > Limit (1.0 ns)"
+      ],
+      "delay_ns": 3.92,
+      "cell_area_um2": 440.42,
+      "power_mw": 0.117,
+      "adp": 1726.46,
+      "max_freq_mhz": 255.1,
+      "routing_complexity": 1,
+      "advantages": [
+        "Absolute minimal routing wirelength and congestion",
+        "Simplest possible RTL and standard-cell layout",
+        "Lowest static and dynamic power consumption"
+      ],
+      "drawbacks": [
+        "Severe linear delay growth O(N) = 3.92 ns",
+        "Highest Area-Delay Product (1726.5 \u00b5m\u00b2\u00b7ns)",
+        "Unsuitable for high-speed clock domains (> 250 MHz)"
+      ]
+    },
+    {
+      "architecture": "CSLA",
+      "name": "16-bit Carry Select Adder (Speculative Dual-Chain)",
+      "score": 0.0,
+      "raw_score": 68.7,
+      "is_eligible": false,
+      "violations": [
+        "Delay (1.54 ns) > Limit (1.0 ns)"
+      ],
+      "delay_ns": 1.54,
+      "cell_area_um2": 440.42,
+      "power_mw": 0.156,
+      "adp": 678.25,
+      "max_freq_mhz": 649.4,
+      "routing_complexity": 3,
+      "advantages": [
+        "Fast speculative carry selection (1.54 ns)",
+        "60.7% speed improvement over RCA",
+        "Very simple multiplexer selection topology"
+      ],
+      "drawbacks": [
+        "33.3% higher dynamic switching power due to redundant speculative dual carry paths",
+        "High multiplexer routing fanout across bit boundaries"
+      ]
+    },
+    {
+      "architecture": "BK",
+      "name": "16-bit Brent-Kung Parallel Prefix Adder",
+      "score": 0.0,
+      "raw_score": 58.59,
+      "is_eligible": false,
+      "violations": [
+        "Delay (1.18 ns) > Limit (1.0 ns)"
+      ],
+      "delay_ns": 1.18,
+      "cell_area_um2": 506.74,
+      "power_mw": 0.165,
+      "adp": 597.95,
+      "max_freq_mhz": 847.5,
+      "routing_complexity": 5,
+      "advantages": [
+        "Low logic depth with regular tree structure",
+        "69.9% faster than RCA (1.18 ns)",
+        "Predictable logarithmic delay scaling O(log2 N)"
+      ],
+      "drawbacks": [
+        "Highest cell count (77 cells) and highest area (506.7 \u00b5m\u00b2)",
+        "Highest dynamic power dissipation (0.165 mW)",
+        "Complex prefix routing tree creates metal track congestion"
+      ]
+    }
+  ]
+}

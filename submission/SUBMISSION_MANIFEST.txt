@@ -1,0 +1,144 @@
+================================================================================
+CYBERCORE 3D - OFFICIAL PROJECT SUBMISSION MANIFEST
+Archive: 16bit_carry_skip_adder_sky130_submission.zip
+Generated: 2026-11-05 17:14:19
+Total Packaged Files: 124
+Archive Size: 19.58 MB
+================================================================================
+
+KEY DELIVERABLES INCLUDED:
+1. RTL Source Code (rtl/*.v - 5 adder architectures + primitives)
+2. Automated Self-Checking Testbenches (verification/*.v - 60,046 vectors)
+3. SkyWater 130nm Synthesis Gate Netlists & Reports (synthesis/)
+4. Physical Implementation (DEF placement, SDC timing, GDSII layout stream - 4.09 MB)
+5. PPA Performance Analysis, Charts & Multi-Attribute Recommendation Engine (analysis/)
+6. CYBERCORE 3D Web Application (frontend/ with production dist/ bundle)
+7. FastAPI Telemetry Backend & Streamlit Interactive Dashboard (backend/, dashboard/)
+8. Complete Academic Documentation & Viva Defense Guide (documentation/, *.md)
+
+--------------------------------------------------------------------------------
+COMPLETE FILE INVENTORY:
+  .gitignore
+  3D_VISUALIZATION_GUIDE.md
+  DEVELOPMENT_LOG.md
+  FINAL_PROJECT_STATUS.md
+  INSTALLATION_GUIDE.md
+  PROJECT_DOCUMENTATION.md
+  README.md
+  SYSTEM_AUDIT.md
+  TEST_RESULTS.md
+  analysis\block_size_experiment.csv
+  analysis\block_size_experiment.py
+  analysis\comparison_results.csv
+  analysis\comparison_results.json
+  analysis\graphs\architecture_vs_area.png
+  analysis\graphs\architecture_vs_delay.png
+  analysis\graphs\architecture_vs_power.png
+  analysis\graphs\area_delay_product.png
+  analysis\graphs\block_size_experiment.png
+  analysis\graphs\scalability_delay_curve.png
+  analysis\performance_analysis.py
+  analysis\recommendation_engine.py
+  analysis\recommendation_report.json
+  analysis\scalability_results.csv
+  analysis\scalability_study.py
+  backend\app.py
+  backend\test_api.py
+  dashboard\app.py
+  documentation\examiner_viva_defense.md
+  documentation\seminar_speaking_script.md
+  frontend\dist\assets\index-DsLfbdXN.js
+  frontend\dist\assets\index-uytstj5D.css
+  frontend\dist\index.html
+  frontend\index.html
+  frontend\package-lock.json
+  frontend\package.json
+  frontend\postcss.config.js
+  frontend\src\App.tsx
+  frontend\src\components\AdderSimulator.tsx
+  frontend\src\components\CarryVisualizer.tsx
+  frontend\src\components\Chip3D.tsx
+  frontend\src\components\LogicGateLab.tsx
+  frontend\src\components\PPABenchmark.tsx
+  frontend\src\components\PhysicalDesignViewer.tsx
+  frontend\src\components\PresentationMode.tsx
+  frontend\src\index.css
+  frontend\src\main.tsx
+  frontend\tailwind.config.js
+  frontend\tsconfig.json
+  frontend\vite.config.ts
+  physical_design\export_gds.py
+  physical_design\export_snapshot.py
+  physical_design\gds\cska_sky130.gds
+  physical_design\generate_physical_layout.py
+  physical_design\placement\cska_sky130.def
+  physical_design\plot_layout.py
+  physical_design\reports\cska_placement_layout.png
+  physical_design\sdc\cska_sky130.sdc
+  rtl\brent_kung_adder.v
+  rtl\carry_lookahead_adder.v
+  rtl\carry_select_adder.v
+  rtl\carry_skip_adder.v
+  rtl\carry_skip_block_4bit.v
+  rtl\cla_block_4bit.v
+  rtl\csla_block_4bit.v
+  rtl\full_adder.v
+  rtl\half_adder.v
+  rtl\parameterized_cska.v
+  rtl\ripple_carry_adder.v
+  run_complete_project.bat
+  scripts\package_submission.py
+  scripts\setup_env.bat
+  scripts\setup_env.ps1
+  simulation\run_simulation.py
+  simulation\simulation_logs\bk_verification.log
+  simulation\simulation_logs\cla_verification.log
+  simulation\simulation_logs\cska_verification.log
+  simulation\simulation_logs\csla_verification.log
+  simulation\simulation_logs\master_5adders_verification.log
+  simulation\simulation_logs\rca_verification.log
+  simulation\tb_all.vvp
+  simulation\tb_bk.vvp
+  simulation\tb_cla.vvp
+  simulation\tb_cska.vvp
+  simulation\tb_csla.vvp
+  simulation\tb_rca.vvp
+  simulation\waveforms\all_adders_comparison.vcd
+  simulation\waveforms\brent_kung_adder.vcd
+  simulation\waveforms\carry_lookahead_adder.vcd
+  simulation\waveforms\carry_select_adder.vcd
+  simulation\waveforms\carry_skip_adder.vcd
+  simulation\waveforms\ripple_carry_adder.vcd
+  synthesis\netlists\bk_sky130_netlist.v
+  synthesis\netlists\cla_sky130_netlist.v
+  synthesis\netlists\cska_sky130_netlist.v
+  synthesis\netlists\csla_sky130_netlist.v
+  synthesis\netlists\rca_sky130_netlist.v
+  synthesis\reports\bk_synth.log
+  synthesis\reports\cla_synth.log
+  synthesis\reports\cska_synth.log
+  synthesis\reports\csla_synth.log
+  synthesis\reports\rca_synth.log
+  synthesis\reports\synthesis_summary.csv
+  synthesis\reports\synthesis_summary.json
+  synthesis\run_synthesis.py
+  synthesis\sky130_pdk\sky130_fd_sc_hd.gds
+  synthesis\sky130_pdk\sky130_fd_sc_hd.tlef
+  synthesis\sky130_pdk\sky130_fd_sc_hd__tt_025C_1v80.lib
+  synthesis\sky130_pdk\sky130_fd_sc_hd_merged.lef
+  synthesis\sky130_pdk\sky130hd.lyp
+  synthesis\sky130_pdk\sky130hd.lyt
+  synthesis\test_ltp.ys
+  synthesis\yosys_scripts\synth_bk.ys
+  synthesis\yosys_scripts\synth_cla.ys
+  synthesis\yosys_scripts\synth_cska.ys
+  synthesis\yosys_scripts\synth_csla.ys
+  synthesis\yosys_scripts\synth_rca.ys
+  verification\common_reference_model.v
+  verification\testbench_all.v
+  verification\testbench_bk.v
+  verification\testbench_cla.v
+  verification\testbench_cska.v
+  verification\testbench_csla.v
+  verification\testbench_rca.v
+  verification\verification_results\summary.json

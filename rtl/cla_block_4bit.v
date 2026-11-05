@@ -46,3 +46,4 @@ module cla_block_4bit (
     assign Cout = c[4];
 
 endmodule
+

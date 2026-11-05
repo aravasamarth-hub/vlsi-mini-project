@@ -158,3 +158,4 @@ module brent_kung_adder (
     assign Cout = c[16];
 
 endmodule
+

@@ -72,3 +72,4 @@ ax.legend(handles=legend_elements, loc="upper right", facecolor="#0D1322", edgec
 plt.tight_layout()
 plt.savefig(IMG_OUT, dpi=250)
 print(f"[+] Layout plot saved with {count} placed cells to {IMG_OUT}")
+

@@ -24,3 +24,4 @@ module full_adder (
     assign cout = g | (cin & p);
 
 endmodule
+

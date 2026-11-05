@@ -110,3 +110,4 @@ where $M$ is block size (4 bits) and $K$ is number of blocks (4 blocks). For 16 
 
 **Q3: How is 100% arithmetic correctness guaranteed when the group propagate condition is false?**  
 *Answer:* When $P_{group} = 0$, the 2:1 multiplexer selects the local ripple-generated carry output ($C_{ripple}$). The block computes identically to a standard ripple carry adder stage, ensuring full formal correctness.
+

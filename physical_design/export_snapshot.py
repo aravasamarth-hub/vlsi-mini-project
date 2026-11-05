@@ -13,3 +13,4 @@ view.max_hier()
 view.zoom_fit()
 view.save_image(img_out, 1200, 900)
 print(f"[KLayout] Snapshot successfully saved: {img_out} ({os.path.getsize(img_out)} bytes)")
+
