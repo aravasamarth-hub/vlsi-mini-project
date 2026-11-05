@@ -4,7 +4,7 @@
 **Simulator:** Icarus Verilog 14.0 (devel) via VVP Runtime Engine  
 **Verification Date:** November 05, 2026  
 **Overall Status:** **100% PASSED (ZERO DEFECTS DETECTED)**  
-**Total Vectors Simulated:** **60,046 Cycles Across 5 Architectures**  
+**Total Vectors Simulated:** **60,038 Cycles Across 5 Architectures**  
 
 ---
 
@@ -43,7 +43,7 @@ Each architecture was subjected to 10,000 randomized 16-bit operand pairs ($A, B
 | **Carry Select Adder (CSLA)** | `testbench_csla.v` | 10,006 | 10,006 | 0 | **100.0%** | `simulation/waveforms/carry_select_adder.vcd` (9.6 MB) |
 | **Brent-Kung Adder (BK)** | `testbench_bk.v` | 10,006 | 10,006 | 0 | **100.0%** | `simulation/waveforms/brent_kung_adder.vcd` (8.1 MB) |
 | **Master Concurrent Harness** | `testbench_all.v` | 10,000 | 10,000 | 0 | **100.0%** | `simulation/waveforms/all_adders_comparison.vcd` (29.9 MB) |
-| **TOTAL** | — | **60,046** | **60,046** | **0** | **100.0%** | **6 VCD Files Generated** |
+| **TOTAL** | — | **60,038** | **60,038** | **0** | **100.0%** | **6 VCD Files Generated** |
 
 ---
 

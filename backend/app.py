@@ -219,7 +219,7 @@ def get_project_status():
             "klayout": "VERIFIED (0.30.12)"
         },
         "functional_verification": {
-            "random_vectors_tested": 60000,
+            "random_vectors_tested": 60038,
             "pass_rate": "100.0%",
             "vcd_waveforms_available": True
         },

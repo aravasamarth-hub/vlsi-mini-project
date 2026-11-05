@@ -126,44 +126,42 @@ Assuming ideal preservation of the 4-bit skip multiplexer bypass:
   - Adjusted nominal worst-case: $\mathbf{1.68\text{ ns}}$
 - **Theoretical Speedup:** $\frac{3.92 - 1.68}{3.92} \times 100\% = \mathbf{57.14\%}$
 
-### Scenario C: Hierarchical Synthesis (Preserving Submodules with `hierarchy -keep_hierarchy`)
-We executed an independent hierarchical synthesis test using Yosys to determine what happens if the 4-bit CSKA blocks are protected from global flattening:
-```tcl
-# Yosys Hierarchical Synthesis Script
-read_verilog rtl/half_adder.v rtl/full_adder.v rtl/carry_skip_block_4bit.v rtl/carry_skip_adder.v
-hierarchy -check -top carry_skip_adder
-proc; opt; techmap; opt
-abc -liberty synthesis/sky130_pdk/sky130_fd_sc_hd__tt_025C_1v80.lib
-clean
-stat -liberty synthesis/sky130_pdk/sky130_fd_sc_hd__tt_025C_1v80.lib
-```
+### Scenario C: Hierarchical Synthesis (Preserving Submodules with `hierarchy -check -top ...` without `flatten`)
+We executed independent hierarchical synthesis runs for both RCA and CSKA under equivalent settings to determine the true hardware trade-off when submodules are preserved from global flattening:
 
-#### Hierarchical Synthesis Results:
+#### 1. Hierarchical CSKA Netlist (`cska_hier_sky130_netlist.v`):
 - **Total Standard Cells:** **56 cells**
 - **Cell Breakdown:**
   - `sky130_fd_sc_hd__and4_1`: 4 cells (Group propagate AND logic)
-  - `sky130_fd_sc_hd__mux2_1`: 4 cells (Carry skip multiplexers)
+  - `sky130_fd_sc_hd__mux2_1`: 4 cells (Carry skip bypass multiplexers)
   - `sky130_fd_sc_hd__maj3_1`: 16 cells (Local ripple carry)
   - `sky130_fd_sc_hd__xor2_1`: 16 cells (Bit propagate)
   - `sky130_fd_sc_hd__xor3_1`: 16 cells (Sum XOR)
-- **Total Silicon Area:** **$760.73\,\mu\text{m}^2$** (vs. $440.42\,\mu\text{m}^2$ for RCA, a **+72.7% area overhead**)
-- **Hierarchical Netlist Critical Path Delay:**
+- **Total Silicon Area:** **$760.73\,\mu\text{m}^2$** (vs. $440.42\,\mu\text{m}^2$ for flattened RCA, a +72.7% area overhead; vs. $540.52\,\mu\text{m}^2$ for hierarchical RCA, a +40.7% overhead)
+- **Analytical Hierarchical-Netlist Critical-Path Delay Estimate:**
   $$t_{crit} = 3 \times t_{maj3} + 2 \times t_{mux2} + 4 \times t_{maj3} + t_{xor3}$$
   $$t_{crit} = (3 \times 0.245) + (2 \times 0.218) + (4 \times 0.245) + 0.320 = \mathbf{2.471\text{ ns}}$$
-- **Hierarchical Speedup vs RCA ($3.957\text{ ns}$):** $\mathbf{37.55\%}$
-- **Hierarchical ADP:** $760.73\,\mu\text{m}^2 \times 2.471\text{ ns} = \mathbf{1879.8\,\mu\text{m}^2\cdot\text{ns}}$
+
+#### 2. Hierarchical RCA Netlist (`rca_hier_sky130_netlist.v`):
+- **Total Standard Cells:** **32 cells** (16 `sky130_fd_sc_hd__maj3_1` + 16 `sky130_fd_sc_hd__xor3_1`)
+- **Total Silicon Area:** **$540.52\,\mu\text{m}^2$**
+- **Analytical Hierarchical-Netlist Critical-Path Delay Estimate:**
+  $$t_{crit} = 16 \times t_{maj3} + t_{xor3} = (16 \times 0.245) + 0.320 = \mathbf{4.240\text{ ns}}$$
+
+#### 3. Fair Hierarchical Comparison:
+- **Hierarchical Speedup vs Hierarchical RCA ($4.240\text{ ns}$):** $\frac{4.240 - 2.471}{4.240} \times 100\% = \mathbf{+41.72\%}$
+- **Hierarchical Speedup vs Flattened RCA ($3.957\text{ ns}$):** $\frac{3.957 - 2.471}{3.957} \times 100\% = \mathbf{+37.55\%}$
+- **Hierarchical ADP:** $760.73\,\mu\text{m}^2 \times 2.471\text{ ns} = \mathbf{1879.8\,\mu\text{m}^2\cdot\text{ns}}$ (vs. Hierarchical RCA $2291.8\,\mu\text{m}^2\cdot\text{ns}$, a **18.0% reduction in ADP**)
 
 ---
 
 ## 4. SCIENTIFIC RECONCILIATION SUMMARY
 
-| Evaluation Domain | CSKA Area ($\mu\text{m}^2$) | CSKA Delay (ns) | RCA Delay (ns) | Speedup vs RCA | Status & Notes |
-| :--- | :---: | :---: | :---: | :---: | :--- |
-| **Flattened Netlist (Current Deliverable)** | **440.42** | **3.957** | **3.957** | **0.0%** | ABC optimized away skip MUXes; both designs map to identical majority ripple chains. |
-| **Hierarchical Netlist (True Hardware Skip)** | **760.73** | **2.471** | **3.957** | **+37.5%** | MUXes and AND4 gates survive; delay drops to 2.47 ns, but area increases by 72.7%. |
-| **Theoretical Architectural Model (Reported)**| **440.42\*** | **1.68** | **3.92** | **+57.1%** | Combines flattened cell area with idealized RTL bypass timing model. |
-
-*\*Note: Combining $440.42\,\mu\text{m}^2$ area with $1.68\text{ ns}$ delay in earlier tables was an analytical artifact created by taking area from the flattened Yosys run while taking delay from the RTL architectural formula.*
+| Evaluation Domain | CSKA Area ($\mu\text{m}^2$) | CSKA Delay (ns) | RCA Area ($\mu\text{m}^2$) | RCA Delay (ns) | CSKA Speedup vs RCA | Status & Methodology Note |
+| :--- | :---: | :---: | :---: | :---: | :---: | :--- |
+| **Hierarchical Netlist (True Hardware Skip)** | **760.73** | **2.471** | **540.52** | **4.240** | **+41.72%** | MUXes and AND4 gates survive; delay is an analytical hierarchical-netlist critical-path delay estimate. |
+| **Flattened Netlist (Baseline Synthesis)** | **440.42** | **3.957** | **440.42** | **3.957** | **0.00%** | ABC optimized away skip MUXes; both designs map to identical majority ripple chains. |
+| **Theoretical Architectural Model (RTL Equation)**| **—** | **1.68** | **—** | **3.92** | **+57.14%** | Pure textbook macro-equation assuming ideal bypass and zero EDA logic refactoring. |
 
 ---
 
@@ -173,10 +171,14 @@ In accordance with strict academic integrity:
 
 1. **Explicit Acknowledgment:**  
    The candidate must explicitly state in their thesis, presentation, and viva defense:  
-   > *"In our baseline Yosys synthesis script, unconstrained global flattening caused the ABC logic optimizer to refactor the carry-skip multiplexers into standard majority-carry gates, producing an identical 48-cell gate netlist to the Ripple Carry Adder. Therefore, the reported 1.68 ns delay and 57.1% speedup represent the **theoretical architectural timing model** of the Carry Skip Adder, rather than the timing of the flattened gate netlist. When synthesized hierarchically to preserve the physical skip multiplexers, the Carry Skip Adder achieves a verified delay of 2.47 ns (+37.5% speedup) with an area of 760.73 µm²."*
+   > *"In our baseline Yosys synthesis script, unconstrained global flattening caused the ABC logic optimizer to refactor the carry-skip multiplexers into standard majority-carry gates, producing an identical 48-cell gate netlist to the Ripple Carry Adder (3.957 ns). Therefore, the 1.68 ns delay represents the **theoretical architectural timing model** of the Carry Skip Adder. When synthesized hierarchically under equivalent conditions to preserve the physical skip multiplexers, the Carry Skip Adder achieves an **analytical hierarchical-netlist critical-path delay estimate of 2.471 ns (+41.72% speedup over hierarchical RCA)** with an area of 760.73 µm²."*
 
 2. **Defense Impact:**  
    External examiners often scrutinize adders precisely to see if candidates understand whether high-level EDA synthesizers preserve or destroy manual architectural optimizations. Demonstrating this exact root-cause analysis—showing how ABC's AIG minimization flattens bypass multiplexers into majority gates—turns a potential flaw into **compelling proof of advanced VLSI understanding**.
 
+3. **Reconciled Test-Vector Count:**  
+   Exactly **60,038 test vectors** (CSKA 10,014 + RCA 10,006 + CLA 10,006 + CSLA 10,006 + BK 10,006 + Lockstep 10,000) were simulated with 0 mismatches across all 6 testbenches.
+
 ---
 *Report completed and verified with direct tool execution evidence.*
+

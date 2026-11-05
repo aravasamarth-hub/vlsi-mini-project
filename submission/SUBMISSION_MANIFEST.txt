@@ -1,9 +1,9 @@
 ================================================================================
 CYBERCORE 3D - OFFICIAL PROJECT SUBMISSION MANIFEST
 Archive: 16bit_carry_skip_adder_sky130_submission.zip
-Generated: 2026-11-05 17:57:33
-Total Packaged Files: 131
-Archive Size: 19.60 MB
+Generated: 2026-11-05 18:34:06
+Total Packaged Files: 136
+Archive Size: 19.62 MB
 ================================================================================
 
 KEY DELIVERABLES INCLUDED:
@@ -53,8 +53,8 @@ COMPLETE FILE INVENTORY:
   dashboard\app.py
   documentation\examiner_viva_defense.md
   documentation\seminar_speaking_script.md
-  frontend\dist\assets\index-DbdWky3l.js
-  frontend\dist\assets\index-uytstj5D.css
+  frontend\dist\assets\index-Cy5EONen.js
+  frontend\dist\assets\index-DXRZhGIf.css
   frontend\dist\index.html
   frontend\index.html
   frontend\package-lock.json
@@ -117,13 +117,17 @@ COMPLETE FILE INVENTORY:
   simulation\waveforms\ripple_carry_adder.vcd
   synthesis\netlists\bk_sky130_netlist.v
   synthesis\netlists\cla_sky130_netlist.v
+  synthesis\netlists\cska_hier_sky130_netlist.v
   synthesis\netlists\cska_sky130_netlist.v
   synthesis\netlists\csla_sky130_netlist.v
+  synthesis\netlists\rca_hier_sky130_netlist.v
   synthesis\netlists\rca_sky130_netlist.v
   synthesis\reports\bk_synth.log
   synthesis\reports\cla_synth.log
+  synthesis\reports\cska_hier_synth.log
   synthesis\reports\cska_synth.log
   synthesis\reports\csla_synth.log
+  synthesis\reports\rca_hier_synth.log
   synthesis\reports\rca_synth.log
   synthesis\reports\synthesis_summary.csv
   synthesis\reports\synthesis_summary.json
@@ -141,6 +145,7 @@ COMPLETE FILE INVENTORY:
   synthesis\yosys_scripts\synth_cska_hier.ys
   synthesis\yosys_scripts\synth_csla.ys
   synthesis\yosys_scripts\synth_rca.ys
+  synthesis\yosys_scripts\synth_rca_hier.ys
   verification\common_reference_model.v
   verification\testbench_all.v
   verification\testbench_bk.v

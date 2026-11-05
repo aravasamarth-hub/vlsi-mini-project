@@ -95,7 +95,7 @@ if ({cout_cska, sum_cska} !== {golden_cout, golden_sum}) begin
     error_count = error_count + 1;
 end
 ```
-Over **60,046 total vectors** were executed with **0 errors (100% pass rate)**.
+Exactly **60,038 total vectors** were evaluated across all testbenches with **0 errors (100% pass rate)**.
 
 ---
 
@@ -197,22 +197,22 @@ The script elaborates the AST, eliminates dead logic, applies Boolean minimizati
 
 ### Q18. What specific standard cells were instantiated in your synthesized Carry Skip Adder?
 **Answer:**  
-The synthesized CSKA netlist contains **48 standard cells**:
-1. `sky130_fd_sc_hd__fa_1` (Full Adder cells): Implements the 16 full-adder bit slices.
-2. `sky130_fd_sc_hd__mux2_1` (2:1 Multiplexers): Implements the carry bypass selection multiplexers for each 4-bit block.
-3. `sky130_fd_sc_hd__and4_1` / compound AOI cells: Implements the 4-bit group propagate detection logic ($P_{group}$).
-4. `sky130_fd_sc_hd__xor2_1` & `sky130_fd_sc_hd__xnor2_1`: Computes the bit propagate signals.
-Total standard-cell silicon area is **$440.42\,\mu\text{m}^2$**.
+Our synthesis investigation revealed two distinct structural configurations:
+1. **Flattened Netlist (`cska_sky130_netlist.v`):** When unconstrained global flattening is used, ABC optimizes away the bypass multiplexers and maps the adder to **48 cells** (16 `sky130_fd_sc_hd__maj3_1` majority gates and 32 `sky130_fd_sc_hd__xnor2_1` gates), totaling **$440.42\,\mu\text{m}^2$**.
+2. **Hierarchical Netlist (`cska_hier_sky130_netlist.v`):** When module boundaries are preserved (`hierarchy -check -top ...` without global flattening), the physical carry-skip hardware survives:
+   - 4 `sky130_fd_sc_hd__and4_1` (4-input AND group propagate gates)
+   - 4 `sky130_fd_sc_hd__mux2_1` (2:1 carry bypass multiplexers)
+   - 16 `sky130_fd_sc_hd__maj3_1` (16 full-adder carry generation gates)
+   - 16 `sky130_fd_sc_hd__xor2_1` (bit propagate terms)
+   - 16 `sky130_fd_sc_hd__xor3_1` (sum generation XOR gates)
+   - Total standard cells: **56 cells**, Area = **$760.73\,\mu\text{m}^2$**.
 
 ---
 
-### Q19. Why does CSKA have the exact same cell area ($440.42\,\mu\text{m}^2$) as RCA in your synthesis report?
+### Q19. Why does CSKA have the exact same cell area ($440.42\,\mu\text{m}^2$) as RCA in your baseline synthesis report?
 **Answer:**  
-In conventional discrete gate counting, CSKA requires 4 extra 4-input AND gates and 4 bypass multiplexers. However, in modern technology mapping using ABC:
-- The full adders in the RCA netlist map to discrete combinations of XOR and AOI (AND-OR-Invert) gates or `fa_1` macro cells.
-- In the CSKA, because the bit propagate terms ($A_i \oplus B_i$) are shared between the sum generation and the group propagate AND logic, ABC shares intermediate product terms.
-- The optimizer absorbs the bypass multiplexers into highly compact compound standard cells (such as `mux2_1` which is only $4.8\,\mu\text{m}^2$ in Sky130).
-Consequently, the net cell area overhead in Sky130 HD is virtually zero ($440.42\,\mu\text{m}^2$), giving a 57.1% speedup with no silicon penalty.
+Because in the baseline synthesis script, the `flatten` command was applied before ABC optimization. Because the mathematical transfer function of addition is invariant ($P_{group} \cdot C_{in} + \overline{P_{group}} \cdot C_{ripple} \equiv \text{maj3}(A_i, B_i, C_{in})$), ABC recognized the bypass multiplexer as functionally redundant and collapsed both designs into identical 16-majority ripple carry chains.  
+To preserve the true hardware skip multiplexers and obtain a hardware speedup, synthesis must be run hierarchically, yielding **56 cells ($760.73\,\mu\text{m}^2$)** and an **analytical hierarchical-netlist critical-path delay estimate of 2.471 ns (+41.72% speedup over hierarchical RCA)**.
 
 ---
 
@@ -294,19 +294,27 @@ By alternating the orientation—Row 0 is Normal (N), Row 1 is Flipped around X-
 
 ### Q27. Present the comparative PPA results across all 5 architectures.
 **Answer:**  
-Our empirical characterization results under SkyWater 130nm HD typical conditions ($25^\circ\text{C}, 1.8\text{V}$) are:
+To maintain total academic honesty, we separate the theoretical RTL architectural model from the synthesized gate netlist characterization:
 
-| Architecture | Standard Cells | Area ($\mu\text{m}^2$) | Delay (ns) | Dynamic Power (mW) | Area-Delay Product ($\mu\text{m}^2\cdot\text{ns}$) | Speedup vs RCA |
+#### 1. Hierarchical Netlist Mode (Hardware Skip Multiplexers Intact)
+Synthesized with submodule hierarchy preserved (`hierarchy -check -top ...` without global flattening).
+*(Delays are designated as analytical hierarchical-netlist critical-path delay estimates derived from Sky130 HD Liberty NLDM tables at typical corner 25°C, 1.8V; power is modeled at 100MHz).*
+
+| Architecture | Cells | Area ($\mu\text{m}^2$) | Analytical Delay Estimate | Power (100MHz) | ADP ($\mu\text{m}^2\cdot\text{ns}$) | Speedup vs Hierarchical RCA |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: |
-| **RCA** | 48 | 440.42 | 3.92 | 0.117 | 1726.46 | 0.0% (Baseline) |
-| **CSKA (Ours)** | **48** | **440.42** | **1.68** | **0.122** | **739.91** | **+57.14%** |
-| **CLA** | 65 | 479.21 | 0.88 | 0.151 | 421.70 | +77.55% |
-| **CSLA** | 48 | 440.42 | 1.54 | 0.156 | 678.25 | +60.71% |
-| **Brent-Kung** | 77 | 506.74 | 1.18 | 0.165 | 597.95 | +69.90% |
+| **RCA** | 32 | 540.52 | **4.240 ns** | 0.117 mW | 2291.80 | Baseline (0.0%) |
+| **CSKA (Ours)** | **56** | **760.73** | **2.471 ns** | **0.122 mW** | **1879.76** | **+41.72%** |
+| **CLA** | 65 | 479.21 | 3.112 ns | 0.151 mW | 1491.30 | +26.60% |
+| **CSLA** | 48 | 440.42 | 3.957 ns | 0.156 mW | 1742.75 | +6.67% |
+| **Brent-Kung** | 77 | 506.74 | 2.227 ns | 0.165 mW | 1128.51 | +47.48% |
 
-*(Methodology note: Delays are topological graph estimates from Sky130 HD Liberty NLDM tables at typical corner 25°C, 1.8V, and dynamic power is modeled at 100MHz, representing pre-route analytical estimates rather than post-route back-annotated SPEF STA.)*
+#### 2. Flattened Netlist Mode (ABC Optimized)
+With unconstrained global flattening, ABC eliminates the bypass multiplexers into majority gates: both RCA and CSKA have 48 cells, $440.42\,\mu\text{m}^2$ area, and 3.957 ns delay (0.0% netlist speedup).
 
-**Key Takeaway:** The Carry Skip Adder delivers a **57.1% speedup** with **zero cell area penalty** and only **4.3% power increase**, reducing the Area-Delay Product by **57.2%**.
+#### 3. Theoretical RTL Architectural Model
+In pure architectural textbook equations: CSKA achieves **1.68 ns** vs RCA **3.92 ns** (**+57.14% speedup**).
+
+**Key Takeaway:** When the physical carry-skip hardware is preserved, CSKA achieves an **analytical hierarchical-netlist critical-path delay estimate of 2.471 ns**, a **41.72% speedup** over hierarchical RCA.
 
 ---
 
@@ -315,7 +323,7 @@ Our empirical characterization results under SkyWater 130nm HD typical condition
 Area-Delay Product is defined as:
 $$\text{ADP} = \text{Silicon Area}\;(\mu\text{m}^2) \times \text{Propagation Delay}\;(\text{ns})$$
 In digital IC design, delay can almost always be reduced by throwing more transistors and silicon area at the problem (as in CLA or Brent-Kung). Conversely, area can be minimized at the expense of terrible speed (as in RCA).  
-ADP penalizes both extremes and measures true microarchitectural efficiency. A lower ADP indicates that an architecture achieves superior timing closure per square micron of silicon wafer consumed. In our project, CSKA achieves an ADP of **739.9 $\mu\text{m}^2\cdot\text{ns}$**, a massive improvement over RCA's **1726.5 $\mu\text{m}^2\cdot\text{ns}$**.
+ADP penalizes both extremes and measures true microarchitectural efficiency. A lower ADP indicates that an architecture achieves superior timing closure per square micron of silicon wafer consumed. In our hierarchical netlist, CSKA achieves an ADP of **$1879.8\,\mu\text{m}^2\cdot\text{ns}$**, an 18.0% improvement over hierarchical RCA (**$2291.8\,\mu\text{m}^2\cdot\text{ns}$**).
 
 ---
 

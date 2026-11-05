@@ -1,0 +1,14 @@
+
+read_verilog X:/rtl/half_adder.v
+read_verilog X:/rtl/full_adder.v
+read_verilog X:/rtl/carry_skip_block_4bit.v
+read_verilog X:/rtl/carry_skip_adder.v
+hierarchy -check -top carry_skip_adder
+proc
+opt
+techmap
+opt
+abc -liberty X:/synthesis/sky130_pdk/sky130_fd_sc_hd__tt_025C_1v80.lib
+clean
+write_verilog -noattr X:/synthesis/netlists/cska_hier_sky130_netlist.v
+stat -liberty X:/synthesis/sky130_pdk/sky130_fd_sc_hd__tt_025C_1v80.lib
