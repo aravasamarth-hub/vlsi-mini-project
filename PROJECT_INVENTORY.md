@@ -78,3 +78,4 @@
 | [`analysis/scalability_results.csv`](file:///D:/mini%20project/analysis/scalability_results.csv) | CSV | Word-length scaling study (8, 16, 32, 64-bit adders) |
 | [`analysis/graphs/*.png`](file:///D:/mini%20project/analysis/graphs/) | PNG Graphics | 6 high-resolution publication-quality analytical comparison plots |
 | [`analysis/recommendation_report.json`](file:///D:/mini%20project/analysis/recommendation_report.json) | JSON | Automated engineering recommendation engine report |
+

@@ -117,3 +117,4 @@ In accordance with strict academic integrity standards:
    - **Signoff DRC (Design Rule Checking):** Standard cells are internally DRC clean from SkyWater foundry, but inter-cell DRC rules (such as well-tap proximity and antenna diode rules) have not been signoff-closed.
    - **Signoff LVS (Layout Versus Schematic):** Because detailed signal routing is uncompleted, full LVS extraction against the SPICE netlist cannot be run.
    - **Tapeout Readiness:** The GDSII is an **academic placement stream**, NOT a tapeout-ready fabrication package.
+

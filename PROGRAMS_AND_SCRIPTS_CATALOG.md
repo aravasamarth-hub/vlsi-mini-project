@@ -94,3 +94,4 @@ Quantitative post-synthesis analysis, architectural trade-off evaluation, and gr
 | `scripts/package_submission.py` | Bundles complete project deliverables into clean ZIP archive excluding caches | `python scripts/package_submission.py` |
 | `scripts/setup_env.ps1` | Configures PowerShell environment paths for OSS CAD Suite and Python | `.\scripts\setup_env.ps1` |
 | `scripts/setup_env.bat` | Command prompt launcher for Windows batch environments | `scripts\setup_env.bat` |
+

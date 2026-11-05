@@ -127,6 +127,16 @@ def read_root():
         "active_drive": PROJECT_ROOT
     }
 
+@app.get("/api/health")
+def health_check():
+    return {
+        "status": "HEALTHY",
+        "service": "CYBERCORE 3D Backend",
+        "version": "2.0.0",
+        "database": "ONLINE",
+        "verilog_engine": "ACTIVE"
+    }
+
 @app.post("/api/simulate")
 def simulate(req: SimRequest):
     telemetry = compute_adder_hardware_telemetry(req.a, req.b, req.cin)

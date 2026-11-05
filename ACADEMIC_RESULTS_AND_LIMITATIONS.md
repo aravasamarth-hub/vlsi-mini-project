@@ -81,3 +81,4 @@ To uphold the highest academic engineering standards, the following technical li
 3. **Clocking:** The adder is purely combinational; synchronous pipeline registers and clock distribution networks were intentionally excluded from this unit-level study.
 4. **Signoff Closure:** Full signoff DRC and LVS checks across all 35 SkyWater mask layers were not run; standard cells are individually DRC-compliant, but chip-level signoff remains for full physical design closure.
 5. **Tapeout Readiness:** This project represents an **academically verified RTL-to-GDSII placement prototype**, not an industrial tapeout-ready deliverable.
+

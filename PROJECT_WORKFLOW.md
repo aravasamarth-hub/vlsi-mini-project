@@ -126,3 +126,4 @@
 - **Frontend:** Hardware-accelerated 3D semiconductor chip with realistic package, QFP gull-wing pins, multi-layer explosion, and live adder simulator.
 - **Backend:** FastAPI REST API connecting browser inputs to local Verilog simulation engine.
 - **Documentation:** 8 academic reports detailing software inventories, script catalogs, layout explanations, and examiner viva preparation.
+

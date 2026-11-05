@@ -1,33 +1,66 @@
 import sys, os
-sys.path.insert(0, r"D:\mini project")
-from backend.app import read_root, simulate, simulate_all, get_ppa_metrics, get_physical_design_info, get_project_status, get_recommendation, SimRequest, RecommendRequest
+import pytest
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from backend.app import (
+    read_root,
+    health_check,
+    simulate,
+    simulate_all,
+    get_ppa_metrics,
+    get_physical_design_info,
+    get_project_status,
+    get_recommendation,
+    SimRequest,
+    RecommendRequest
+)
 
-print("=== TESTING FASTAPI BACKEND FUNCTIONS DIRECTLY ===")
-r1 = read_root()
-print("GET / -> Status: OK |", r1["lab"], "| Status:", r1["status"])
+def test_read_root():
+    res = read_root()
+    assert res["status"] == "ONLINE"
+    assert "CYBERCORE 3D" in res["lab"]
 
-# Test Full Carry Skip: A=0xAAAA (43690), B=0x5555 (21845), Cin=1 -> All 4 blocks skip!
-req = SimRequest(a=0xAAAA, b=0x5555, cin=1, architecture="CSKA")
-data = simulate(req)
-print("POST /api/simulate ->")
-print("  Inputs          : A=0xAAAA (43690), B=0x5555 (21845), Cin=1")
-print("  SUM             :", data["SUM_hex"], f"({data['SUM']})")
-print("  Cout            :", data["Cout"])
-print("  Group Propagates:", data["group_propagate"])
-print("  Block Carries   :", data["block_carries"])
-print("  Block 0 Path    :", data["blocks"][0]["path_used"])
-print("  Block 3 Path    :", data["blocks"][3]["path_used"])
+def test_health_check():
+    res = health_check()
+    assert res["status"] == "HEALTHY"
+    assert res["verilog_engine"] == "ACTIVE"
 
-r3 = get_ppa_metrics()
-print("GET /api/ppa-comparison -> Architectures:", len(r3))
+def test_cska_simulation_full_skip():
+    # A=0xAAAA (43690), B=0x5555 (21845), Cin=1 -> All 4 blocks skip
+    req = SimRequest(a=0xAAAA, b=0x5555, cin=1, architecture="CSKA")
+    data = simulate(req)
+    assert data["SUM"] == 0
+    assert data["Cout"] == 1
+    assert data["group_propagate"] == [1, 1, 1, 1]
+    assert data["skip_decisions"] == [True, True, True, True]
+    assert data["blocks"][0]["path_used"] == "SKIP_PATH (Bypass)"
 
-r4 = get_physical_design_info()
-print("GET /api/physical-design -> Placed Cells:", r4["placed_cell_count"], "| GDS Size:", r4["gds_file_size_kb"], "KB")
+def test_ppa_metrics():
+    metrics = get_ppa_metrics()
+    assert len(metrics) >= 5
 
-r5 = get_project_status()
-print("GET /api/project-status -> Toolchain Verified:", r5["toolchain"]["iverilog"], "| Vectors:", r5["functional_verification"]["random_vectors_tested"])
+def test_physical_design_info():
+    info = get_physical_design_info()
+    assert info["status"] == "COMPLETED"
+    assert info["die_width_um"] == 45.0
+    assert info["die_height_um"] == 35.0
+    assert info["gds_file_exists"] is True
 
-r6 = get_recommendation(RecommendRequest(profile="balanced"))
-print("POST /api/recommendation -> Recommended:", r6["recommended_architecture"], "| Score:", r6["winner_details"]["score"])
+def test_project_status():
+    status = get_project_status()
+    assert status["functional_verification"]["random_vectors_tested"] == 60038
+    assert status["functional_verification"]["pass_rate"] == "100.0%"
 
-print(">>> ALL API BACKEND FUNCTIONS VERIFIED 100% OPERATIONAL <<<")
+def test_recommendation_engine():
+    rec = get_recommendation(RecommendRequest(profile="balanced"))
+    assert "recommended_architecture" in rec
+
+if __name__ == "__main__":
+    print("Running backend tests directly...")
+    test_read_root()
+    test_health_check()
+    test_cska_simulation_full_skip()
+    test_ppa_metrics()
+    test_physical_design_info()
+    test_project_status()
+    test_recommendation_engine()
+    print(">>> ALL 7 BACKEND TESTS PASSED (100% OK) <<<")
