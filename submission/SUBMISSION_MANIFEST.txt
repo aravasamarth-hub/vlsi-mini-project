@@ -1,8 +1,8 @@
 ================================================================================
 CYBERCORE 3D - OFFICIAL PROJECT SUBMISSION MANIFEST
 Archive: 16bit_carry_skip_adder_sky130_submission.zip
-Generated: 2026-11-05 17:40:30
-Total Packaged Files: 129
+Generated: 2026-11-05 17:57:33
+Total Packaged Files: 131
 Archive Size: 19.60 MB
 ================================================================================
 
@@ -29,6 +29,7 @@ COMPLETE FILE INVENTORY:
   INDEPENDENT_AUDIT_REPORT.md
   INSTALLATION_GUIDE.md
   PROJECT_DOCUMENTATION.md
+  RCA_CSKA_TIMING_INVESTIGATION.md
   README.md
   SYSTEM_AUDIT.md
   TEST_RESULTS.md
@@ -137,6 +138,7 @@ COMPLETE FILE INVENTORY:
   synthesis\yosys_scripts\synth_bk.ys
   synthesis\yosys_scripts\synth_cla.ys
   synthesis\yosys_scripts\synth_cska.ys
+  synthesis\yosys_scripts\synth_cska_hier.ys
   synthesis\yosys_scripts\synth_csla.ys
   synthesis\yosys_scripts\synth_rca.ys
   verification\common_reference_model.v
