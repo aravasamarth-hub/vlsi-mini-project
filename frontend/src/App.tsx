@@ -15,7 +15,13 @@ import {
   Waves,
   PlayCircle,
   RefreshCw,
-  LayoutGrid
+  LayoutGrid,
+  Workflow,
+  Laptop,
+  GraduationCap,
+  Lightbulb,
+  Sparkles,
+  CheckCircle2
 } from 'lucide-react'
 
 import Chip3D from './components/Chip3D'
@@ -28,8 +34,34 @@ import PhysicalDesignViewer from './components/PhysicalDesignViewer'
 import LogicGateLab from './components/LogicGateLab'
 import PresentationMode from './components/PresentationMode'
 
+// Newly integrated master components
+import ProjectOverview from './components/ProjectOverview'
+import ProjectWorkflow from './components/ProjectWorkflow'
+import CSKAExplanation from './components/CSKAExplanation'
+import SoftwareInventory from './components/SoftwareInventory'
+import SourceCodeExplorer from './components/SourceCodeExplorer'
+import OutputGallery from './components/OutputGallery'
+import LearningCenter from './components/LearningCenter'
+
+export type TabType =
+  | '3D'
+  | 'OVERVIEW'
+  | 'WORKFLOW'
+  | 'CSKA_WORK'
+  | 'SIM'
+  | 'VIS'
+  | 'PPA'
+  | 'PHY'
+  | 'GATES'
+  | 'SOFTWARE'
+  | 'CODE'
+  | 'OUTPUTS'
+  | 'LEARNING'
+  | 'REPORTS'
+
 export default function App() {
-  const [activeTab, setActiveTab] = useState<'3D' | 'SIM' | 'VIS' | 'PPA' | 'PHY' | 'GATES' | 'REPORTS'>('3D')
+  const [activeTab, setActiveTab] = useState<TabType>('3D')
+  const [globalMode, setGlobalMode] = useState<'BEGINNER' | 'ENGINEERING'>('BEGINNER')
   const [exploded] = useState<boolean>(true)
   const [activeBlock, setActiveBlock] = useState<number | null>(0)
   const [architecture, setArchitecture] = useState<string>('CSKA')
@@ -122,7 +154,7 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-[#050811] flex flex-col font-sans cyber-grid text-[#E2E8F0]">
-      {/* Top Application Bar (Reference 1) */}
+      {/* Top Application Bar */}
       <header className="h-16 border-b border-[#1E293B] bg-[#070D1A]/95 backdrop-blur-md px-6 flex items-center justify-between sticky top-0 z-40 shadow-xl">
         <div className="flex items-center space-x-4">
           <button
@@ -148,7 +180,7 @@ export default function App() {
             </div>
           </button>
 
-          {/* Badges Bar (Reference 1) */}
+          {/* Badges Bar */}
           <div className="hidden xl:flex items-center space-x-2.5 pl-6 border-l border-[#1E293B] text-xs font-mono">
             <span className="px-2.5 py-1 rounded-full bg-[#00F0FF]/10 text-[#00F0FF] border border-[#00F0FF]/30 font-bold flex items-center space-x-1.5">
               <span className="w-1.5 h-1.5 rounded-full bg-[#00F0FF]"></span>
@@ -165,41 +197,55 @@ export default function App() {
           </div>
         </div>
 
-        {/* Right Navigation & Action Buttons (Reference 1) */}
-        <div className="flex items-center space-x-2.5 text-xs font-mono">
+        {/* Global Mode Switcher Pill & Actions */}
+        <div className="flex items-center space-x-3 text-xs font-mono">
           {actionNotice && (
             <span className="text-xs font-mono text-[#00DF72] bg-[#00DF72]/10 px-3 py-1 rounded-lg border border-[#00DF72]/30 animate-pulse">
               {actionNotice}
             </span>
           )}
 
-          <a
-            href="https://skywater-pdk.readthedocs.io/"
-            target="_blank"
-            rel="noreferrer"
-            className="px-3 py-1.5 rounded-lg bg-[#0A1224] hover:bg-[#1E293B] text-[#94A3B8] hover:text-white border border-[#1E293B] flex items-center space-x-1.5 transition"
-          >
-            <BookOpen className="w-3.5 h-3.5" />
-            <span>Docs</span>
-          </a>
+          {/* Global Mode Switcher */}
+          <div className="hidden md:flex items-center bg-[#060A14] p-1 rounded-xl border border-[#1E293B]">
+            <button
+              onClick={() => {
+                setGlobalMode('BEGINNER')
+                triggerNotice('Mode: Beginner / Everyday Explanations')
+              }}
+              className={`px-3 py-1 rounded-lg font-bold flex items-center space-x-1.5 transition ${
+                globalMode === 'BEGINNER'
+                  ? 'bg-gradient-to-r from-[#00DF72] to-[#00A854] text-black shadow-md shadow-[#00DF72]/20'
+                  : 'text-[#94A3B8] hover:text-white'
+              }`}
+            >
+              <Lightbulb className="w-3.5 h-3.5" />
+              <span>SIMPLE</span>
+            </button>
+            <button
+              onClick={() => {
+                setGlobalMode('ENGINEERING')
+                triggerNotice('Mode: Full VLSI Engineering Specifications')
+              }}
+              className={`px-3 py-1 rounded-lg font-bold flex items-center space-x-1.5 transition ${
+                globalMode === 'ENGINEERING'
+                  ? 'bg-gradient-to-r from-[#00F0FF] to-[#0088FF] text-black shadow-md shadow-[#00F0FF]/20'
+                  : 'text-[#94A3B8] hover:text-white'
+              }`}
+            >
+              <Cpu className="w-3.5 h-3.5" />
+              <span>ENGINEERING</span>
+            </button>
+          </div>
 
           <button
-            onClick={() => triggerNotice('GitHub Repository: master branch synced')}
-            className="px-3 py-1.5 rounded-lg bg-[#0A1224] hover:bg-[#1E293B] text-[#94A3B8] hover:text-white border border-[#1E293B] flex items-center space-x-1.5 transition"
-          >
-            <Code2 className="w-3.5 h-3.5" />
-            <span>GitHub</span>
-          </button>
-
-          <button
-            onClick={() => triggerNotice('Exported Academic Submission Bundle')}
+            onClick={() => setActiveTab('OUTPUTS')}
             className="px-3 py-1.5 rounded-lg bg-[#0A1224] hover:bg-[#1E293B] text-[#94A3B8] hover:text-white border border-[#1E293B] flex items-center space-x-1.5 transition"
           >
             <FolderDown className="w-3.5 h-3.5" />
-            <span>Export</span>
+            <span className="hidden sm:inline">Export</span>
           </button>
 
-          {/* SEMINAR MODE Button (Reference 1) */}
+          {/* SEMINAR MODE Button */}
           <button
             onClick={() => setPresentationOpen(true)}
             className="px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-[#FF7A00] to-[#FF5500] text-black font-mono font-bold text-xs flex items-center space-x-2 shadow-lg shadow-[#FF7A00]/25 hover:opacity-95 transition"
@@ -207,43 +253,34 @@ export default function App() {
             <Presentation className="w-4 h-4" />
             <span>SEMINAR MODE</span>
           </button>
-
-          <button
-            onClick={() => triggerNotice('Settings Panel: Rendering & PDK Defaults')}
-            className="p-2 rounded-lg bg-[#0A1224] border border-[#1E293B] text-[#94A3B8] hover:text-white transition"
-          >
-            <Settings className="w-4 h-4" />
-          </button>
         </div>
       </header>
 
       {/* Main Workspace Layout */}
       <div className="flex-1 flex overflow-hidden">
-        {/* Left Sidebar (Reference 1) */}
-        <aside className="w-64 border-r border-[#1E293B] bg-[#060A14] p-4 hidden md:flex flex-col justify-between shrink-0">
+        {/* Left Sidebar */}
+        <aside className="w-64 border-r border-[#1E293B] bg-[#060A14] p-4 hidden md:flex flex-col justify-between shrink-0 overflow-y-auto">
           <div className="space-y-4">
-            {/* Workspace Section */}
+            {/* Section 1: Foundations & Overview */}
             <div className="space-y-1 font-mono text-xs">
-              <div className="text-[10px] text-[#64748B] uppercase tracking-wider px-3 mb-2 font-bold">
-                ENGINEERING WORKSPACE
+              <div className="text-[10px] text-[#64748B] uppercase tracking-wider px-3 mb-1.5 font-bold">
+                FOUNDATIONS & OVERVIEW
               </div>
 
               {[
                 { id: '3D', label: '3D Chip Studio', icon: Cpu },
-                { id: 'SIM', label: 'Adder Simulator', icon: Sliders },
-                { id: 'VIS', label: 'Carry Visualizer', icon: Zap },
-                { id: 'PPA', label: 'PPA Benchmark', icon: BarChart3 },
-                { id: 'PHY', label: 'Physical Layout (GDS)', icon: Layers },
-                { id: 'GATES', label: 'Logic Gate Lab', icon: Activity },
-                { id: 'REPORTS', label: 'Analysis & Reports', icon: FileCode }
+                { id: 'OVERVIEW', label: 'Project Overview', icon: BookOpen },
+                { id: 'WORKFLOW', label: '7-Stage Workflow', icon: Workflow },
+                { id: 'CSKA_WORK', label: 'How CSKA Works', icon: Zap },
+                { id: 'LEARNING', label: 'Learning Academy', icon: GraduationCap }
               ].map((tab) => {
                 const Icon = tab.icon
                 const active = activeTab === tab.id
                 return (
                   <button
                     key={tab.id}
-                    onClick={() => setActiveTab(tab.id as any)}
-                    className={`w-full flex items-center space-x-3 px-3.5 py-2.5 rounded-xl transition text-left ${
+                    onClick={() => setActiveTab(tab.id as TabType)}
+                    className={`w-full flex items-center space-x-3 px-3.5 py-2 rounded-xl transition text-left ${
                       active
                         ? 'bg-[#00F0FF]/15 text-[#00F0FF] border border-[#00F0FF]/40 font-bold shadow-lg shadow-[#00F0FF]/15'
                         : 'text-[#94A3B8] hover:bg-[#0E1626] hover:text-white'
@@ -256,10 +293,73 @@ export default function App() {
               })}
             </div>
 
-            {/* Project Control Section */}
-            <div className="pt-3 border-t border-[#1E293B] space-y-1 font-mono text-xs">
-              <div className="text-[10px] text-[#64748B] uppercase tracking-wider px-3 mb-2 font-bold">
-                PROJECT CONTROL
+            {/* Section 2: Interactive Labs */}
+            <div className="pt-2 border-t border-[#1E293B]/70 space-y-1 font-mono text-xs">
+              <div className="text-[10px] text-[#64748B] uppercase tracking-wider px-3 mb-1.5 font-bold">
+                SIMULATION & BENCHMARKS
+              </div>
+
+              {[
+                { id: 'SIM', label: 'Adder Simulator', icon: Sliders },
+                { id: 'VIS', label: 'Carry Visualizer', icon: Zap },
+                { id: 'PPA', label: 'PPA Benchmark', icon: BarChart3 },
+                { id: 'GATES', label: 'Logic Gate Lab', icon: Activity }
+              ].map((tab) => {
+                const Icon = tab.icon
+                const active = activeTab === tab.id
+                return (
+                  <button
+                    key={tab.id}
+                    onClick={() => setActiveTab(tab.id as TabType)}
+                    className={`w-full flex items-center space-x-3 px-3.5 py-2 rounded-xl transition text-left ${
+                      active
+                        ? 'bg-[#00F0FF]/15 text-[#00F0FF] border border-[#00F0FF]/40 font-bold shadow-lg shadow-[#00F0FF]/15'
+                        : 'text-[#94A3B8] hover:bg-[#0E1626] hover:text-white'
+                    }`}
+                  >
+                    <Icon className="w-4 h-4" />
+                    <span>{tab.label}</span>
+                  </button>
+                )
+              })}
+            </div>
+
+            {/* Section 3: ASIC Physical & Deliverables */}
+            <div className="pt-2 border-t border-[#1E293B]/70 space-y-1 font-mono text-xs">
+              <div className="text-[10px] text-[#64748B] uppercase tracking-wider px-3 mb-1.5 font-bold">
+                ASIC & DELIVERABLES
+              </div>
+
+              {[
+                { id: 'PHY', label: 'Physical Layout (GDS)', icon: Layers },
+                { id: 'SOFTWARE', label: 'Software Inventory', icon: Laptop },
+                { id: 'CODE', label: 'Programs & Scripts', icon: Code2 },
+                { id: 'OUTPUTS', label: 'Deliverables Gallery', icon: FolderDown },
+                { id: 'REPORTS', label: 'Analysis & Reports', icon: FileCode }
+              ].map((tab) => {
+                const Icon = tab.icon
+                const active = activeTab === tab.id
+                return (
+                  <button
+                    key={tab.id}
+                    onClick={() => setActiveTab(tab.id as TabType)}
+                    className={`w-full flex items-center space-x-3 px-3.5 py-2 rounded-xl transition text-left ${
+                      active
+                        ? 'bg-[#00F0FF]/15 text-[#00F0FF] border border-[#00F0FF]/40 font-bold shadow-lg shadow-[#00F0FF]/15'
+                        : 'text-[#94A3B8] hover:bg-[#0E1626] hover:text-white'
+                    }`}
+                  >
+                    <Icon className="w-4 h-4" />
+                    <span>{tab.label}</span>
+                  </button>
+                )
+              })}
+            </div>
+
+            {/* Section 4: Project Controls */}
+            <div className="pt-2 border-t border-[#1E293B]/70 space-y-1 font-mono text-xs">
+              <div className="text-[10px] text-[#64748B] uppercase tracking-wider px-3 mb-1.5 font-bold">
+                QUICK CONTROLS
               </div>
 
               <button
@@ -267,7 +367,7 @@ export default function App() {
                   handleSimulate(0xAAAA, 0x5555, 1, architecture)
                   triggerNotice('RTL Simulation executed via Icarus Verilog!')
                 }}
-                className="w-full flex items-center space-x-2.5 px-3 py-2 rounded-lg text-[#94A3B8] hover:bg-[#0E1626] hover:text-[#00DF72] transition text-left"
+                className="w-full flex items-center space-x-2.5 px-3 py-1.5 rounded-lg text-[#94A3B8] hover:bg-[#0E1626] hover:text-[#00DF72] transition text-left"
               >
                 <PlayCircle className="w-4 h-4 text-[#00DF72]" />
                 <span>Run Simulation</span>
@@ -275,7 +375,7 @@ export default function App() {
 
               <button
                 onClick={() => triggerNotice('Yosys 0.70 synthesis verified in synthesis/netlists/')}
-                className="w-full flex items-center space-x-2.5 px-3 py-2 rounded-lg text-[#94A3B8] hover:bg-[#0E1626] hover:text-[#00DF72] transition text-left"
+                className="w-full flex items-center space-x-2.5 px-3 py-1.5 rounded-lg text-[#94A3B8] hover:bg-[#0E1626] hover:text-[#00DF72] transition text-left"
               >
                 <RefreshCw className="w-4 h-4 text-[#00DF72]" />
                 <span>Run Synthesis</span>
@@ -286,7 +386,7 @@ export default function App() {
                   setActiveTab('PHY')
                   triggerNotice('Loaded OpenROAD placement DEF layout!')
                 }}
-                className="w-full flex items-center space-x-2.5 px-3 py-2 rounded-lg text-[#94A3B8] hover:bg-[#0E1626] hover:text-[#00DF72] transition text-left"
+                className="w-full flex items-center space-x-2.5 px-3 py-1.5 rounded-lg text-[#94A3B8] hover:bg-[#0E1626] hover:text-[#00DF72] transition text-left"
               >
                 <LayoutGrid className="w-4 h-4 text-[#00DF72]" />
                 <span>Generate Layout</span>
@@ -294,7 +394,7 @@ export default function App() {
 
               <button
                 onClick={() => triggerNotice('GTKWave 3.3 VCD dump generated at verification/vcd/')}
-                className="w-full flex items-center space-x-2.5 px-3 py-2 rounded-lg text-[#94A3B8] hover:bg-[#0E1626] hover:text-[#00F0FF] transition text-left"
+                className="w-full flex items-center space-x-2.5 px-3 py-1.5 rounded-lg text-[#94A3B8] hover:bg-[#0E1626] hover:text-[#00F0FF] transition text-left"
               >
                 <Waves className="w-4 h-4 text-[#00F0FF]" />
                 <span>View Waveform</span>
@@ -302,11 +402,11 @@ export default function App() {
             </div>
           </div>
 
-          {/* Hexagonal Circuit Badge (Reference 1 Bottom Left) */}
-          <div className="p-3 rounded-2xl bg-gradient-to-b from-[#091124] to-[#040812] border border-[#00F0FF]/30 flex flex-col items-center justify-center text-center space-y-2 relative overflow-hidden">
-            <div className="w-14 h-14 rounded-full border border-[#00F0FF]/40 flex items-center justify-center relative animate-pulse-glow">
+          {/* Hexagonal Chip Badge */}
+          <div className="mt-4 p-3 rounded-2xl bg-gradient-to-b from-[#091124] to-[#040812] border border-[#00F0FF]/30 flex flex-col items-center justify-center text-center space-y-2 relative overflow-hidden">
+            <div className="w-12 h-12 rounded-full border border-[#00F0FF]/40 flex items-center justify-center relative animate-pulse-glow">
               <div className="absolute inset-1 rounded-full border border-dashed border-[#00F0FF]/60 animate-spin-slow"></div>
-              <Cpu className="w-6 h-6 text-[#00F0FF]" />
+              <Cpu className="w-5 h-5 text-[#00F0FF]" />
             </div>
             <div>
               <div className="text-xs font-mono font-bold text-white tracking-wider">
@@ -321,7 +421,7 @@ export default function App() {
 
         {/* Central Workspace Content Area */}
         <main className="flex-1 overflow-y-auto p-6 space-y-6">
-          {/* TAB 1: 3D CHIP STUDIO (MASTER DASHBOARD COMPOSITION) */}
+          {/* TAB 1: 3D CHIP STUDIO (MASTER DASHBOARD) */}
           {activeTab === '3D' && (
             <div className="space-y-6">
               {/* Top Row: 3D Studio (Left ~65%) + Right Inspector (~35%) */}
@@ -350,7 +450,7 @@ export default function App() {
                 </div>
               </div>
 
-              {/* Bottom Row: Interactive Adder Simulator (~60%) + PPA Comparison (~40%) (Reference 1) */}
+              {/* Bottom Row: Interactive Adder Simulator (~60%) + PPA Comparison (~40%) */}
               <div className="grid grid-cols-1 lg:grid-cols-5 gap-6 items-stretch">
                 <div className="lg:col-span-3">
                   <AdderSimulator
@@ -369,7 +469,19 @@ export default function App() {
             </div>
           )}
 
-          {/* TAB 2: DEDICATED ADDER SIMULATOR */}
+          {/* TAB 2: PROJECT OVERVIEW */}
+          {activeTab === 'OVERVIEW' && <ProjectOverview />}
+
+          {/* TAB 3: 7-STAGE ENGINEERING WORKFLOW */}
+          {activeTab === 'WORKFLOW' && <ProjectWorkflow />}
+
+          {/* TAB 4: HOW CSKA WORKS TUTORIAL */}
+          {activeTab === 'CSKA_WORK' && <CSKAExplanation />}
+
+          {/* TAB 5: LEARNING ACADEMY & GLOSSARY */}
+          {activeTab === 'LEARNING' && <LearningCenter />}
+
+          {/* TAB 6: DEDICATED ADDER SIMULATOR */}
           {activeTab === 'SIM' && (
             <div className="space-y-6">
               <AdderSimulator
@@ -382,7 +494,7 @@ export default function App() {
             </div>
           )}
 
-          {/* TAB 3: DEDICATED CARRY VISUALIZER */}
+          {/* TAB 7: CARRY VISUALIZER */}
           {activeTab === 'VIS' && (
             <CarryVisualizer
               telemetry={telemetry}
@@ -391,16 +503,25 @@ export default function App() {
             />
           )}
 
-          {/* TAB 4: DEDICATED PPA BENCHMARK */}
+          {/* TAB 8: PPA BENCHMARK */}
           {activeTab === 'PPA' && <PPABenchmark />}
 
-          {/* TAB 5: PHYSICAL LAYOUT (GDS) */}
+          {/* TAB 9: PHYSICAL LAYOUT (GDS) */}
           {activeTab === 'PHY' && <PhysicalDesignViewer />}
 
-          {/* TAB 6: LOGIC GATE LAB */}
+          {/* TAB 10: LOGIC GATE LAB */}
           {activeTab === 'GATES' && <LogicGateLab />}
 
-          {/* TAB 7: ANALYSIS & REPORTS */}
+          {/* TAB 11: SOFTWARE & EXTENSION INVENTORY */}
+          {activeTab === 'SOFTWARE' && <SoftwareInventory />}
+
+          {/* TAB 12: PROGRAMS & SOURCE CODE EXPLORER */}
+          {activeTab === 'CODE' && <SourceCodeExplorer />}
+
+          {/* TAB 13: OUTPUT DELIVERABLES GALLERY */}
+          {activeTab === 'OUTPUTS' && <OutputGallery />}
+
+          {/* TAB 14: ANALYSIS & REPORTS */}
           {activeTab === 'REPORTS' && (
             <div className="space-y-6 font-mono">
               <div className="glass-panel p-6 rounded-2xl border border-[#00F0FF]/30 shadow-2xl space-y-4">
@@ -423,8 +544,8 @@ export default function App() {
                   </div>
                   <div className="bg-[#070D1A] p-4 rounded-xl border border-[#1E293B] space-y-1">
                     <span className="text-[#94A3B8]">Physical GDSII Size:</span>
-                    <div className="text-xl font-bold text-[#FF7A00]">4.09 MB</div>
-                    <span className="text-[10px] text-[#64748B]">Placement-only stream (custom scripts)</span>
+                    <div className="text-xl font-bold text-[#FF7A00]">4.18 MB</div>
+                    <span className="text-[10px] text-[#64748B]">Placement-only stream (DEF+KLayout)</span>
                   </div>
                 </div>
               </div>

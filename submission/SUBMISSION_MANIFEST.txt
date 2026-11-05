@@ -1,9 +1,9 @@
 ================================================================================
 CYBERCORE 3D - OFFICIAL PROJECT SUBMISSION MANIFEST
 Archive: 16bit_carry_skip_adder_sky130_submission.zip
-Generated: 2026-11-05 22:49:32
-Total Packaged Files: 142
-Archive Size: 20.91 MB
+Generated: 2026-11-05 23:46:22
+Total Packaged Files: 156
+Archive Size: 21.00 MB
 ================================================================================
 
 KEY DELIVERABLES INCLUDED:
@@ -22,17 +22,24 @@ COMPLETE FILE INVENTORY:
   .gemini\skills\vlsi-flow-auditor\SKILL.md
   .gitignore
   3D_VISUALIZATION_GUIDE.md
+  ACADEMIC_RESULTS_AND_LIMITATIONS.md
   ANTIGRAVITY_OPTIMIZATION_REPORT.md
   DEVELOPMENT_LOG.md
   FINAL_ACADEMIC_READINESS_CHECKLIST.md
+  FINAL_DOCUMENTATION_REPORT.md
   FINAL_PROJECT_STATUS.md
   FINAL_SCREENSHOTS\chip_studio_viewport.png
   FINAL_SCREENSHOTS\master_dashboard_full.png
+  GDSII_LAYOUT_EXPLANATION.md
   INDEPENDENT_AUDIT_REPORT.md
   INSTALLATION_GUIDE.md
+  PROGRAMS_AND_SCRIPTS_CATALOG.md
   PROJECT_DOCUMENTATION.md
+  PROJECT_INVENTORY.md
+  PROJECT_WORKFLOW.md
   RCA_CSKA_TIMING_INVESTIGATION.md
   README.md
+  SOFTWARE_AND_EXTENSION_INVENTORY.md
   SYSTEM_AUDIT.md
   TEST_RESULTS.md
   UI_REDESIGN_REPORT.md
@@ -57,8 +64,8 @@ COMPLETE FILE INVENTORY:
   dashboard\app.py
   documentation\examiner_viva_defense.md
   documentation\seminar_speaking_script.md
-  frontend\dist\assets\index-CDDaRH6U.css
-  frontend\dist\assets\index-FujpHjb1.js
+  frontend\dist\assets\index-F-yDl48a.css
+  frontend\dist\assets\index-jeN6zJ0c.js
   frontend\dist\index.html
   frontend\index.html
   frontend\package-lock.json
@@ -66,14 +73,21 @@ COMPLETE FILE INVENTORY:
   frontend\postcss.config.js
   frontend\src\App.tsx
   frontend\src\components\AdderSimulator.tsx
+  frontend\src\components\CSKAExplanation.tsx
   frontend\src\components\CarryVisualizer.tsx
   frontend\src\components\Chip3D.tsx
   frontend\src\components\InspectionPanel.tsx
+  frontend\src\components\LearningCenter.tsx
   frontend\src\components\LogicGateLab.tsx
+  frontend\src\components\OutputGallery.tsx
   frontend\src\components\PPABenchmark.tsx
   frontend\src\components\PPAComparisonCard.tsx
   frontend\src\components\PhysicalDesignViewer.tsx
   frontend\src\components\PresentationMode.tsx
+  frontend\src\components\ProjectOverview.tsx
+  frontend\src\components\ProjectWorkflow.tsx
+  frontend\src\components\SoftwareInventory.tsx
+  frontend\src\components\SourceCodeExplorer.tsx
   frontend\src\index.css
   frontend\src\main.tsx
   frontend\tailwind.config.js
