@@ -217,3 +217,4 @@ Step 5: GTKWave Waveforms & PPA Benchmarking (2 mins)
 Step 6: Viva Defense & Examiner Q&A (2 mins)
   - Reference `documentation/examiner_viva_defense.md` for answers to core technical questions.
 ```
+

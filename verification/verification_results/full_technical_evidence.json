@@ -1,0 +1,75 @@
+{
+  "timestamp": "2026-11-06 02:59:00",
+  "verilog_simulations": {
+    "Carry Skip Adder (CSKA)": {
+      "status": "PASS",
+      "pass_count": 14,
+      "fail_count": 0,
+      "duration_sec": 1.37,
+      "exit_code": 0
+    },
+    "Ripple Carry Adder (RCA)": {
+      "status": "PASS",
+      "pass_count": 6,
+      "fail_count": 0,
+      "duration_sec": 1.28,
+      "exit_code": 0
+    },
+    "Carry Look-Ahead Adder (CLA)": {
+      "status": "PASS",
+      "pass_count": 6,
+      "fail_count": 0,
+      "duration_sec": 1.097,
+      "exit_code": 0
+    },
+    "Carry Select Adder (CSLA)": {
+      "status": "PASS",
+      "pass_count": 6,
+      "fail_count": 0,
+      "duration_sec": 1.744,
+      "exit_code": 0
+    },
+    "Brent-Kung Adder (BK)": {
+      "status": "PASS",
+      "pass_count": 6,
+      "fail_count": 0,
+      "duration_sec": 2.019,
+      "exit_code": 0
+    },
+    "Master 5-Adder Lockstep Comparison": {
+      "status": "PASS",
+      "pass_count": 0,
+      "fail_count": 0,
+      "duration_sec": 7.074,
+      "exit_code": 0
+    }
+  },
+  "synthesis_runs": {},
+  "physical_design": {
+    "cska_hier_gds": {
+      "path": "X:physical_design\\gds\\cska_hier_sky130.gds",
+      "exists": true,
+      "size_bytes": 4190266
+    },
+    "cska_flat_gds": {
+      "path": "X:physical_design\\gds\\cska_sky130.gds",
+      "exists": true,
+      "size_bytes": 4189882
+    },
+    "cska_hier_def": {
+      "path": "X:physical_design\\placement\\cska_hier_sky130.def",
+      "exists": true,
+      "cell_count": 56
+    },
+    "cska_flat_def": {
+      "path": "X:physical_design\\placement\\cska_sky130.def",
+      "exists": true,
+      "cell_count": 48
+    }
+  },
+  "backend_tests": {
+    "passed": 7,
+    "duration_sec": 4.59,
+    "exit_code": 0
+  }
+}

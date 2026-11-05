@@ -1,9 +1,9 @@
 ================================================================================
 CYBERCORE 3D - OFFICIAL PROJECT SUBMISSION MANIFEST
 Archive: 16bit_carry_skip_adder_sky130_submission.zip
-Generated: 2026-11-06 02:36:51
-Total Packaged Files: 237
-Archive Size: 22.70 MB
+Generated: 2026-11-06 03:03:29
+Total Packaged Files: 240
+Archive Size: 22.71 MB
 ================================================================================
 
 KEY DELIVERABLES INCLUDED:
@@ -62,6 +62,7 @@ COMPLETE FILE INVENTORY:
   FINAL_SYNTHESIS_AUDIT.md
   FINAL_SYSTEM_AUDIT.md
   FINAL_SYSTEM_COMPLETION_REPORT.md
+  FINAL_TECHNICAL_EVIDENCE_AUDIT.md
   FINAL_TIMING_PATH_REVIEW.md
   FINAL_TIMING_POWER_ANALYSIS.md
   FINAL_VERIFICATION_REPORT.md
@@ -182,6 +183,7 @@ COMPLETE FILE INVENTORY:
   scripts\package_submission.py
   scripts\parse_gds.py
   scripts\prep_viewer.py
+  scripts\run_full_verification.py
   scripts\setup_env.bat
   scripts\setup_env.ps1
   scripts\update_docs_consistency.py
@@ -252,6 +254,7 @@ COMPLETE FILE INVENTORY:
   verification\testbench_cska.v
   verification\testbench_csla.v
   verification\testbench_rca.v
+  verification\verification_results\full_technical_evidence.json
   verification\verification_results\summary.json
   verification\verification_results\verification_summary.csv
   verification\verification_results\verification_summary.json
