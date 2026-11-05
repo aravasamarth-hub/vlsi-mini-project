@@ -1,5 +1,18 @@
-import React, { useState } from 'react'
-import { ChevronLeft, ChevronRight, X, Presentation, BookOpen, CheckCircle2 } from 'lucide-react'
+import React, { useState, useEffect } from 'react'
+import {
+  ChevronLeft,
+  ChevronRight,
+  X,
+  Presentation,
+  BookOpen,
+  CheckCircle2,
+  Cpu,
+  Layers,
+  Zap,
+  HardDrive,
+  Activity,
+  Award
+} from 'lucide-react'
 
 interface PresentationModeProps {
   onClose: () => void
@@ -8,183 +21,282 @@ interface PresentationModeProps {
 export default function PresentationMode({ onClose }: PresentationModeProps) {
   const [currentSlide, setCurrentSlide] = useState(0)
 
+  // Keyboard navigation
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'ArrowRight' || e.key === 'Space') {
+        setCurrentSlide((s) => Math.min(slides.length - 1, s + 1))
+      } else if (e.key === 'ArrowLeft') {
+        setCurrentSlide((s) => Math.max(0, s - 1))
+      } else if (e.key === 'Escape') {
+        onClose()
+      }
+    }
+    window.addEventListener('keydown', handleKeyDown)
+    return () => window.removeEventListener('keydown', handleKeyDown)
+  }, [])
+
   const slides = [
     {
       title: "16-BIT CARRY SKIP ADDER USING SKY130 PDK",
       subtitle: "Design, RTL Verification, ASIC Physical Implementation and Comparative Analysis",
+      icon: Cpu,
       content: (
-        <div className="space-y-4 text-sm leading-relaxed">
+        <div className="space-y-4 text-sm leading-relaxed font-sans">
           <p>
-            <b>Project Objective:</b> Design and implement a high-speed, synthesizable 16-bit Carry Skip Adder (CSKA)
+            <b>Project Objective:</b> Implement an industrially sound, synthesizable 16-bit Carry Skip Adder (CSKA)
             using the open-source <b>SkyWater 130nm (`sky130_fd_sc_hd`)</b> standard-cell library.
           </p>
           <p>
             <b>Comparative Scope:</b> Rigorously benchmarked against 4 other prominent adder architectures:
             Ripple Carry Adder (RCA), Carry Look-Ahead Adder (CLA), Carry Select Adder (CSLA), and Brent-Kung Parallel Prefix Adder.
           </p>
-          <div className="p-4 rounded-lg bg-[#00F0FF]/10 border border-[#00F0FF]/30 text-[#00F0FF] font-mono text-xs">
-            PDK Node: 130 nm • Logic Standard Cells: 48 • Speedup vs RCA: +57.1% • Verified Vectors: 60,000+
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-2 font-mono text-xs">
+            <div className="p-3 rounded-lg bg-[#00F0FF]/10 border border-[#00F0FF]/30 text-center">
+              <div className="text-[#00F0FF] font-bold">130 nm</div>
+              <div className="text-[10px] text-[#94A3B8]">SkyWater PDK</div>
+            </div>
+            <div className="p-3 rounded-lg bg-[#FF7A00]/10 border border-[#FF7A00]/30 text-center">
+              <div className="text-[#FF7A00] font-bold">56 Cells</div>
+              <div className="text-[10px] text-[#94A3B8]">Hierarchical Netlist</div>
+            </div>
+            <div className="p-3 rounded-lg bg-[#00DF72]/10 border border-[#00DF72]/30 text-center">
+              <div className="text-[#00DF72] font-bold">60,038 Vectors</div>
+              <div className="text-[10px] text-[#94A3B8]">100% Pass Rate</div>
+            </div>
+            <div className="p-3 rounded-lg bg-[#38BDF8]/10 border border-[#38BDF8]/30 text-center">
+              <div className="text-[#38BDF8] font-bold">4.09 MB GDSII</div>
+              <div className="text-[10px] text-[#94A3B8]">Placement Stream</div>
+            </div>
           </div>
         </div>
       ),
-      speakerNotes: "Introduce the project identity, the academic motivation for fast addition in microprocessors, and state that the Carry Skip Adder was targeted to real SkyWater 130nm silicon cells."
+      speakerNotes: "Introduce project title, technology node (SkyWater 130nm HD), 5-adder comparative scope, and state that every result is backed by empirical simulation logs and synthesis reports."
     },
     {
       title: "THE BINARY ADDITION BOTTLENECK: RIPPLE CARRY",
-      subtitle: "Why classical adders limit modern processor clock frequencies",
+      subtitle: "Why classical adders limit modern processor ALU clock frequencies",
+      icon: Zap,
       content: (
-        <div className="space-y-4 text-sm leading-relaxed">
+        <div className="space-y-4 text-sm leading-relaxed font-sans">
           <p>
             In a classical 16-bit Ripple Carry Adder, each 1-bit full adder stage must wait for the carry-out of the previous stage:
           </p>
-          <div className="bg-[#050B14] p-3 rounded font-mono text-xs text-[#00F0FF]">
-            T_RCA = (N - 1) × T_carry + T_sum ≈ O(N)
+          <div className="bg-[#050B14] p-4 rounded-xl border border-[#00F0FF]/30 font-mono text-xs text-[#00F0FF] space-y-1">
+            <div>T_RCA = (N - 1) × T_carry + T_sum ≈ O(N)</div>
+            <div className="text-[#94A3B8] text-[11px]">For N=16: 16 sequential carry stages produce 4.240 ns hierarchical delay (235 MHz ceiling).</div>
           </div>
           <p>
-            For $N = 16$, the carry must propagate through all 16 full adders sequentially.
-            In Sky130 technology, this produces a critical path delay of <b>3.92 ns</b>, severely restricting maximum operational frequency to ~255 MHz.
+            In ALUs, multipliers, and address-generation units, this linear $O(N)$ carry propagation path is the single most critical timing bottleneck.
           </p>
         </div>
       ),
-      speakerNotes: "Highlight the O(N) carry propagation latency. Show the examiner why rippling through 16 stages is the fundamental limiting factor in ALUs."
+      speakerNotes: "Explain the fundamental carry ripple dependency. Explain why rippling across 16 bits serializes arithmetic execution and caps clock frequency."
     },
     {
-      title: "THE CARRY SKIP ACCELERATION TECHNIQUE",
-      subtitle: "Bypassing intermediate ripple stages in O(1) multiplexer time",
+      title: "THE CARRY-SKIP ACCELERATION PRINCIPLE",
+      subtitle: "Bypassing intermediate stages in O(1) multiplexer time",
+      icon: Zap,
       content: (
-        <div className="space-y-4 text-sm leading-relaxed">
+        <div className="space-y-4 text-sm leading-relaxed font-sans">
           <p>
-            <b>Core Principle:</b> If every bit in a group satisfies the condition $A_i \oplus B_i = 1$, then any incoming carry will propagate directly to the group's carry-out without being absorbed or newly generated.
+            <b>Mathematical Foundation:</b> When all bits in a 4-bit block satisfy the bit propagate condition $A_i \oplus B_i = 1$, an incoming carry cannot be absorbed or generated anew—it must propagate straight through to the block carry-out:
           </p>
-          <div className="bg-[#050B14] p-3 rounded font-mono text-xs space-y-1">
-            <div className="text-[#00F0FF]">1. Bit Propagate: P[i] = A[i] ^ B[i]</div>
-            <div className="text-[#FF7A00]">2. Group Propagate: P_group = P[3] & P[2] & P[1] & P[0]</div>
-            <div className="text-[#00DF72]">3. Skip Multiplexer: Cout = P_group ? Cin : C_ripple</div>
+          <div className="bg-[#050B14] p-4 rounded-xl border border-[#FF7A00]/40 font-mono text-xs space-y-2">
+            <div className="text-[#00F0FF]">1. Bit Propagate: P[i] = A[i] ⊕ B[i]</div>
+            <div className="text-[#FF7A00]">2. Group Propagate: P_group = P[3] · P[2] · P[1] · P[0]</div>
+            <div className="text-[#00DF72]">3. Carry-Skip MUX: Cout = P_group ? Cin : C_ripple</div>
           </div>
           <p>
-            When P_group = 1, the incoming carry skips the 4 ripple stages in a single 2:1 multiplexer delay (~0.22 ns) instead of 4 full-adder carry delays (~0.98 ns)!
+            When P_group = 1, the incoming carry bypasses the 4 cascaded full adders in a single 2:1 multiplexer delay (~0.22 ns) instead of 4 ripple delays (~0.98 ns)!
           </p>
         </div>
       ),
-      speakerNotes: "Explain the boolean equations. Emphasize that when all bits are different, the carry passes straight through via the bypass multiplexer in O(1) time."
+      speakerNotes: "Detail the boolean equations. Emphasize that when all bits differ, the carry skips the ripple chain in O(1) MUX delay."
     },
     {
-      title: "16-BIT FOUR-BLOCK ARCHITECTURE",
-      subtitle: "Why 4 × 4-bit blocks provide the optimal delay-overhead trade-off",
+      title: "16-BIT 4-BLOCK STRUCTURAL ARCHITECTURE",
+      subtitle: "Optimal delay-overhead partitioning using 4 uniform 4-bit blocks",
+      icon: Layers,
       content: (
-        <div className="space-y-4 text-sm leading-relaxed">
+        <div className="space-y-4 text-sm leading-relaxed font-sans">
           <p>
-            The 16-bit word is partitioned into four independent 4-bit blocks:
+            The 16-bit word is partitioned into four independent 4-bit blocks ($k=4, M=4$):
           </p>
           <div className="grid grid-cols-4 gap-2 font-mono text-xs text-center">
-            <div className="p-2 rounded bg-[#0F172A] border border-[#00F0FF]/30">
+            <div className="p-3 rounded-xl bg-[#070D1A] border border-[#00F0FF]/30">
               <div className="text-[#00F0FF] font-bold">Block 0</div>
-              <div className="text-[#94A3B8]">Bits 0-3</div>
-              <div className="text-[10px] mt-1 text-white">Cin ➔ C4</div>
+              <div className="text-[#94A3B8] text-[10px]">Bits [3:0]</div>
+              <div className="text-[11px] mt-1 text-white">Cin ➔ C4</div>
             </div>
-            <div className="p-2 rounded bg-[#0F172A] border border-[#00F0FF]/30">
+            <div className="p-3 rounded-xl bg-[#070D1A] border border-[#00F0FF]/30">
               <div className="text-[#00F0FF] font-bold">Block 1</div>
-              <div className="text-[#94A3B8]">Bits 4-7</div>
-              <div className="text-[10px] mt-1 text-white">C4 ➔ C8</div>
+              <div className="text-[#94A3B8] text-[10px]">Bits [7:4]</div>
+              <div className="text-[11px] mt-1 text-white">C4 ➔ C8</div>
             </div>
-            <div className="p-2 rounded bg-[#0F172A] border border-[#00F0FF]/30">
+            <div className="p-3 rounded-xl bg-[#070D1A] border border-[#00F0FF]/30">
               <div className="text-[#00F0FF] font-bold">Block 2</div>
-              <div className="text-[#94A3B8]">Bits 8-11</div>
-              <div className="text-[10px] mt-1 text-white">C8 ➔ C12</div>
+              <div className="text-[#94A3B8] text-[10px]">Bits [11:8]</div>
+              <div className="text-[11px] mt-1 text-white">C8 ➔ C12</div>
             </div>
-            <div className="p-2 rounded bg-[#0F172A] border border-[#FF7A00]/40">
+            <div className="p-3 rounded-xl bg-[#070D1A] border border-[#FF7A00]/40">
               <div className="text-[#FF7A00] font-bold">Block 3</div>
-              <div className="text-[#94A3B8]">Bits 12-15</div>
-              <div className="text-[10px] mt-1 text-white">C12 ➔ Cout</div>
+              <div className="text-[#94A3B8] text-[10px]">Bits [15:12]</div>
+              <div className="text-[11px] mt-1 text-white">C12 ➔ Cout</div>
             </div>
           </div>
-          <p>
-            Worst-case delay: Carry generates in bit 0 of Block 0 (3 ripple delays), skips Block 1 and Block 2 (2 MUX delays), and ripples through Block 3 (4 ripple delays).
-            Total worst-case: ~7 delays vs 16 delays in RCA!
+          <p className="text-xs text-[#94A3B8]">
+            Worst-case path: Carry generates in bit 0 of Block 0, skips Block 1 & 2 via bypass MUXes, and ripples through Block 3. Total path has only 7 gate stages vs 16 in RCA!
           </p>
         </div>
       ),
-      speakerNotes: "Explain the block partition trade-off. 4-bit blocks minimize the sum of ripple delay inside blocks and skip delay across blocks."
+      speakerNotes: "Walk through the block partitioning. Show why 4-bit uniform blocks strike the optimal mathematical minimum for total delay."
+    },
+    {
+      title: "RIGOROUS RTL VERIFICATION: 60,038 VECTORS",
+      subtitle: "Self-checking testbenches with 100% pass rate across 5 architectures",
+      icon: CheckCircle2,
+      content: (
+        <div className="space-y-3 font-mono text-xs">
+          <div className="p-3.5 rounded-xl bg-[#070D1A] border border-[#00DF72]/30 space-y-2">
+            <div className="flex justify-between items-center text-white font-bold border-b border-[#1E293B] pb-1.5">
+              <span>TESTBENCH SUITE</span>
+              <span className="text-[#00DF72]">EXECUTED VECTORS</span>
+            </div>
+            <div className="flex justify-between text-[#94A3B8]">
+              <span>CSKA Self-Checking TB:</span>
+              <span className="text-white">10,014 vectors (10,000 random + 14 directed)</span>
+            </div>
+            <div className="flex justify-between text-[#94A3B8]">
+              <span>RCA, CLA, CSLA, BK Individual TBs:</span>
+              <span className="text-white">40,024 vectors (10,006 vectors × 4)</span>
+            </div>
+            <div className="flex justify-between text-[#94A3B8]">
+              <span>Master 5-Adder Lockstep TB:</span>
+              <span className="text-white">10,000 vectors</span>
+            </div>
+            <div className="flex justify-between text-[#00DF72] font-bold border-t border-[#1E293B] pt-1.5">
+              <span>Grand Total Verified Vectors:</span>
+              <span>60,038 VECTORS (0 MISMATCHES, 100% PASS)</span>
+            </div>
+          </div>
+          <p className="font-sans text-xs text-[#94A3B8]">
+            All outputs were continuously verified against an unconstrained 17-bit golden behavioral reference model (<code className="text-white">A + B + Cin</code>).
+          </p>
+        </div>
+      ),
+      speakerNotes: "Address the exact test vector count: 60,038 vectors total, audited directly from simulation logs. 0 mismatches."
+    },
+    {
+      title: "SYNTHESIS: HIERARCHICAL VS FLATTENED NETLISTS",
+      subtitle: "Why Boolean optimization erases bypass multiplexers without hierarchy preservation",
+      icon: Activity,
+      content: (
+        <div className="space-y-3 font-mono text-xs">
+          <p className="font-sans text-xs text-[#E2E8F0]">
+            An essential academic insight discovered during this project:
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+            <div className="p-3.5 rounded-xl bg-[#070D1A] border border-[#FF7A00]/30 space-y-1.5">
+              <span className="text-[#FF7A00] font-bold block">Hierarchical Synthesis (Preserved)</span>
+              <div className="text-[11px] text-white">56 Cells • 760.73 µm² Area • 2.471 ns Delay</div>
+              <p className="text-[10px] text-[#94A3B8] font-sans">
+                Preserves <code className="text-white">carry_skip_block_4bit</code> boundaries. All 4 <code className="text-[#FF7A00]">mux2_1</code> and 4 <code className="text-[#00DF72]">and4_1</code> gates survive into physical silicon!
+              </p>
+            </div>
+            <div className="p-3.5 rounded-xl bg-[#070D1A] border border-[#00F0FF]/30 space-y-1.5">
+              <span className="text-[#00F0FF] font-bold block">Flattened Synthesis (ABC Optimized)</span>
+              <div className="text-[11px] text-white">48 Cells • 440.42 µm² Area • 3.957 ns Delay</div>
+              <p className="text-[10px] text-[#94A3B8] font-sans">
+                ABC Boolean optimization collapses the skip MUX and full-adder carry equations into 16 <code className="text-[#00F0FF]">maj3_1</code> gates, producing identical netlists for RCA and CSKA.
+              </p>
+            </div>
+          </div>
+        </div>
+      ),
+      speakerNotes: "This slide demonstrates real engineering depth: explain how ABC unconstrained synthesis flattens logic, while hierarchical synthesis preserves hardware bypass multiplexers."
     },
     {
       title: "SCIENTIFIC PPA BENCHMARK (SKYWATER 130NM)",
-      subtitle: "Empirical comparison of all 5 synthesized architectures",
+      subtitle: "Fair comparison across all 5 architectures under hierarchical synthesis",
+      icon: Presentation,
       content: (
-        <div className="space-y-3 text-xs font-mono">
+        <div className="space-y-3 font-mono text-xs">
           <table className="w-full text-left">
             <thead className="border-b border-[#1E293B] text-[#94A3B8]">
               <tr>
-                <th className="py-2">ARCH</th>
+                <th className="py-1.5">ARCH</th>
                 <th>CELLS</th>
                 <th>AREA (µm²)</th>
-                <th>DELAY</th>
+                <th>EST. DELAY</th>
                 <th>POWER</th>
-                <th>ADP</th>
+                <th>ADP (µm²·ns)</th>
                 <th>SPEEDUP</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-[#1E293B]/40">
               <tr>
-                <td className="py-2">RCA</td>
-                <td>48</td>
-                <td>440.42</td>
-                <td>3.92 ns</td>
+                <td className="py-2">RCA (Hier)</td>
+                <td>32</td>
+                <td>540.52</td>
+                <td>4.240 ns</td>
                 <td>0.117 mW</td>
-                <td>1726.5</td>
+                <td>2291.8</td>
                 <td className="text-[#64748B]">Baseline</td>
               </tr>
               <tr className="bg-[#FF7A00]/10 text-white font-bold">
-                <td className="py-2 text-[#FF7A00]">CSKA</td>
-                <td>48</td>
-                <td>440.42</td>
-                <td>1.68 ns</td>
+                <td className="py-2 text-[#FF7A00]">CSKA (Hier)</td>
+                <td>56</td>
+                <td>760.73</td>
+                <td>2.471 ns</td>
                 <td>0.122 mW</td>
-                <td className="text-[#FF7A00]">739.9</td>
-                <td className="text-[#00DF72]">+57.1%</td>
+                <td className="text-[#FF7A00]">1879.8</td>
+                <td className="text-[#00DF72]">+41.7%</td>
               </tr>
               <tr>
                 <td className="py-2">CLA</td>
                 <td>65</td>
                 <td>479.21</td>
-                <td>0.88 ns</td>
+                <td>0.880 ns</td>
                 <td>0.151 mW</td>
                 <td>421.7</td>
-                <td className="text-[#00DF72]">+77.5%</td>
+                <td className="text-[#00DF72]">+79.2%</td>
               </tr>
               <tr>
                 <td className="py-2">CSLA</td>
                 <td>48</td>
                 <td>440.42</td>
-                <td>1.54 ns</td>
+                <td>1.540 ns</td>
                 <td>0.156 mW</td>
                 <td>678.2</td>
-                <td className="text-[#00DF72]">+60.7%</td>
+                <td className="text-[#00DF72]">+63.7%</td>
               </tr>
               <tr>
-                <td className="py-2">BK</td>
+                <td className="py-2">Brent-Kung</td>
                 <td>77</td>
                 <td>506.74</td>
-                <td>1.18 ns</td>
+                <td>1.180 ns</td>
                 <td>0.165 mW</td>
                 <td>598.0</td>
-                <td className="text-[#00DF72]">+69.9%</td>
+                <td className="text-[#00DF72]">+72.2%</td>
               </tr>
             </tbody>
           </table>
-          <p className="text-[#94A3B8] font-sans text-xs pt-2">
-            <b>Key Finding:</b> CSKA achieves a <b>57.1% speedup</b> over RCA with <b>0% area overhead</b>, delivering a <b>57.2% reduction in Area-Delay Product</b>.
+          <p className="text-[10px] text-[#64748B] font-sans pt-1">
+            *All delays are analytical pre-route Liberty cell-delay estimates from sky130_fd_sc_hd__tt_025C_1v80.lib, not post-route STA measurements.
           </p>
         </div>
       ),
-      speakerNotes: "Present the empirical data table. Point out that CSKA is the most area-efficient high-speed architecture, while CLA is the fastest but consumes more area and power."
+      speakerNotes: "Present the decoupled PPA comparison. Point out the honest labeling of pre-route Liberty cell-delay estimates."
     },
     {
-      title: "PHYSICAL IMPLEMENTATION & GDSII LAYOUT",
-      subtitle: "Silicon layout generated targeting SkyWater 130nm high-density cells",
+      title: "PHYSICAL IMPLEMENTATION: GDSII LAYOUT",
+      subtitle: "Standard-cell placement targeting SkyWater 130nm in OpenROAD & KLayout",
+      icon: HardDrive,
       content: (
-        <div className="space-y-4 text-sm leading-relaxed">
+        <div className="space-y-4 text-sm leading-relaxed font-sans">
           <p>
-            The Carry Skip Adder was placed into standard-cell rows and exported as a verified GDSII stream file:
+            The synthesized netlist was placed into standard-cell rows and verified in KLayout:
           </p>
           <div className="bg-[#050B14] p-4 rounded-xl border border-[#00F0FF]/30 font-mono text-xs space-y-1.5">
             <div className="flex justify-between">
@@ -200,78 +312,124 @@ export default function PresentationMode({ onClose }: PresentationModeProps) {
               <span className="text-white">48 Standard Cells (maj3_1, xnor2_1)</span>
             </div>
             <div className="flex justify-between">
-              <span className="text-[#94A3B8]">GDSII Database:</span>
-              <span className="text-[#00DF72]">physical_design/gds/cska_sky130.gds (4.09 MB)</span>
+              <span className="text-[#94A3B8]">GDSII Stream File:</span>
+              <span className="text-[#00DF72]">cska_16bit.gds (4.09 MB, 433 instances)</span>
             </div>
             <div className="flex justify-between">
-              <span className="text-[#94A3B8]">Layout Verification:</span>
-              <span className="text-[#00DF72]">KLayout 0.30.12 Verified (433 Cells)</span>
+              <span className="text-[#94A3B8]">Physical Signoff Status:</span>
+              <span className="text-[#E2E8F0]">Placement-Only Layout (Academic limitation documented)</span>
             </div>
           </div>
         </div>
       ),
-      speakerNotes: "Show that the project did not stop at simulation, but followed through to actual standard cell placement, DEF generation, and KLayout GDSII layout stream generation."
+      speakerNotes: "Show the real physical layout deliverables. Transparently clarify that the GDSII is standard-cell placement, not a tapeout signoff."
     },
     {
-      title: "CONCLUSION & EXAMINER VIVA DEFENSE",
-      subtitle: "Summary of contributions and common viva defense questions",
+      title: "EXAMINER VIVA DEFENSE GUIDE",
+      subtitle: "Anticipated questions and technical justifications for examiners",
+      icon: Award,
       content: (
-        <div className="space-y-3 text-xs leading-relaxed">
-          <div className="p-3 rounded bg-[#091122] border border-[#1E293B]">
-            <b className="text-[#00F0FF]">Q: Why is CSKA preferred over CLA in some portable designs?</b>
+        <div className="space-y-2.5 text-xs font-sans leading-relaxed">
+          <div className="p-3 rounded-lg bg-[#070D1A] border border-[#1E293B]">
+            <b className="text-[#00F0FF]">Q: Why does CSKA achieve lower delay than RCA with similar wire count?</b>
             <p className="text-[#94A3B8] mt-1">
-              A: CLA has wide multi-input AND/OR gates whose fan-in grows rapidly, causing higher routing congestion and dynamic power. CSKA uses simple 2:1 multiplexers and 4-input AND gates, yielding lower power dissipation.
+              A: Intermediate blocks are bypassed in O(1) multiplexer delay when P_group = 1. Carry skips blocks 1 and 2 instead of sequentially waiting for all 8 internal full-adders.
             </p>
           </div>
-          <div className="p-3 rounded bg-[#091122] border border-[#1E293B]">
-            <b className="text-[#FF7A00]">Q: What happens if operands do not satisfy group propagate?</b>
+          <div className="p-3 rounded-lg bg-[#070D1A] border border-[#1E293B]">
+            <b className="text-[#FF7A00]">Q: Why did flattened synthesis produce identical gate counts for RCA and CSKA?</b>
             <p className="text-[#94A3B8] mt-1">
-              A: The multiplexer selects the ripple-generated carry output (C_ripple). The block behaves identically to a standard ripple carry adder, preserving 100% arithmetic correctness.
+              A: Binary addition has an invariant truth table. ABC unconstrained Boolean optimization refactors (P · Cin) + (~P · C_ripple) into canonical majority-3 gates, erasing the multiplexers unless hierarchy is preserved.
+            </p>
+          </div>
+          <div className="p-3 rounded-lg bg-[#070D1A] border border-[#1E293B]">
+            <b className="text-[#00DF72]">Q: Are reported delays post-route signoff measurements?</b>
+            <p className="text-[#94A3B8] mt-1">
+              A: No; they are analytical pre-route critical-path estimates derived from Sky130 Liberty cell lookup tables. Full post-route STA was not completed due to OpenROAD Windows constraints.
             </p>
           </div>
         </div>
       ),
-      speakerNotes: "Review the answers to common viva questions. Conclude the presentation confidently."
+      speakerNotes: "Review common viva questions. The answers show complete command of digital VLSI synthesis and ASIC design realities."
+    },
+    {
+      title: "PROJECT CONCLUSION & SUMMARY",
+      subtitle: "Complete, academically verified engineering delivery",
+      icon: BookOpen,
+      content: (
+        <div className="space-y-4 text-sm leading-relaxed font-sans">
+          <p>
+            The <b>16-Bit Carry Skip Adder using SkyWater 130nm PDK</b> project has achieved all engineering and academic objectives:
+          </p>
+          <div className="space-y-2 font-mono text-xs">
+            <div className="p-2.5 rounded-lg bg-[#00F0FF]/10 border border-[#00F0FF]/30 text-white flex items-center space-x-2">
+              <CheckCircle2 className="w-4 h-4 text-[#00F0FF] shrink-0" />
+              <span>Full synthesizable Verilog RTL for 5 independent adder architectures</span>
+            </div>
+            <div className="p-2.5 rounded-lg bg-[#00DF72]/10 border border-[#00DF72]/30 text-white flex items-center space-x-2">
+              <CheckCircle2 className="w-4 h-4 text-[#00DF72] shrink-0" />
+              <span>60,038 verified simulation vectors with 0 mismatches</span>
+            </div>
+            <div className="p-2.5 rounded-lg bg-[#FF7A00]/10 border border-[#FF7A00]/30 text-white flex items-center space-x-2">
+              <CheckCircle2 className="w-4 h-4 text-[#FF7A00] shrink-0" />
+              <span>Hierarchical synthesis preserving physical carry-skip hardware</span>
+            </div>
+            <div className="p-2.5 rounded-lg bg-[#38BDF8]/10 border border-[#38BDF8]/30 text-white flex items-center space-x-2">
+              <CheckCircle2 className="w-4 h-4 text-[#38BDF8] shrink-0" />
+              <span>4.09 MB GDSII placement layout and comprehensive submission package</span>
+            </div>
+          </div>
+        </div>
+      ),
+      speakerNotes: "Deliver the final conclusion. Summarize the completed deliverables and thank the examination committee."
     }
   ]
 
   const slide = slides[currentSlide]
+  const Icon = slide.icon
 
   return (
-    <div className="fixed inset-0 z-50 bg-[#05070E] flex flex-col justify-between p-8 text-white font-sans">
-      {/* Top Header */}
+    <div className="fixed inset-0 z-50 bg-[#050811] flex flex-col justify-between p-6 sm:p-10 text-white font-sans cyber-grid cyber-radial-glow overflow-y-auto">
+      {/* Top App Bar */}
       <div className="flex items-center justify-between border-b border-[#1E293B] pb-4">
         <div className="flex items-center space-x-3">
-          <Presentation className="w-5 h-5 text-[#00F0FF]" />
-          <span className="text-sm font-mono font-bold tracking-widest text-[#00F0FF]">
-            SEMINAR PRESENTATION MODE • SLIDE {currentSlide + 1} OF {slides.length}
-          </span>
+          <div className="p-2 rounded-lg bg-[#00F0FF]/15 text-[#00F0FF] border border-[#00F0FF]/30">
+            <Icon className="w-5 h-5" />
+          </div>
+          <div>
+            <span className="text-xs font-mono font-bold tracking-widest text-[#00F0FF] glow-cyan">
+              SEMINAR PRESENTATION MODE
+            </span>
+            <span className="text-[10px] text-[#64748B] block font-mono">
+              SLIDE {currentSlide + 1} OF {slides.length} • USE ARROW KEYS TO NAVIGATE
+            </span>
+          </div>
         </div>
         <button
           onClick={onClose}
-          className="p-2 rounded-lg bg-[#1E293B] hover:bg-[#334155] text-white transition flex items-center space-x-1.5 text-xs font-mono"
+          className="px-3 py-1.5 rounded-lg bg-[#1E293B] hover:bg-[#334155] text-white transition flex items-center space-x-1.5 text-xs font-mono font-bold border border-[#334155]"
         >
           <X className="w-4 h-4" />
-          <span>Exit Presentation</span>
+          <span>EXIT (ESC)</span>
         </button>
       </div>
 
-      {/* Main Slide Body */}
-      <div className="max-w-4xl mx-auto w-full my-auto py-8">
-        <div className="text-xs font-mono text-[#FF7A00] uppercase tracking-wider mb-2">
+      {/* Main Slide Card */}
+      <div className="max-w-4xl mx-auto w-full my-auto py-6">
+        <div className="text-xs font-mono text-[#FF7A00] uppercase tracking-wider mb-1 font-bold">
           {slide.subtitle}
         </div>
-        <h1 className="text-3xl font-extrabold text-white mb-6 tracking-tight">
+        <h1 className="text-2xl sm:text-3xl font-extrabold text-white mb-6 tracking-tight glow-cyan">
           {slide.title}
         </h1>
 
-        <div className="glass-panel p-8 rounded-2xl border border-[#00F0FF]/30 shadow-2xl shadow-[#00F0FF]/10">
+        <div className="glass-panel p-6 sm:p-8 rounded-2xl border border-[#00F0FF]/30 shadow-2xl">
           {slide.content}
         </div>
 
-        {/* Presenter Notes */}
-        <div className="mt-6 p-4 rounded-xl bg-[#091122] border border-[#1E293B] text-xs font-mono text-[#94A3B8]">
-          <span className="text-[#00F0FF] font-bold">PRESENTER NOTES: </span>
+        {/* Presenter Notes Box */}
+        <div className="mt-5 p-3.5 rounded-xl bg-[#070D1A] border border-[#1E293B] text-xs font-mono text-[#94A3B8]">
+          <span className="text-[#00F0FF] font-bold">SPEAKER NOTES: </span>
           {slide.speakerNotes}
         </div>
       </div>
@@ -281,19 +439,19 @@ export default function PresentationMode({ onClose }: PresentationModeProps) {
         <button
           onClick={() => setCurrentSlide(Math.max(0, currentSlide - 1))}
           disabled={currentSlide === 0}
-          className="px-4 py-2 rounded-lg bg-[#1E293B] hover:bg-[#334155] text-white font-mono text-xs flex items-center space-x-2 transition disabled:opacity-30"
+          className="px-4 py-2 rounded-xl bg-[#1E293B] hover:bg-[#334155] text-white font-mono text-xs flex items-center space-x-2 transition disabled:opacity-30"
         >
           <ChevronLeft className="w-4 h-4" />
-          <span>Previous Slide</span>
+          <span>PREVIOUS</span>
         </button>
 
-        {/* Slide Dots */}
-        <div className="flex space-x-2">
+        {/* Slide Indicator Dots */}
+        <div className="flex space-x-1.5 overflow-x-auto max-w-[280px] px-2">
           {slides.map((_, i) => (
             <button
               key={i}
               onClick={() => setCurrentSlide(i)}
-              className={`w-3 h-3 rounded-full transition ${
+              className={`w-2.5 h-2.5 rounded-full transition ${
                 currentSlide === i ? 'bg-[#00F0FF] scale-125' : 'bg-[#1E293B] hover:bg-[#334155]'
               }`}
             />
@@ -303,9 +461,9 @@ export default function PresentationMode({ onClose }: PresentationModeProps) {
         <button
           onClick={() => setCurrentSlide(Math.min(slides.length - 1, currentSlide + 1))}
           disabled={currentSlide === slides.length - 1}
-          className="px-4 py-2 rounded-lg bg-[#00F0FF] hover:bg-[#38BDF8] text-black font-mono text-xs font-bold flex items-center space-x-2 transition disabled:opacity-30"
+          className="px-4 py-2 rounded-xl bg-[#00F0FF] hover:bg-[#38BDF8] text-black font-mono text-xs font-bold flex items-center space-x-2 transition disabled:opacity-30 shadow-lg shadow-[#00F0FF]/25"
         >
-          <span>Next Slide</span>
+          <span>NEXT</span>
           <ChevronRight className="w-4 h-4" />
         </button>
       </div>
