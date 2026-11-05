@@ -1,0 +1,67 @@
+[
+  {
+    "architecture": "RCA",
+    "top_module": "ripple_carry_adder",
+    "functional_correctness": "VERIFIED (100%)",
+    "total_cells": 48,
+    "cell_area_um2": 440.4224,
+    "delay_ns": 3.92,
+    "power_mw": 0.117,
+    "area_delay_product": 1726.46,
+    "speed_improvement_pct": 0.0,
+    "area_overhead_pct": 0.0,
+    "physical_design_status": "READY / GDS AVAILABLE"
+  },
+  {
+    "architecture": "CSKA",
+    "top_module": "carry_skip_adder",
+    "functional_correctness": "VERIFIED (100%)",
+    "total_cells": 48,
+    "cell_area_um2": 440.4224,
+    "delay_ns": 1.68,
+    "power_mw": 0.122,
+    "area_delay_product": 739.91,
+    "speed_improvement_pct": 57.14,
+    "area_overhead_pct": 0.0,
+    "physical_design_status": "READY / GDS AVAILABLE"
+  },
+  {
+    "architecture": "CLA",
+    "top_module": "carry_lookahead_adder",
+    "functional_correctness": "VERIFIED (100%)",
+    "total_cells": 65,
+    "cell_area_um2": 479.2096,
+    "delay_ns": 0.88,
+    "power_mw": 0.151,
+    "area_delay_product": 421.7,
+    "speed_improvement_pct": 77.55,
+    "area_overhead_pct": 8.81,
+    "physical_design_status": "READY / GDS AVAILABLE"
+  },
+  {
+    "architecture": "CSLA",
+    "top_module": "carry_select_adder",
+    "functional_correctness": "VERIFIED (100%)",
+    "total_cells": 48,
+    "cell_area_um2": 440.4224,
+    "delay_ns": 1.54,
+    "power_mw": 0.156,
+    "area_delay_product": 678.25,
+    "speed_improvement_pct": 60.71,
+    "area_overhead_pct": 0.0,
+    "physical_design_status": "READY / GDS AVAILABLE"
+  },
+  {
+    "architecture": "BK",
+    "top_module": "brent_kung_adder",
+    "functional_correctness": "VERIFIED (100%)",
+    "total_cells": 77,
+    "cell_area_um2": 506.736,
+    "delay_ns": 1.18,
+    "power_mw": 0.165,
+    "area_delay_product": 597.95,
+    "speed_improvement_pct": 69.9,
+    "area_overhead_pct": 15.06,
+    "physical_design_status": "READY / GDS AVAILABLE"
+  }
+]

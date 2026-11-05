@@ -1,0 +1,157 @@
+[
+  {
+    "architecture": "RCA",
+    "top_module": "ripple_carry_adder",
+    "status": "COMPLETED",
+    "synth_time_sec": 1.07,
+    "total_cells": 48,
+    "cell_area_um2": 440.4224,
+    "gate_categories": {
+      "XOR_XNOR": 32,
+      "MAJ": 16,
+      "AND_NAND": 0,
+      "OR_NOR": 0,
+      "AOI_OAI": 0,
+      "MUX": 0,
+      "INV_BUF": 0,
+      "OTHER": 0
+    },
+    "cell_details": {
+      "sky130_fd_sc_hd__maj3_1": 16,
+      "sky130_fd_sc_hd__xnor2_1": 32
+    },
+    "netlist_path": "synthesis/netlists/rca_sky130_netlist.v",
+    "log_path": "synthesis/reports/rca_synth.log"
+  },
+  {
+    "architecture": "CSKA",
+    "top_module": "carry_skip_adder",
+    "status": "COMPLETED",
+    "synth_time_sec": 1.06,
+    "total_cells": 48,
+    "cell_area_um2": 440.4224,
+    "gate_categories": {
+      "XOR_XNOR": 32,
+      "MAJ": 16,
+      "AND_NAND": 0,
+      "OR_NOR": 0,
+      "AOI_OAI": 0,
+      "MUX": 0,
+      "INV_BUF": 0,
+      "OTHER": 0
+    },
+    "cell_details": {
+      "sky130_fd_sc_hd__maj3_1": 16,
+      "sky130_fd_sc_hd__xnor2_1": 32
+    },
+    "netlist_path": "synthesis/netlists/cska_sky130_netlist.v",
+    "log_path": "synthesis/reports/cska_synth.log"
+  },
+  {
+    "architecture": "CLA",
+    "top_module": "carry_lookahead_adder",
+    "status": "COMPLETED",
+    "synth_time_sec": 1.03,
+    "total_cells": 65,
+    "cell_area_um2": 479.2096,
+    "gate_categories": {
+      "XOR_XNOR": 26,
+      "MAJ": 9,
+      "AND_NAND": 9,
+      "OR_NOR": 8,
+      "AOI_OAI": 9,
+      "MUX": 0,
+      "INV_BUF": 3,
+      "OTHER": 1
+    },
+    "cell_details": {
+      "sky130_fd_sc_hd__a211oi_1": 1,
+      "sky130_fd_sc_hd__a21o_1": 1,
+      "sky130_fd_sc_hd__a21oi_1": 1,
+      "sky130_fd_sc_hd__a31oi_1": 1,
+      "sky130_fd_sc_hd__and2_0": 2,
+      "sky130_fd_sc_hd__clkinv_1": 1,
+      "sky130_fd_sc_hd__lpflow_inputiso1p_1": 1,
+      "sky130_fd_sc_hd__lpflow_isobufsrc_1": 2,
+      "sky130_fd_sc_hd__maj3_1": 9,
+      "sky130_fd_sc_hd__nand2_1": 6,
+      "sky130_fd_sc_hd__nand2b_1": 1,
+      "sky130_fd_sc_hd__nor2_1": 5,
+      "sky130_fd_sc_hd__nor2b_1": 2,
+      "sky130_fd_sc_hd__nor3_1": 1,
+      "sky130_fd_sc_hd__o211ai_1": 1,
+      "sky130_fd_sc_hd__o21a_1": 2,
+      "sky130_fd_sc_hd__o21ai_0": 1,
+      "sky130_fd_sc_hd__o31ai_1": 1,
+      "sky130_fd_sc_hd__xnor2_1": 22,
+      "sky130_fd_sc_hd__xor2_1": 4
+    },
+    "netlist_path": "synthesis/netlists/cla_sky130_netlist.v",
+    "log_path": "synthesis/reports/cla_synth.log"
+  },
+  {
+    "architecture": "CSLA",
+    "top_module": "carry_select_adder",
+    "status": "COMPLETED",
+    "synth_time_sec": 1.0,
+    "total_cells": 48,
+    "cell_area_um2": 440.4224,
+    "gate_categories": {
+      "XOR_XNOR": 32,
+      "MAJ": 16,
+      "AND_NAND": 0,
+      "OR_NOR": 0,
+      "AOI_OAI": 0,
+      "MUX": 0,
+      "INV_BUF": 0,
+      "OTHER": 0
+    },
+    "cell_details": {
+      "sky130_fd_sc_hd__maj3_1": 16,
+      "sky130_fd_sc_hd__xnor2_1": 32
+    },
+    "netlist_path": "synthesis/netlists/csla_sky130_netlist.v",
+    "log_path": "synthesis/reports/csla_synth.log"
+  },
+  {
+    "architecture": "BK",
+    "top_module": "brent_kung_adder",
+    "status": "COMPLETED",
+    "synth_time_sec": 1.07,
+    "total_cells": 77,
+    "cell_area_um2": 506.736,
+    "gate_categories": {
+      "XOR_XNOR": 23,
+      "MAJ": 2,
+      "AND_NAND": 17,
+      "OR_NOR": 15,
+      "AOI_OAI": 15,
+      "MUX": 0,
+      "INV_BUF": 3,
+      "OTHER": 2
+    },
+    "cell_details": {
+      "sky130_fd_sc_hd__a21boi_0": 1,
+      "sky130_fd_sc_hd__a311oi_1": 1,
+      "sky130_fd_sc_hd__a31oi_1": 1,
+      "sky130_fd_sc_hd__and2_0": 2,
+      "sky130_fd_sc_hd__lpflow_inputiso1p_1": 2,
+      "sky130_fd_sc_hd__lpflow_isobufsrc_1": 3,
+      "sky130_fd_sc_hd__maj3_1": 2,
+      "sky130_fd_sc_hd__nand2_1": 15,
+      "sky130_fd_sc_hd__nor2_1": 13,
+      "sky130_fd_sc_hd__nor2b_1": 1,
+      "sky130_fd_sc_hd__nor3_1": 1,
+      "sky130_fd_sc_hd__o211a_1": 1,
+      "sky130_fd_sc_hd__o21a_1": 2,
+      "sky130_fd_sc_hd__o311a_1": 3,
+      "sky130_fd_sc_hd__o311ai_0": 1,
+      "sky130_fd_sc_hd__o31a_1": 1,
+      "sky130_fd_sc_hd__o31ai_1": 4,
+      "sky130_fd_sc_hd__xnor2_1": 20,
+      "sky130_fd_sc_hd__xor2_1": 3
+    },
+    "netlist_path": "synthesis/netlists/bk_sky130_netlist.v",
+    "log_path": "synthesis/reports/bk_synth.log"
+  }
+]

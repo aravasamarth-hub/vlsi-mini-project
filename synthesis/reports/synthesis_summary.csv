@@ -1,0 +1,6 @@
+Architecture,Top Module,Status,Total Cells,Cell Area (um^2),Synth Time (s)
+RCA,ripple_carry_adder,COMPLETED,48,440.4224,1.07
+CSKA,carry_skip_adder,COMPLETED,48,440.4224,1.06
+CLA,carry_lookahead_adder,COMPLETED,65,479.2096,1.03
+CSLA,carry_select_adder,COMPLETED,48,440.4224,1.0
+BK,brent_kung_adder,COMPLETED,77,506.736,1.07

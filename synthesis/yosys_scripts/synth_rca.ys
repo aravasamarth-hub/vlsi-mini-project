@@ -1,0 +1,15 @@
+# Yosys Synthesis Script for RCA targeting SkyWater 130nm
+read_verilog rtl/half_adder.v
+read_verilog rtl/full_adder.v
+read_verilog rtl/ripple_carry_adder.v
+hierarchy -check -top ripple_carry_adder
+proc
+opt
+flatten
+opt
+synth -top ripple_carry_adder
+dfflibmap -liberty synthesis/sky130_pdk/sky130_fd_sc_hd__tt_025C_1v80.lib
+abc -liberty synthesis/sky130_pdk/sky130_fd_sc_hd__tt_025C_1v80.lib
+clean
+write_verilog -noattr synthesis/netlists/rca_sky130_netlist.v
+stat -liberty synthesis/sky130_pdk/sky130_fd_sc_hd__tt_025C_1v80.lib

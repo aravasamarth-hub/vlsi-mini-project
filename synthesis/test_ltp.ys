@@ -1,0 +1,4 @@
+
+read_verilog synthesis/netlists/rca_sky130_netlist.v
+hierarchy -check -top ripple_carry_adder
+ltp

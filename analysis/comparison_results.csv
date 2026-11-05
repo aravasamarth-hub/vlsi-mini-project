@@ -1,0 +1,6 @@
+architecture,top_module,functional_correctness,total_cells,cell_area_um2,delay_ns,power_mw,area_delay_product,speed_improvement_pct,area_overhead_pct,physical_design_status
+RCA,ripple_carry_adder,VERIFIED (100%),48,440.4224,3.92,0.117,1726.46,0.0,0.0,READY / GDS AVAILABLE
+CSKA,carry_skip_adder,VERIFIED (100%),48,440.4224,1.68,0.122,739.91,57.14,0.0,READY / GDS AVAILABLE
+CLA,carry_lookahead_adder,VERIFIED (100%),65,479.2096,0.88,0.151,421.7,77.55,8.81,READY / GDS AVAILABLE
+CSLA,carry_select_adder,VERIFIED (100%),48,440.4224,1.54,0.156,678.25,60.71,0.0,READY / GDS AVAILABLE
+BK,brent_kung_adder,VERIFIED (100%),77,506.736,1.18,0.165,597.95,69.9,15.06,READY / GDS AVAILABLE

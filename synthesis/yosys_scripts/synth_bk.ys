@@ -1,0 +1,13 @@
+# Yosys Synthesis Script for BK targeting SkyWater 130nm
+read_verilog rtl/brent_kung_adder.v
+hierarchy -check -top brent_kung_adder
+proc
+opt
+flatten
+opt
+synth -top brent_kung_adder
+dfflibmap -liberty synthesis/sky130_pdk/sky130_fd_sc_hd__tt_025C_1v80.lib
+abc -liberty synthesis/sky130_pdk/sky130_fd_sc_hd__tt_025C_1v80.lib
+clean
+write_verilog -noattr synthesis/netlists/bk_sky130_netlist.v
+stat -liberty synthesis/sky130_pdk/sky130_fd_sc_hd__tt_025C_1v80.lib

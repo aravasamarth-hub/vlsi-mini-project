@@ -1,0 +1,866 @@
+
+ /----------------------------------------------------------------------------\
+ |  yosys -- Yosys Open SYnthesis Suite                                       |
+ |  Copyright (C) 2012 - 2026  Claire Xenia Wolf <claire@yosyshq.com>         |
+ |  Distributed under an ISC-like license, type "license" to see terms        |
+ \----------------------------------------------------------------------------/
+ Yosys 0.70+329 (git sha1 b8d84f823, Release, GNU /usr/bin/x86_64-w64-mingw32-g++ 15.2.1)
+
+-- Executing script file `synthesis/yosys_scripts/synth_rca.ys' --
+
+1. Executing Verilog-2005 frontend: rtl/half_adder.v
+Parsing Verilog input from `rtl/half_adder.v' to AST representation.
+Generating RTLIL representation for module `\half_adder'.
+Successfully finished Verilog frontend.
+
+2. Executing Verilog-2005 frontend: rtl/full_adder.v
+Parsing Verilog input from `rtl/full_adder.v' to AST representation.
+Generating RTLIL representation for module `\full_adder'.
+Successfully finished Verilog frontend.
+
+3. Executing Verilog-2005 frontend: rtl/ripple_carry_adder.v
+Parsing Verilog input from `rtl/ripple_carry_adder.v' to AST representation.
+Generating RTLIL representation for module `\ripple_carry_adder'.
+Successfully finished Verilog frontend.
+
+4. Executing HIERARCHY pass (managing design hierarchy).
+
+4.1. Analyzing design hierarchy..
+Top module:  \ripple_carry_adder
+Used module:     \full_adder
+
+4.2. Analyzing design hierarchy..
+Top module:  \ripple_carry_adder
+Used module:     \full_adder
+Removing unused module `\half_adder'.
+Removed 1 unused modules.
+
+5. Executing PROC pass (convert processes to netlists).
+
+5.1. Executing PROC_CLEAN pass (remove empty switches from decision trees).
+Cleaned up 0 empty switches.
+
+5.2. Executing PROC_RMDEAD pass (remove dead branches from decision trees).
+Removed a total of 0 dead cases.
+
+5.3. Executing PROC_PRUNE pass (remove redundant assignments in processes).
+Removed 0 redundant assignments.
+Promoted 0 assignments to connections.
+
+5.4. Executing PROC_INIT pass (extract init attributes).
+
+5.5. Executing PROC_ARST pass (detect async resets in processes).
+
+5.6. Executing PROC_ROM pass (convert switches to ROMs).
+Converted 0 switches.
+
+5.7. Executing PROC_MUX pass (convert decision trees to multiplexers).
+
+5.8. Executing PROC_DLATCH pass (convert process syncs to latches).
+
+5.9. Executing PROC_DFF pass (convert process syncs to FFs).
+
+5.10. Executing PROC_MEMWR pass (convert process memory writes to cells).
+
+5.11. Executing PROC_CLEAN pass (remove empty switches from decision trees).
+Cleaned up 0 empty switches.
+
+5.12. Executing OPT_EXPR pass (perform const folding).
+Optimizing module full_adder.
+Optimizing module ripple_carry_adder.
+
+6. Executing OPT pass (performing simple optimizations).
+
+6.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module full_adder.
+Optimizing module ripple_carry_adder.
+
+6.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\full_adder'.
+Computing hashes of 5 cells of `\full_adder'.
+Finding duplicate cells in `\full_adder'.
+Finding identical cells in module `\ripple_carry_adder'.
+Computing hashes of 16 cells of `\ripple_carry_adder'.
+Finding duplicate cells in `\ripple_carry_adder'.
+Removed a total of 0 cells.
+
+6.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \full_adder..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \ripple_carry_adder..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Removed 0 multiplexer ports.
+
+6.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \full_adder.
+  Optimizing cells in module \ripple_carry_adder.
+Performed a total of 0 changes.
+
+6.5. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\full_adder'.
+Computing hashes of 5 cells of `\full_adder'.
+Finding duplicate cells in `\full_adder'.
+Finding identical cells in module `\ripple_carry_adder'.
+Computing hashes of 16 cells of `\ripple_carry_adder'.
+Finding duplicate cells in `\ripple_carry_adder'.
+Removed a total of 0 cells.
+
+6.6. Executing OPT_DFF pass (perform DFF optimizations).
+
+6.7. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \full_adder..
+Finding unused cells or wires in module \ripple_carry_adder..
+Removed 0 unused cells and 4 unused wires.
+<suppressed ~1 debug messages>
+
+6.8. Executing OPT_EXPR pass (perform const folding).
+Optimizing module full_adder.
+Optimizing module ripple_carry_adder.
+
+6.9. Rerunning OPT passes. (Maybe there is more to do..)
+
+6.10. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \full_adder..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \ripple_carry_adder..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Removed 0 multiplexer ports.
+
+6.11. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \full_adder.
+  Optimizing cells in module \ripple_carry_adder.
+Performed a total of 0 changes.
+
+6.12. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\full_adder'.
+Computing hashes of 5 cells of `\full_adder'.
+Finding duplicate cells in `\full_adder'.
+Finding identical cells in module `\ripple_carry_adder'.
+Computing hashes of 16 cells of `\ripple_carry_adder'.
+Finding duplicate cells in `\ripple_carry_adder'.
+Removed a total of 0 cells.
+
+6.13. Executing OPT_DFF pass (perform DFF optimizations).
+
+6.14. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \full_adder..
+Finding unused cells or wires in module \ripple_carry_adder..
+
+6.15. Executing OPT_EXPR pass (perform const folding).
+Optimizing module full_adder.
+Optimizing module ripple_carry_adder.
+
+6.16. Finished fast OPT passes. (There is nothing left to do.)
+
+7. Executing FLATTEN pass (flatten design).
+Deleting now unused module full_adder.
+<suppressed ~16 debug messages>
+
+8. Executing OPT pass (performing simple optimizations).
+
+8.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ripple_carry_adder.
+
+8.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ripple_carry_adder'.
+Computing hashes of 96 cells of `\ripple_carry_adder'.
+Finding duplicate cells in `\ripple_carry_adder'.
+Removed a total of 0 cells.
+
+8.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \ripple_carry_adder..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Removed 0 multiplexer ports.
+
+8.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \ripple_carry_adder.
+Performed a total of 0 changes.
+
+8.5. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ripple_carry_adder'.
+Computing hashes of 96 cells of `\ripple_carry_adder'.
+Finding duplicate cells in `\ripple_carry_adder'.
+Removed a total of 0 cells.
+
+8.6. Executing OPT_DFF pass (perform DFF optimizations).
+
+8.7. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ripple_carry_adder..
+
+8.8. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ripple_carry_adder.
+
+8.9. Finished fast OPT passes. (There is nothing left to do.)
+
+9. Executing SYNTH pass.
+
+9.1. Executing HIERARCHY pass (managing design hierarchy).
+
+9.1.1. Analyzing design hierarchy..
+Top module:  \ripple_carry_adder
+
+9.1.2. Analyzing design hierarchy..
+Top module:  \ripple_carry_adder
+Removed 0 unused modules.
+
+9.2. Executing PROC pass (convert processes to netlists).
+
+9.2.1. Executing PROC_CLEAN pass (remove empty switches from decision trees).
+Cleaned up 0 empty switches.
+
+9.2.2. Executing PROC_RMDEAD pass (remove dead branches from decision trees).
+Removed a total of 0 dead cases.
+
+9.2.3. Executing PROC_PRUNE pass (remove redundant assignments in processes).
+Removed 0 redundant assignments.
+Promoted 0 assignments to connections.
+
+9.2.4. Executing PROC_INIT pass (extract init attributes).
+
+9.2.5. Executing PROC_ARST pass (detect async resets in processes).
+
+9.2.6. Executing PROC_ROM pass (convert switches to ROMs).
+Converted 0 switches.
+
+9.2.7. Executing PROC_MUX pass (convert decision trees to multiplexers).
+
+9.2.8. Executing PROC_DLATCH pass (convert process syncs to latches).
+
+9.2.9. Executing PROC_DFF pass (convert process syncs to FFs).
+
+9.2.10. Executing PROC_MEMWR pass (convert process memory writes to cells).
+
+9.2.11. Executing PROC_CLEAN pass (remove empty switches from decision trees).
+Cleaned up 0 empty switches.
+
+9.2.12. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ripple_carry_adder.
+
+9.3. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ripple_carry_adder.
+
+9.4. Executing CHECK pass (checking for obvious problems).
+Checking module ripple_carry_adder...
+Found and reported 0 problems.
+
+9.5. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ripple_carry_adder..
+
+9.6. Executing OPT pass (performing simple optimizations).
+
+9.6.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ripple_carry_adder.
+
+9.6.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ripple_carry_adder'.
+Computing hashes of 96 cells of `\ripple_carry_adder'.
+Finding duplicate cells in `\ripple_carry_adder'.
+Removed a total of 0 cells.
+
+9.6.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \ripple_carry_adder..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Removed 0 multiplexer ports.
+
+9.6.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \ripple_carry_adder.
+Performed a total of 0 changes.
+
+9.6.5. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ripple_carry_adder'.
+Computing hashes of 96 cells of `\ripple_carry_adder'.
+Finding duplicate cells in `\ripple_carry_adder'.
+Removed a total of 0 cells.
+
+9.6.6. Executing OPT_DFF pass (perform DFF optimizations).
+
+9.6.7. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ripple_carry_adder..
+
+9.6.8. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ripple_carry_adder.
+
+9.6.9. Finished fast OPT passes. (There is nothing left to do.)
+
+9.7. Executing FSM pass (extract and optimize FSM).
+
+9.7.1. Executing FSM_DETECT pass (finding FSMs in design).
+
+9.7.2. Executing FSM_EXTRACT pass (extracting FSM from design).
+
+9.7.3. Executing FSM_OPT pass (simple optimizations of FSMs).
+
+9.7.4. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ripple_carry_adder..
+
+9.7.5. Executing FSM_OPT pass (simple optimizations of FSMs).
+
+9.7.6. Executing FSM_RECODE pass (re-assigning FSM state encoding).
+
+9.7.7. Executing FSM_INFO pass (dumping all available information on FSM cells).
+
+9.7.8. Executing FSM_MAP pass (mapping FSMs to basic logic).
+
+9.8. Executing OPT pass (performing simple optimizations).
+
+9.8.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ripple_carry_adder.
+
+9.8.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ripple_carry_adder'.
+Computing hashes of 96 cells of `\ripple_carry_adder'.
+Finding duplicate cells in `\ripple_carry_adder'.
+Removed a total of 0 cells.
+
+9.8.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \ripple_carry_adder..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Removed 0 multiplexer ports.
+
+9.8.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \ripple_carry_adder.
+Performed a total of 0 changes.
+
+9.8.5. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ripple_carry_adder'.
+Computing hashes of 96 cells of `\ripple_carry_adder'.
+Finding duplicate cells in `\ripple_carry_adder'.
+Removed a total of 0 cells.
+
+9.8.6. Executing OPT_DFF pass (perform DFF optimizations).
+
+9.8.7. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ripple_carry_adder..
+
+9.8.8. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ripple_carry_adder.
+
+9.8.9. Finished fast OPT passes. (There is nothing left to do.)
+
+9.9. Executing WREDUCE pass (reducing word size of cells).
+
+9.10. Executing PEEPOPT pass (run peephole optimizers).
+
+9.11. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ripple_carry_adder..
+
+9.12. Executing ALUMACC pass (create $alu and $macc cells).
+Extracting $alu and $macc cells in module ripple_carry_adder:
+  created 0 $alu and 0 $macc cells.
+
+9.13. Executing SHARE pass (SAT-based resource sharing).
+
+9.14. Executing OPT pass (performing simple optimizations).
+
+9.14.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ripple_carry_adder.
+
+9.14.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ripple_carry_adder'.
+Computing hashes of 96 cells of `\ripple_carry_adder'.
+Finding duplicate cells in `\ripple_carry_adder'.
+Removed a total of 0 cells.
+
+9.14.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \ripple_carry_adder..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Removed 0 multiplexer ports.
+
+9.14.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \ripple_carry_adder.
+Performed a total of 0 changes.
+
+9.14.5. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ripple_carry_adder'.
+Computing hashes of 96 cells of `\ripple_carry_adder'.
+Finding duplicate cells in `\ripple_carry_adder'.
+Removed a total of 0 cells.
+
+9.14.6. Executing OPT_DFF pass (perform DFF optimizations).
+
+9.14.7. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ripple_carry_adder..
+
+9.14.8. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ripple_carry_adder.
+
+9.14.9. Finished fast OPT passes. (There is nothing left to do.)
+
+9.15. Executing MEMORY pass.
+
+9.15.1. Executing OPT_MEM pass (optimize memories).
+Performed a total of 0 transformations.
+
+9.15.2. Executing OPT_MEM_PRIORITY pass (removing unnecessary memory write priority relations).
+Performed a total of 0 transformations.
+
+9.15.3. Executing OPT_MEM_FEEDBACK pass (finding memory read-to-write feedback paths).
+
+9.15.4. Executing MEMORY_BMUX2ROM pass (converting muxes to ROMs).
+
+9.15.5. Executing MEMORY_DFF pass (merging $dff cells to $memrd).
+
+9.15.6. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ripple_carry_adder..
+
+9.15.7. Executing MEMORY_SHARE pass (consolidating $memrd/$memwr cells).
+
+9.15.8. Executing OPT_MEM_WIDEN pass (optimize memories where all ports are wide).
+Performed a total of 0 transformations.
+
+9.15.9. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ripple_carry_adder..
+
+9.15.10. Executing MEMORY_COLLECT pass (generating $mem cells).
+
+9.16. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ripple_carry_adder..
+
+9.17. Executing OPT pass (performing simple optimizations).
+
+9.17.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ripple_carry_adder.
+
+9.17.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ripple_carry_adder'.
+Computing hashes of 96 cells of `\ripple_carry_adder'.
+Finding duplicate cells in `\ripple_carry_adder'.
+Removed a total of 0 cells.
+
+9.17.3. Executing OPT_DFF pass (perform DFF optimizations).
+
+9.17.4. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ripple_carry_adder..
+
+9.17.5. Finished fast OPT passes.
+
+9.18. Executing MEMORY_MAP pass (converting memories to logic and flip-flops).
+
+9.19. Executing OPT pass (performing simple optimizations).
+
+9.19.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ripple_carry_adder.
+
+9.19.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ripple_carry_adder'.
+Computing hashes of 96 cells of `\ripple_carry_adder'.
+Finding duplicate cells in `\ripple_carry_adder'.
+Removed a total of 0 cells.
+
+9.19.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \ripple_carry_adder..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Removed 0 multiplexer ports.
+
+9.19.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \ripple_carry_adder.
+Performed a total of 0 changes.
+
+9.19.5. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ripple_carry_adder'.
+Computing hashes of 96 cells of `\ripple_carry_adder'.
+Finding duplicate cells in `\ripple_carry_adder'.
+Removed a total of 0 cells.
+
+9.19.6. Executing OPT_SHARE pass.
+
+9.19.7. Executing OPT_DFF pass (perform DFF optimizations).
+
+9.19.8. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ripple_carry_adder..
+
+9.19.9. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ripple_carry_adder.
+
+9.19.10. Finished fast OPT passes. (There is nothing left to do.)
+
+9.20. Executing TECHMAP pass (map to technology primitives).
+
+9.20.1. Executing Verilog-2005 frontend: X:\tools\oss-cad-suite\bin\../share/yosys/techmap.v
+Parsing Verilog input from `X:\tools\oss-cad-suite\bin\../share/yosys/techmap.v' to AST representation.
+Generating RTLIL representation for module `\_90_simplemap_bool_ops'.
+Generating RTLIL representation for module `\_90_simplemap_reduce_ops'.
+Generating RTLIL representation for module `\_90_simplemap_logic_ops'.
+Generating RTLIL representation for module `\_90_simplemap_compare_ops'.
+Generating RTLIL representation for module `\_90_simplemap_various'.
+Generating RTLIL representation for module `\_90_simplemap_registers'.
+Generating RTLIL representation for module `\_90_shift_ops_shr_shl_sshl_sshr'.
+Generating RTLIL representation for module `\_90_shift_shiftx'.
+Generating RTLIL representation for module `\_90_fa'.
+Generating RTLIL representation for module `\_90_lcu_brent_kung'.
+Generating RTLIL representation for module `\_90_alu'.
+Generating RTLIL representation for module `\_90_macc'.
+Generating RTLIL representation for module `\_90_alumacc'.
+Generating RTLIL representation for module `$__div_mod_u'.
+Generating RTLIL representation for module `$__div_mod_trunc'.
+Generating RTLIL representation for module `\_90_div'.
+Generating RTLIL representation for module `\_90_mod'.
+Generating RTLIL representation for module `$__div_mod_floor'.
+Generating RTLIL representation for module `\_90_divfloor'.
+Generating RTLIL representation for module `\_90_modfloor'.
+Generating RTLIL representation for module `\_90_pow'.
+Generating RTLIL representation for module `\_90_demux'.
+Generating RTLIL representation for module `\_90_lut'.
+Generating RTLIL representation for module `$connect'.
+Generating RTLIL representation for module `$input_port'.
+Successfully finished Verilog frontend.
+
+9.20.2. Continuing TECHMAP pass.
+Using extmapper simplemap for cells of type $and.
+Using extmapper simplemap for cells of type $or.
+Using extmapper simplemap for cells of type $xor.
+No more expansions possible.
+<suppressed ~157 debug messages>
+
+9.21. Executing OPT pass (performing simple optimizations).
+
+9.21.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ripple_carry_adder.
+
+9.21.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ripple_carry_adder'.
+Computing hashes of 96 cells of `\ripple_carry_adder'.
+Finding duplicate cells in `\ripple_carry_adder'.
+Removed a total of 0 cells.
+
+9.21.3. Executing OPT_DFF pass (perform DFF optimizations).
+
+9.21.4. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ripple_carry_adder..
+
+9.21.5. Finished fast OPT passes.
+
+9.22. Executing ABC pass (technology mapping using ABC).
+
+9.22.1. Summary of detected clock domains:
+  96 cells in clk={ }, en={ }, arst={ }, srst={ }
+
+9.22.2. Extracting gate netlist of module `\ripple_carry_adder' to `<abc-temp-dir>/input.blif'..
+No matching clock domain found. Not extracting any FF cells.
+
+9.22.2.1. Executed ABC.
+Extracted 80 gates and 113 wires to a netlist network with 33 inputs and 17 outputs.
+Running ABC script: <abc-temp-dir>/abc.script
+ABC: ======== ABC command line "source <abc-temp-dir>/abc.script"
+ABC: + read_blif <abc-temp-dir>/input.blif 
+ABC: + read_library <abc-temp-dir>/stdcells.genlib 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &fraig -x 
+ABC: + &put 
+ABC: + scorr 
+ABC: Warning: The network is combinational (run "fraig" or "fraig_sweep").
+ABC: + dc2 
+ABC: + dretime 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &dch -f 
+ABC: + &nf 
+ABC: + &put 
+ABC: + write_blif <abc-temp-dir>/output.blif 
+
+9.22.2.2. Re-integrating ABC results.
+ABC RESULTS:              NAND cells:       48
+ABC RESULTS:               XOR cells:       32
+ABC RESULTS:        internal signals:       63
+ABC RESULTS:           input signals:       33
+ABC RESULTS:          output signals:       17
+Removing temp directory.
+Removing global temp directory.
+
+9.23. Executing OPT pass (performing simple optimizations).
+
+9.23.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ripple_carry_adder.
+
+9.23.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ripple_carry_adder'.
+Computing hashes of 96 cells of `\ripple_carry_adder'.
+Finding duplicate cells in `\ripple_carry_adder'.
+Removed a total of 0 cells.
+
+9.23.3. Executing OPT_DFF pass (perform DFF optimizations).
+
+9.23.4. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ripple_carry_adder..
+Removed 0 unused cells and 98 unused wires.
+<suppressed ~33 debug messages>
+
+9.23.5. Finished fast OPT passes.
+
+9.24. Executing HIERARCHY pass (managing design hierarchy).
+Attribute `top' found on module `ripple_carry_adder'. Setting top module to ripple_carry_adder.
+
+9.24.1. Analyzing design hierarchy..
+Top module:  \ripple_carry_adder
+
+9.24.2. Analyzing design hierarchy..
+Top module:  \ripple_carry_adder
+Removed 0 unused modules.
+
+9.25. Printing statistics.
+
+=== ripple_carry_adder ===
+
+        +----------Local Count, excluding submodules.
+        | 
+      149 wires
+      210 wire bits
+       86 public wires
+      147 public wire bits
+        5 ports
+       50 port bits
+       96 cells
+       48   $_NAND_
+       32   $_XOR_
+       16   $scopeinfo
+
+9.26. Executing CHECK pass (checking for obvious problems).
+Checking module ripple_carry_adder...
+Found and reported 0 problems.
+
+10. Executing DFFLIBMAP pass (mapping DFF/DLATCH cells to sequential cells from liberty file).
+  cell sky130_fd_sc_hd__dfxtp_1 (noninv, pins=3, area=20.02) is a direct match for cell type $_DFF_P_.
+  cell sky130_fd_sc_hd__dfrtn_1 (noninv, pins=4, area=25.02) is a direct match for cell type $_DFF_NN0_.
+  cell sky130_fd_sc_hd__dfrtp_1 (noninv, pins=4, area=25.02) is a direct match for cell type $_DFF_PN0_.
+  cell sky130_fd_sc_hd__dfstp_1 (noninv, pins=4, area=26.28) is a direct match for cell type $_DFF_PN1_.
+  cell sky130_fd_sc_hd__edfxtp_1 (noninv, pins=4, area=30.03) is a direct match for cell type $_DFFE_PP_.
+  cell sky130_fd_sc_hd__dfbbn_1 (noninv, pins=6, area=32.53) is a direct match for cell type $_DFFSR_NNN_.
+  cell sky130_fd_sc_hd__dfbbp_1 (noninv, pins=6, area=32.53) is a direct match for cell type $_DFFSR_PNN_.
+  cell sky130_fd_sc_hd__dlxtn_1 (noninv, pins=3, area=15.01) is a direct match for cell type $_DLATCH_N_.
+  cell sky130_fd_sc_hd__lpflow_inputisolatch_1 (noninv, pins=3, area=13.76) is a direct match for cell type $_DLATCH_P_.
+  cell sky130_fd_sc_hd__dlrtn_1 (noninv, pins=4, area=17.52) is a direct match for cell type $_DLATCH_NN0_.
+  cell sky130_fd_sc_hd__dlrtp_1 (noninv, pins=4, area=16.27) is a direct match for cell type $_DLATCH_PN0_.
+  final dff/dlatch cell mappings:
+    unmapped dff/dlatch cell: $_DFF_N_
+    \sky130_fd_sc_hd__dfxtp_1 _DFF_P_ (.CLK( C), .D( D), .Q( Q));
+    \sky130_fd_sc_hd__dfrtn_1 _DFF_NN0_ (.CLK_N( C), .D( D), .Q( Q), .RESET_B( R));
+    unmapped dff/dlatch cell: $_DFF_NN1_
+    unmapped dff/dlatch cell: $_DFF_NP0_
+    unmapped dff/dlatch cell: $_DFF_NP1_
+    \sky130_fd_sc_hd__dfrtp_1 _DFF_PN0_ (.CLK( C), .D( D), .Q( Q), .RESET_B( R));
+    \sky130_fd_sc_hd__dfstp_1 _DFF_PN1_ (.CLK( C), .D( D), .Q( Q), .SET_B( R));
+    unmapped dff/dlatch cell: $_DFF_PP0_
+    unmapped dff/dlatch cell: $_DFF_PP1_
+    unmapped dff/dlatch cell: $_DFFE_NN_
+    unmapped dff/dlatch cell: $_DFFE_NP_
+    unmapped dff/dlatch cell: $_DFFE_PN_
+    \sky130_fd_sc_hd__edfxtp_1 _DFFE_PP_ (.CLK( C), .D( D), .DE( E), .Q( Q));
+    \sky130_fd_sc_hd__dfbbn_1 _DFFSR_NNN_ (.CLK_N( C), .D( D), .Q( Q), .Q_N(~Q), .RESET_B( R), .SET_B( S));
+    unmapped dff/dlatch cell: $_DFFSR_NNP_
+    unmapped dff/dlatch cell: $_DFFSR_NPN_
+    unmapped dff/dlatch cell: $_DFFSR_NPP_
+    \sky130_fd_sc_hd__dfbbp_1 _DFFSR_PNN_ (.CLK( C), .D( D), .Q( Q), .Q_N(~Q), .RESET_B( R), .SET_B( S));
+    unmapped dff/dlatch cell: $_DFFSR_PNP_
+    unmapped dff/dlatch cell: $_DFFSR_PPN_
+    unmapped dff/dlatch cell: $_DFFSR_PPP_
+    \sky130_fd_sc_hd__dlxtn_1 _DLATCH_N_ (.D( D), .GATE_N( E), .Q( Q));
+    \sky130_fd_sc_hd__lpflow_inputisolatch_1 _DLATCH_P_ (.D( D), .Q( Q), .SLEEP_B( E));
+    \sky130_fd_sc_hd__dlrtn_1 _DLATCH_NN0_ (.D( D), .GATE_N( E), .Q( Q), .RESET_B( R));
+    unmapped dff/dlatch cell: $_DLATCH_NN1_
+    unmapped dff/dlatch cell: $_DLATCH_NP0_
+    unmapped dff/dlatch cell: $_DLATCH_NP1_
+    \sky130_fd_sc_hd__dlrtp_1 _DLATCH_PN0_ (.D( D), .GATE( E), .Q( Q), .RESET_B( R));
+    unmapped dff/dlatch cell: $_DLATCH_PN1_
+    unmapped dff/dlatch cell: $_DLATCH_PP0_
+    unmapped dff/dlatch cell: $_DLATCH_PP1_
+    unmapped dff/dlatch cell: $_DLATCHSR_NNN_
+    unmapped dff/dlatch cell: $_DLATCHSR_NNP_
+    unmapped dff/dlatch cell: $_DLATCHSR_NPN_
+    unmapped dff/dlatch cell: $_DLATCHSR_NPP_
+    unmapped dff/dlatch cell: $_DLATCHSR_PNN_
+    unmapped dff/dlatch cell: $_DLATCHSR_PNP_
+    unmapped dff/dlatch cell: $_DLATCHSR_PPN_
+    unmapped dff/dlatch cell: $_DLATCHSR_PPP_
+
+10.1. Executing DFFLEGALIZE pass (convert FFs and LATCHes to types supported by the target).
+<suppressed ~24 debug messages>
+Mapping DFF/DLATCH cells in module `\ripple_carry_adder':
+
+11. Executing ABC pass (technology mapping using ABC).
+
+11.1. Summary of detected clock domains:
+  96 cells in clk={ }, en={ }, arst={ }, srst={ }
+
+11.2. Extracting gate netlist of module `\ripple_carry_adder' to `<abc-temp-dir>/input.blif'..
+Warning: ABC: merged SCL conversion failed, falling back to liberty format
+ABC: conversion output:
+'X:\tools\oss-cad-suite\bin\yosys-abc" -c "read_lib' is not recognized as an internal or external command,
+
+operable program or batch file.
+
+Warning: ABC: Merged scl conversion failed, using liberty format
+No matching clock domain found. Not extracting any FF cells.
+
+11.2.1. Executed ABC.
+Extracted 80 gates and 113 wires to a netlist network with 33 inputs and 17 outputs.
+Running ABC script: <abc-temp-dir>/abc.script
+ABC: ======== ABC command line "source <abc-temp-dir>/abc.script"
+ABC: + read_blif <abc-temp-dir>/input.blif 
+ABC: + read_lib -w X:\/synthesis/sky130_pdk/sky130_fd_sc_hd__tt_025C_1v80.lib 
+ABC: Parsing finished successfully.  Parsing time =     0.07 sec
+ABC: Scl_LibertyReadGenlib() skipped cell "sky130_fd_sc_hd__decap_12" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "sky130_fd_sc_hd__decap_3" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "sky130_fd_sc_hd__decap_4" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "sky130_fd_sc_hd__decap_6" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "sky130_fd_sc_hd__decap_8" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfbbn_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfbbn_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfbbp_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfrbp_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfrbp_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfrtn_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfrtp_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfrtp_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfrtp_4".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfsbp_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfsbp_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfstp_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfstp_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfstp_4".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfxbp_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfxbp_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfxtp_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfxtp_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfxtp_4".
+ABC: Scl_LibertyReadGenlib() skipped cell "sky130_fd_sc_hd__diode_2" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "sky130_fd_sc_hd__dlclkp_1" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "sky130_fd_sc_hd__dlclkp_2" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "sky130_fd_sc_hd__dlclkp_4" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dlrbn_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dlrbn_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dlrbp_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dlrbp_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dlrtn_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dlrtn_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dlrtn_4".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dlrtp_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dlrtp_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dlrtp_4".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dlxbn_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dlxbn_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dlxbp_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dlxtn_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dlxtn_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dlxtn_4".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dlxtp_1".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "sky130_fd_sc_hd__ebufn_1".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "sky130_fd_sc_hd__ebufn_2".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "sky130_fd_sc_hd__ebufn_4".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "sky130_fd_sc_hd__ebufn_8".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__edfxbp_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__edfxtp_1".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "sky130_fd_sc_hd__einvn_0".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "sky130_fd_sc_hd__einvn_1".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "sky130_fd_sc_hd__einvn_2".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "sky130_fd_sc_hd__einvn_4".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "sky130_fd_sc_hd__einvn_8".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "sky130_fd_sc_hd__einvp_1".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "sky130_fd_sc_hd__einvp_2".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "sky130_fd_sc_hd__einvp_4".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "sky130_fd_sc_hd__einvp_8".
+ABC: Scl_LibertyReadGenlib() skipped cell "sky130_fd_sc_hd__lpflow_bleeder_1" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "sky130_fd_sc_hd__lpflow_decapkapwr_12" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "sky130_fd_sc_hd__lpflow_decapkapwr_3" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "sky130_fd_sc_hd__lpflow_decapkapwr_4" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "sky130_fd_sc_hd__lpflow_decapkapwr_6" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "sky130_fd_sc_hd__lpflow_decapkapwr_8" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__lpflow_inputisolatch_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sdfbbn_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sdfbbn_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sdfbbp_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sdfrbp_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sdfrbp_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sdfrtn_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sdfrtp_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sdfrtp_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sdfrtp_4".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sdfsbp_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sdfsbp_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sdfstp_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sdfstp_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sdfstp_4".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sdfxbp_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sdfxbp_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sdfxtp_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sdfxtp_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sdfxtp_4".
+ABC: Scl_LibertyReadGenlib() skipped cell "sky130_fd_sc_hd__sdlclkp_1" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "sky130_fd_sc_hd__sdlclkp_2" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "sky130_fd_sc_hd__sdlclkp_4" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sedfxbp_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sedfxbp_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sedfxtp_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sedfxtp_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sedfxtp_4".
+ABC: Library "sky130_fd_sc_hd__tt_025C_1v80" from "X:\/synthesis/sky130_pdk/sky130_fd_sc_hd__tt_025C_1v80.lib" has 334 cells (94 skipped: 63 seq; 13 tri-state; 18 no func; 0 dont_use; 0 with 2 outputs; 0 with 3+ outputs).  Time =     0.26 sec
+ABC: Memory =   16.01 MB. Time =     0.26 sec
+ABC: Warning: Detected 9 multi-output cells (for example, "sky130_fd_sc_hd__fa_1").
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &fraig -x 
+ABC: + &put 
+ABC: + scorr 
+ABC: Warning: The network is combinational (run "fraig" or "fraig_sweep").
+ABC: + dc2 
+ABC: + dretime 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &dch -f 
+ABC: + &nf 
+ABC: + &put 
+ABC: + write_blif <abc-temp-dir>/output.blif 
+
+11.2.2. Re-integrating ABC results.
+ABC RESULTS:   sky130_fd_sc_hd__maj3_1 cells:       16
+ABC RESULTS:   sky130_fd_sc_hd__xnor2_1 cells:       32
+ABC RESULTS:        internal signals:       63
+ABC RESULTS:           input signals:       33
+ABC RESULTS:          output signals:       17
+Removing temp directory.
+Removing global temp directory.
+Removed 0 unused cells and 113 unused wires.
+
+12. Executing Verilog backend.
+
+12.1. Executing BMUXMAP pass.
+
+12.2. Executing DEMUXMAP pass.
+Dumping module `\ripple_carry_adder'.
+
+13. Printing statistics.
+
+=== ripple_carry_adder ===
+
+        +----------Local Count, excluding submodules.
+        |        +-Local Area, excluding submodules.
+        |        | 
+      117        - wires
+      178        - wire bits
+       86        - public wires
+      147        - public wire bits
+        5        - ports
+       50        - port bits
+       64  440.422 cells
+       16        -   $scopeinfo
+       16  160.154   sky130_fd_sc_hd__maj3_1
+       32  280.269   sky130_fd_sc_hd__xnor2_1
+
+   Area for cell type $scopeinfo is unknown!
+
+   Chip area for module '\ripple_carry_adder': 440.422400
+     of which used for sequential elements: 0.000000 (0.00%)
+
+Warnings: 2 unique messages, 2 total
+End of script. Logfile hash: 1873fed2f0
+Yosys 0.70+329 (git sha1 b8d84f823, Release, GNU /usr/bin/x86_64-w64-mingw32-g++ 15.2.1)
+Time spent: 1% 19x opt_expr (0 sec), 1% 16x opt_merge (0 sec), ...

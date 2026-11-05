@@ -1,0 +1,12 @@
+VCD info: dumpfile simulation/waveforms/carry_lookahead_adder.vcd opened for output.
+==========================================================================
+>>> STARTING FUNCTIONAL VERIFICATION: CARRY LOOK-AHEAD ADDER (CLA) <<<
+==========================================================================
+[PASS] Corner 1: Zero Addition | A=0, B=0, Cin=0 => SUM=0, Cout=0
+[PASS] Corner 2: 1 + 1 | A=1, B=1, Cin=0 => SUM=2, Cout=0
+[PASS] Corner 3: Overflow 65535 + 1 | A=65535, B=1, Cin=0 => SUM=0, Cout=1
+[PASS] Corner 4: Max + Max + Cin | A=65535, B=65535, Cin=1 => SUM=65535, Cout=1
+[PASS] Corner 5: 32768 + 32768 | A=32768, B=32768, Cin=0 => SUM=0, Cout=1
+[PASS] Corner 6: 12345 + 54321 | A=12345, B=54321, Cin=0 => SUM=1130, Cout=1
+CLA Verification: Total=10006, Passed=10006, Failed=0
+X:verification/testbench_cla.v:82: $finish called at 50030000 (1ps)
