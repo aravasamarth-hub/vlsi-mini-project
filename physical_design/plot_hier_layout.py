@@ -94,3 +94,4 @@ plt.tight_layout()
 os.makedirs(os.path.dirname(IMG_OUT), exist_ok=True)
 plt.savefig(IMG_OUT, dpi=250, bbox_inches="tight")
 print(f"[+] Successfully generated hierarchical placement plot: {IMG_OUT}")
+

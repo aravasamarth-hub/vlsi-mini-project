@@ -94,3 +94,4 @@ abc -liberty sky130_fd_sc_hd__tt_025C_1v80.lib
 - The **Flattened CSKA netlist** is physically and logically an **RCA**.
 - The **Hierarchical CSKA netlist** preserves the true academic architecture with 56 cells, 4 bypass multiplexers, and 4 group-propagate AND gates.
 - Both netlists are valid project artifacts, but their distinctions must be transparently declared in academic defense and documentation.
+

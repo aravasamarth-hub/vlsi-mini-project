@@ -62,3 +62,4 @@ When asked by evaluators or professors:
 
 **The correct, scientifically rigorous answer is:**
 > *"The GDSII file (`cska_hier_sky130.gds`) is a standard-cell placement stream generated using KLayout and the Google/SkyWater 130nm High-Density library. It contains all 56 standard-cell macros placed on the legal site grid, including the 4 carry-skip multiplexers and 4 group-propagate AND gates. Detailed routing (M1–M5 interconnects), parasitic extraction (SPEF), and signoff DRC/LVS were not completed, which represents the standard academic boundary for placement-level VLSI coursework."*
+

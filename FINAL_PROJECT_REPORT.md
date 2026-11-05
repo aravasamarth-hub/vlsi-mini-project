@@ -78,11 +78,17 @@ All testbenches were compiled with Icarus Verilog 13.0 and executed via the VVP 
 
 ---
 
-## 6. Physical Implementation Deliverables
+## 6. Physical Implementation Deliverables & Dual Streams
 
-- **DEF Placement:** `physical_design/placement/cska_sky130.def` (45 µm × 35 µm die, 9 rows, 48 cells placed legally at 51.36% core utilization).
-- **GDSII Layout Stream:** `physical_design/gds/cska_sky130.gds` (**4.18 MB**, 433 instances across SkyWater diffusion, poly, local interconnect, and Metal 1–3 layers).
-- **Scope Clarification:** Documented as an academic standard-cell placement stream. Detailed metal routing, CTS, and signoff DRC/LVS were not completed due to native Windows OpenROAD tool constraints.
+- **Hierarchical CSKA Stream (True Architecture):**
+  - **DEF Placement:** [`physical_design/placement/cska_hier_sky130.def`](file:///D:/mini%20project/physical_design/placement/cska_hier_sky130.def) (55 µm × 45 µm die, 12 rows, **56 cells** placed legally, preserving all 4 `mux2_1` and 4 `and4_1` bypass gates, 51.8% utilization).
+  - **GDSII Stream:** [`physical_design/gds/cska_hier_sky130.gds`](file:///D:/mini%20project/physical_design/gds/cska_hier_sky130.gds) (**4.19 MB**, 56 macro instances assembled via KLayout).
+  - **Silicon Gate Area:** **760.73 µm²**.
+- **Flattened Baseline Stream (RCA-Equivalent):**
+  - **DEF Placement:** [`physical_design/placement/cska_sky130.def`](file:///D:/mini%20project/physical_design/placement/cska_sky130.def) (45 µm × 35 µm die, 9 rows, 48 cells placed legally at 51.36% core utilization).
+  - **GDSII Stream:** [`physical_design/gds/cska_sky130.gds`](file:///D:/mini%20project/physical_design/gds/cska_sky130.gds) (**4.18 MB**, 48 macro instances; ABC logic optimization pruned bypass multiplexers).
+  - **Silicon Gate Area:** **440.42 µm²**.
+- **Physical Design Status:** Both files are standard-cell placement streams ("Placement verified — detailed routing not completed"). Detailed metal routing, CTS, and signoff DRC/LVS were not completed due to native Windows OpenROAD tool constraints.
 
 ---
 

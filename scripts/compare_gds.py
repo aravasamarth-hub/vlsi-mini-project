@@ -48,3 +48,4 @@ def inspect_gds(gds_path, label):
 if __name__ == '__main__':
     inspect_gds("physical_design/gds/cska_sky130.gds", "ORIGINAL GDSII (FLATTENED)")
     inspect_gds("physical_design/gds/cska_hier_sky130.gds", "NEW HIERARCHICAL GDSII (TRUE CSKA)")
+

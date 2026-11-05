@@ -78,3 +78,4 @@ Because $C_{ripple}$ already equals $C_{in}$ when $P_{grp}=1$. Since standard ar
 The **hierarchical netlist** ([`cska_hier_sky130_netlist.v`](file:///D:/mini%20project/synthesis/netlists/cska_hier_sky130_netlist.v)) and its corresponding placement stream ([`cska_hier_sky130.gds`](file:///D:/mini%20project/physical_design/gds/cska_hier_sky130.gds)) match the academic claims of the project.
 - **Academic Claim:** 16-bit Carry Skip Adder with 4 4-bit blocks, group propagate logic, and 2:1 skip multiplexers achieving $O(\sqrt{N})$ asymptotic delay.
 - **Hierarchical Implementation:** Retains all 4 blocks, 4 `mux2_1` bypass multiplexers, 4 `and4_1` gates, and achieves the analytical critical-path delay estimate of **2.471 ns** (vs 3.957 ns RCA) with **56 standard cells** and **760.73 µm²** silicon gate area.
+

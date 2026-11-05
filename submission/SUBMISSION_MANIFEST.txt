@@ -1,9 +1,9 @@
 ================================================================================
 CYBERCORE 3D - OFFICIAL PROJECT SUBMISSION MANIFEST
 Archive: 16bit_carry_skip_adder_sky130_submission.zip
-Generated: 2026-11-06 01:10:58
-Total Packaged Files: 208
-Archive Size: 21.18 MB
+Generated: 2026-11-06 02:12:37
+Total Packaged Files: 233
+Archive Size: 22.68 MB
 ================================================================================
 
 KEY DELIVERABLES INCLUDED:
@@ -31,6 +31,9 @@ COMPLETE FILE INVENTORY:
   COMPLETE_PROGRAM_INVENTORY.md
   COMPLETE_PROJECT_INVENTORY.md
   COMPLETE_SOFTWARE_INVENTORY.md
+  CSKA_GDS_ARCHITECTURE_VERIFICATION.md
+  CSKA_PHYSICAL_DESIGN_PROVENANCE.md
+  CSKA_RCA_NETLIST_COMPARISON.md
   DEPENDENCY_REPORT.md
   DEVELOPMENT_LOG.md
   ENVIRONMENT_SETUP_GUIDE.md
@@ -38,6 +41,7 @@ COMPLETE FILE INVENTORY:
   FINAL_3D_VISUALIZATION_AUDIT.md
   FINAL_ACADEMIC_READINESS_CHECKLIST.md
   FINAL_BACKEND_TEST_REPORT.md
+  FINAL_CONSISTENT_TIMING_REPORT.md
   FINAL_DOCUMENTATION_REPORT.md
   FINAL_EVIDENCE_VALIDATION.md
   FINAL_EXTENSION_INVENTORY.md
@@ -56,6 +60,7 @@ COMPLETE FILE INVENTORY:
   FINAL_SYNTHESIS_AUDIT.md
   FINAL_SYSTEM_AUDIT.md
   FINAL_SYSTEM_COMPLETION_REPORT.md
+  FINAL_TIMING_PATH_REVIEW.md
   FINAL_TIMING_POWER_ANALYSIS.md
   FINAL_VERIFICATION_REPORT.md
   FINAL_VISUAL_QA_REPORT.md
@@ -64,6 +69,7 @@ COMPLETE FILE INVENTORY:
   INDEPENDENT_AUDIT_REPORT.md
   INSTALLATION_GUIDE.md
   MISSING_COMPONENTS_REPORT.md
+  PHYSICAL_DESIGN_LIMITATIONS.md
   PROGRAMS_AND_SCRIPTS_CATALOG.md
   PROJECT_DOCUMENTATION.md
   PROJECT_FILE_TREE.md
@@ -82,6 +88,7 @@ COMPLETE FILE INVENTORY:
   SYNTHESIS_ANALYSIS_REPORT.md
   SYSTEM_AUDIT.md
   TEST_RESULTS.md
+  TIMING_COMPARISON_METHODOLOGY.md
   UI_REDESIGN_REPORT.md
   VISUAL_QA_REPORT.md
   VIVA_QUESTION_BANK.md
@@ -105,8 +112,8 @@ COMPLETE FILE INVENTORY:
   dashboard\app.py
   documentation\examiner_viva_defense.md
   documentation\seminar_speaking_script.md
-  frontend\dist\assets\index-CIT6fsYE.js
-  frontend\dist\assets\index-cRyPUSFE.css
+  frontend\dist\assets\index-Bc_u7AzA.js
+  frontend\dist\assets\index-D3YEbJG4.css
   frontend\dist\index.html
   frontend\index.html
   frontend\package-lock.json
@@ -136,10 +143,17 @@ COMPLETE FILE INVENTORY:
   frontend\vite.config.ts
   physical_design\export_gds.py
   physical_design\export_snapshot.py
+  physical_design\gds\cska_hier_sky130.gds
   physical_design\gds\cska_sky130.gds
+  physical_design\generate_hier_physical_layout.py
   physical_design\generate_physical_layout.py
+  physical_design\generate_visual_comparison.py
+  physical_design\placement\cska_hier_sky130.def
   physical_design\placement\cska_sky130.def
+  physical_design\plot_hier_layout.py
   physical_design\plot_layout.py
+  physical_design\reports\cska_hier_placement_layout.png
+  physical_design\reports\cska_physical_layout_comparison.png
   physical_design\reports\cska_placement_layout.png
   physical_design\sdc\cska_sky130.sdc
   rtl\brent_kung_adder.v
@@ -154,11 +168,22 @@ COMPLETE FILE INVENTORY:
   rtl\parameterized_cska.v
   rtl\ripple_carry_adder.v
   run_complete_project.bat
+  scripts\audit_netlists.py
+  scripts\audit_timing.py
+  scripts\build_physical_viewer.py
+  scripts\compare_gds.py
+  scripts\hier_comps.json
+  scripts\inspect_liberty_arcs.py
   scripts\inspect_physical_artifacts.py
+  scripts\klayout_audit.py
+  scripts\klayout_audit_results.txt
   scripts\package_submission.py
   scripts\parse_gds.py
+  scripts\prep_viewer.py
   scripts\setup_env.bat
   scripts\setup_env.ps1
+  scripts\update_docs_consistency.py
+  scripts\update_physical_viewer.py
   scripts\verify_timing_cells.py
   simulation\run_simulation.py
   simulation\simulation_logs\bk_verification.log

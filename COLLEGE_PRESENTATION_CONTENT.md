@@ -111,12 +111,13 @@
 - **Deliverable:** `layout/cska_sky130.def`.
 - **Speaker Notes:** "Our floorplan places the 48 standard cells into 9 legal rows with 51.4% core utilization, matching the standard cell grid."
 
-### Slide 16: Mask Generation & GDSII Stream
-- **File:** `layout/cska_sky130.gds` (4.18 MB, 433 geometry instances).
-- **Engine:** KLayout 0.30.0 Pya engine merging standard-cell macro polygons.
-- **Layers:** Active diffusion (65/20), poly gates (66/20), local interconnect (67/20), and Metal 1–3.
-- **Scope Boundary:** Academic standard-cell placement stream (unrouted).
-- **Speaker Notes:** "Using KLayout's Pya engine, we generated an authentic 4.18 MB GDSII layout containing 433 instances mapped to SkyWater 130nm reticle layers."
+### Slide 16: Mask Generation & Dual GDSII Streams
+- **Hierarchical Stream:** `physical_design/gds/cska_hier_sky130.gds` (4.19 MB, 56 cells preserving all 4 `mux2_1` and 4 `and4_1` gates).
+- **Flattened Baseline:** `physical_design/gds/cska_sky130.gds` (4.18 MB, 48 cells, ABC-flattened RCA-equivalent).
+- **Engine:** KLayout 0.30.0 headless batch engine assembling standard-cell macros from `sky130_fd_sc_hd.gds`.
+- **Layers:** Active diffusion (65/20), poly gates (66/20), local interconnect (67/20), PRBOUNDARY (235/4), and Metal 1–3 (39 physical mask layers).
+- **Scope Boundary:** Academic standard-cell placement stream ("Placement verified — detailed routing not completed").
+- **Speaker Notes:** "Using KLayout's API, we generated two verified GDSII placement streams: the true 56-cell hierarchical CSKA layout preserving all carry-skip multiplexers, and the 48-cell flattened baseline."
 
 ### Slide 17: CyberCore 3D Web Visualization Platform
 - **Technology:** React 18, TypeScript, Three.js, React Three Fiber, Tailwind CSS.

@@ -79,3 +79,4 @@ $$\text{Speedup} = \frac{3.957 - 2.471}{3.957} \times 100\% = \mathbf{37.55\%} \
 > 2. Parasitic extraction (SPEF) requires physical metal routing geometries and via layers.
 > 3. Without SPEF back-annotation, OpenSTA cannot compute post-route RC delays.
 > 4. In academic viva and faculty demonstration, this metric must be presented as an **analytical netlist-level timing estimate**, adhering to full scientific transparency.
+

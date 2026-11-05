@@ -95,11 +95,15 @@
 ## Part 6: Physical Design & GDSII Stream (Minutes 11:30 – 13:00)
 
 1. **Navigate to "Physical Layout (GDS)" View:**
-   - Show the 45.0 µm × 35.0 µm die boundary with 9 standard-cell rows at 2.72 µm pitch.
-   - Explain the core utilization of 51.36%.
-2. **Show Real GDSII File:**
-   - Point out `physical_design/gds/cska_sky130.gds` (4.18 MB, 433 instances).
-   - State clearly: The GDSII represents **standard-cell placement**; detailed metal routing and signoff DRC/LVS were not completed due to native Windows OpenROAD constraints.
+   - Demonstrate the **Architecture Selector**:
+     - **Hierarchical CSKA (56 Cells — True Architecture):** Displays the 55.0 µm × 45.0 µm die boundary with 12 rows, highlighting the **4 neon-pink carry-skip multiplexers (`mux2_1`)** and **4 purple group-propagate AND gates (`and4_1`)**. Silicon gate area: **760.73 µm²**.
+     - **Flattened Baseline (48 Cells — RCA Equivalent):** Displays the 45.0 µm × 35.0 µm die with 9 rows (16 `maj3_1` + 32 `xnor2_1`), where ABC Boolean synthesis pruned the bypass multiplexers. Silicon gate area: **440.42 µm²**.
+   - Note the prominent status banner: *"Placement verified — detailed routing not completed."*
+2. **Show Dual GDSII Streams & DEF Source:**
+   - Hierarchical stream: [`physical_design/gds/cska_hier_sky130.gds`](file:///D:/mini%20project/physical_design/gds/cska_hier_sky130.gds) (4.19 MB, 56 placed macros).
+   - Flattened stream: [`physical_design/gds/cska_sky130.gds`](file:///D:/mini%20project/physical_design/gds/cska_sky130.gds) (4.18 MB, 48 placed macros).
+   - Toggle to **DEF Source** to view the live DEF coordinates matching both layouts.
+   - State clearly to faculty: *"The GDSII files represent legal standard-cell placement assembled via KLayout from Sky130 HD PDK macros. Detailed metal routing (M1–M5) and signoff DRC/LVS were not completed, which represents the standard academic boundary for placement-level VLSI coursework."*
 
 ---
 

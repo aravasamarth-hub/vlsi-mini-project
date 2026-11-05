@@ -7,6 +7,15 @@
 
 ---
 
+## 1. Physical Design Deliverables Inventory & Dual Stream Declaration
+
+> [!NOTE]
+> **Dual Physical Layout Streams Available:**
+> 1. **Hierarchical CSKA Stream (True Architecture):** [`physical_design/gds/cska_hier_sky130.gds`](file:///D:/mini%20project/physical_design/gds/cska_hier_sky130.gds) and [`physical_design/placement/cska_hier_sky130.def`](file:///D:/mini%20project/physical_design/placement/cska_hier_sky130.def) — **56 cells**, **760.73 µm²**, preserving all 4 `mux2_1` and 4 `and4_1` bypass gates.
+> 2. **Original Flattened Stream (RCA-Equivalent):** [`physical_design/gds/cska_sky130.gds`](file:///D:/mini%20project/physical_design/gds/cska_sky130.gds) and [`physical_design/placement/cska_sky130.def`](file:///D:/mini%20project/physical_design/placement/cska_sky130.def) — **48 cells**, **440.42 µm²**, where ABC Boolean synthesis collapsed bypass gates into RCA majority carry gates.
+>
+> **Physical Design Status:** Standard-cell placement verified with KLayout macros; detailed routing (M1–M5) and signoff DRC/LVS were not completed in this academic flow.
+
 ## 1. Physical Design Deliverables Inventory
 
 | File Path | File Format | Size | Description / Purpose |

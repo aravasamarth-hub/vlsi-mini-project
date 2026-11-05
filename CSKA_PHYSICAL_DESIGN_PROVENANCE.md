@@ -88,3 +88,4 @@ To resolve the architectural discrepancy without overwriting original artifacts,
 
 1. No original files were modified or deleted. Both `cska_sky130.gds` and `cska_hier_sky130.gds` coexist in `physical_design/gds/`.
 2. Both layouts have clear provenance and can be fully reproduced using their respective documented commands.
+

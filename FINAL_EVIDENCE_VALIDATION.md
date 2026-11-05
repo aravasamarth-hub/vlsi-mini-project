@@ -22,8 +22,8 @@
 | **4. Timing** | Analytical Liberty critical-path delay | **PASS** | 2.471 ns derived from Liberty lookup tables | `scripts/verify_timing_cells.py` (Exit Code 0) |
 | **4. Timing** | RCA comparison delay reproducibility | **PASS** | 4.240 ns hierarchical RCA / 3.957 ns flat | Derived under identical TT 25°C 1.80V |
 | **4. Timing** | Proper delay designation | **PASS** | Labeled "Analytical hierarchical critical path" | Never called post-route STA |
-| **5. Physical Design**| DEF placement inspection | **PASS** | `cska_sky130.def` (45x35 µm die, 9 rows, 48 cells) | 51.36% core utilization verified |
-| **5. Physical Design**| GDSII binary stream audit | **PASS** | `cska_sky130.gds` (4.18 MB, 438 structures, 48 SREFs) | Raw binary parser confirmed |
+| **5. Physical Design**| Dual DEF placement inspection | **PASS** | `cska_hier_sky130.def` (56 cells) & `cska_sky130.def` (48 cells) | 51.8% & 51.36% utilization verified |
+| **5. Physical Design**| Dual GDSII binary stream audit | **PASS** | `cska_hier_sky130.gds` (56 SREFs) & `cska_sky130.gds` (48 SREFs) | KLayout genuine macro stream confirmed |
 | **5. Physical Design**| Detailed Routing, CTS, DRC, LVS | **PARTIAL** | Placement stream completed; detail routing unrouted | Academic limitation strictly documented |
 | **6. Full-Stack App**| FastAPI REST Backend | **PASS** | `http://127.0.0.1:8000/api/health` -> 200 OK | `pytest backend/test_api.py` (7/7 Pass in 1.84s) |
 | **6. Full-Stack App**| React Web Application | **PASS** | `http://localhost:3000` (Vite preview daemon) | `npm run build` -> 0 TS errors (Exit Code 0) |

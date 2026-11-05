@@ -7,6 +7,20 @@
 
 ---
 
+## 1. Timing Methodology & Dual RCA Baseline
+
+| Architecture | Netlist Type | Cells | Area (µm²) | Critical Path Topology | Analytical Delay | Speedup vs Baseline |
+| :--- | :--- | :---: | :---: | :--- | :---: | :---: |
+| **Hierarchical RCA** | Hierarchical | 48 | 540.52 | 16 maj3 + 1 xor3 | **4.240 ns** | Reference |
+| **Flattened RCA** | Flattened | 48 | 440.42 | 15 maj3 + 1 xnor2 | **3.957 ns** | +6.67% (via ABC) |
+| **Hierarchical CSKA** | **Hierarchical** | **56** | **760.73** | 7 maj3 + 2 mux2 + 1 xor3 | **2.471 ns** | **+41.72% (vs Hier. RCA)**<br>**+37.55% (vs Flat. RCA)** |
+
+> [!IMPORTANT]
+> **Resolution of 4.240 ns vs 3.957 ns:**
+> - **4.240 ns** is the Hierarchical RCA critical path (16 `maj3_1` + 1 `xor3_1`).
+> - **3.957 ns** is the ABC-flattened RCA critical path (15 `maj3_1` + 1 `xnor2_1`).
+> - The 41.72% speedup is the apples-to-apples comparison between Hierarchical CSKA (2.471 ns) and Hierarchical RCA (4.240 ns).
+
 ## 1. Timing Methodology & Seven-Level Rigor Classification
 
 To maintain scientific honesty, VLSI timing must be strictly classified into its appropriate engineering level:

@@ -1,0 +1,450 @@
+[
+  {
+    "id": "block0/prop_xor_0",
+    "type": "sky130_fd_sc_hd__xor2_1",
+    "x": 7000,
+    "y": 5440,
+    "orient": "N",
+    "func": "Bit-Propagate XOR2 gate"
+  },
+  {
+    "id": "block0/prop_xor_1",
+    "type": "sky130_fd_sc_hd__xor2_1",
+    "x": 10680,
+    "y": 5440,
+    "orient": "N",
+    "func": "Bit-Propagate XOR2 gate"
+  },
+  {
+    "id": "block0/prop_xor_2",
+    "type": "sky130_fd_sc_hd__xor2_1",
+    "x": 14360,
+    "y": 5440,
+    "orient": "N",
+    "func": "Bit-Propagate XOR2 gate"
+  },
+  {
+    "id": "block0/prop_xor_3",
+    "type": "sky130_fd_sc_hd__xor2_1",
+    "x": 18040,
+    "y": 5440,
+    "orient": "N",
+    "func": "Bit-Propagate XOR2 gate"
+  },
+  {
+    "id": "block0/group_prop_and4",
+    "type": "sky130_fd_sc_hd__and4_1",
+    "x": 21720,
+    "y": 5440,
+    "orient": "N",
+    "func": "Group-Propagate 4-bit AND gate"
+  },
+  {
+    "id": "block0/carry_skip_mux2",
+    "type": "sky130_fd_sc_hd__mux2_1",
+    "x": 25400,
+    "y": 5440,
+    "orient": "N",
+    "func": "Carry-Skip 2:1 MUX (Bypass stage)"
+  },
+  {
+    "id": "block0/fa_0/sum_xor3",
+    "type": "sky130_fd_sc_hd__xor3_1",
+    "x": 29080,
+    "y": 5440,
+    "orient": "N",
+    "func": "Full-Adder Sum XOR3 gate"
+  },
+  {
+    "id": "block0/fa_0/cout_maj3",
+    "type": "sky130_fd_sc_hd__maj3_1",
+    "x": 32760,
+    "y": 5440,
+    "orient": "N",
+    "func": "Full-Adder Carry Majority-3 gate"
+  },
+  {
+    "id": "block0/fa_1/sum_xor3",
+    "type": "sky130_fd_sc_hd__xor3_1",
+    "x": 36440,
+    "y": 5440,
+    "orient": "N",
+    "func": "Full-Adder Sum XOR3 gate"
+  },
+  {
+    "id": "block0/fa_1/cout_maj3",
+    "type": "sky130_fd_sc_hd__maj3_1",
+    "x": 40120,
+    "y": 5440,
+    "orient": "N",
+    "func": "Full-Adder Carry Majority-3 gate"
+  },
+  {
+    "id": "block0/fa_2/sum_xor3",
+    "type": "sky130_fd_sc_hd__xor3_1",
+    "x": 43800,
+    "y": 5440,
+    "orient": "N",
+    "func": "Full-Adder Sum XOR3 gate"
+  },
+  {
+    "id": "block0/fa_2/cout_maj3",
+    "type": "sky130_fd_sc_hd__maj3_1",
+    "x": 7000,
+    "y": 8160,
+    "orient": "FS",
+    "func": "Full-Adder Carry Majority-3 gate"
+  },
+  {
+    "id": "block0/fa_3/sum_xor3",
+    "type": "sky130_fd_sc_hd__xor3_1",
+    "x": 10680,
+    "y": 8160,
+    "orient": "FS",
+    "func": "Full-Adder Sum XOR3 gate"
+  },
+  {
+    "id": "block0/fa_3/cout_maj3",
+    "type": "sky130_fd_sc_hd__maj3_1",
+    "x": 14360,
+    "y": 8160,
+    "orient": "FS",
+    "func": "Full-Adder Carry Majority-3 gate"
+  },
+  {
+    "id": "block1/prop_xor_0",
+    "type": "sky130_fd_sc_hd__xor2_1",
+    "x": 18040,
+    "y": 8160,
+    "orient": "FS",
+    "func": "Bit-Propagate XOR2 gate"
+  },
+  {
+    "id": "block1/prop_xor_1",
+    "type": "sky130_fd_sc_hd__xor2_1",
+    "x": 21720,
+    "y": 8160,
+    "orient": "FS",
+    "func": "Bit-Propagate XOR2 gate"
+  },
+  {
+    "id": "block1/prop_xor_2",
+    "type": "sky130_fd_sc_hd__xor2_1",
+    "x": 25400,
+    "y": 8160,
+    "orient": "FS",
+    "func": "Bit-Propagate XOR2 gate"
+  },
+  {
+    "id": "block1/prop_xor_3",
+    "type": "sky130_fd_sc_hd__xor2_1",
+    "x": 29080,
+    "y": 8160,
+    "orient": "FS",
+    "func": "Bit-Propagate XOR2 gate"
+  },
+  {
+    "id": "block1/group_prop_and4",
+    "type": "sky130_fd_sc_hd__and4_1",
+    "x": 32760,
+    "y": 8160,
+    "orient": "FS",
+    "func": "Group-Propagate 4-bit AND gate"
+  },
+  {
+    "id": "block1/carry_skip_mux2",
+    "type": "sky130_fd_sc_hd__mux2_1",
+    "x": 36440,
+    "y": 8160,
+    "orient": "FS",
+    "func": "Carry-Skip 2:1 MUX (Bypass stage)"
+  },
+  {
+    "id": "block1/fa_0/sum_xor3",
+    "type": "sky130_fd_sc_hd__xor3_1",
+    "x": 40120,
+    "y": 8160,
+    "orient": "FS",
+    "func": "Full-Adder Sum XOR3 gate"
+  },
+  {
+    "id": "block1/fa_0/cout_maj3",
+    "type": "sky130_fd_sc_hd__maj3_1",
+    "x": 43800,
+    "y": 8160,
+    "orient": "FS",
+    "func": "Full-Adder Carry Majority-3 gate"
+  },
+  {
+    "id": "block1/fa_1/sum_xor3",
+    "type": "sky130_fd_sc_hd__xor3_1",
+    "x": 7000,
+    "y": 10880,
+    "orient": "N",
+    "func": "Full-Adder Sum XOR3 gate"
+  },
+  {
+    "id": "block1/fa_1/cout_maj3",
+    "type": "sky130_fd_sc_hd__maj3_1",
+    "x": 10680,
+    "y": 10880,
+    "orient": "N",
+    "func": "Full-Adder Carry Majority-3 gate"
+  },
+  {
+    "id": "block1/fa_2/sum_xor3",
+    "type": "sky130_fd_sc_hd__xor3_1",
+    "x": 14360,
+    "y": 10880,
+    "orient": "N",
+    "func": "Full-Adder Sum XOR3 gate"
+  },
+  {
+    "id": "block1/fa_2/cout_maj3",
+    "type": "sky130_fd_sc_hd__maj3_1",
+    "x": 18040,
+    "y": 10880,
+    "orient": "N",
+    "func": "Full-Adder Carry Majority-3 gate"
+  },
+  {
+    "id": "block1/fa_3/sum_xor3",
+    "type": "sky130_fd_sc_hd__xor3_1",
+    "x": 21720,
+    "y": 10880,
+    "orient": "N",
+    "func": "Full-Adder Sum XOR3 gate"
+  },
+  {
+    "id": "block1/fa_3/cout_maj3",
+    "type": "sky130_fd_sc_hd__maj3_1",
+    "x": 25400,
+    "y": 10880,
+    "orient": "N",
+    "func": "Full-Adder Carry Majority-3 gate"
+  },
+  {
+    "id": "block2/prop_xor_0",
+    "type": "sky130_fd_sc_hd__xor2_1",
+    "x": 29080,
+    "y": 10880,
+    "orient": "N",
+    "func": "Bit-Propagate XOR2 gate"
+  },
+  {
+    "id": "block2/prop_xor_1",
+    "type": "sky130_fd_sc_hd__xor2_1",
+    "x": 32760,
+    "y": 10880,
+    "orient": "N",
+    "func": "Bit-Propagate XOR2 gate"
+  },
+  {
+    "id": "block2/prop_xor_2",
+    "type": "sky130_fd_sc_hd__xor2_1",
+    "x": 36440,
+    "y": 10880,
+    "orient": "N",
+    "func": "Bit-Propagate XOR2 gate"
+  },
+  {
+    "id": "block2/prop_xor_3",
+    "type": "sky130_fd_sc_hd__xor2_1",
+    "x": 40120,
+    "y": 10880,
+    "orient": "N",
+    "func": "Bit-Propagate XOR2 gate"
+  },
+  {
+    "id": "block2/group_prop_and4",
+    "type": "sky130_fd_sc_hd__and4_1",
+    "x": 43800,
+    "y": 10880,
+    "orient": "N",
+    "func": "Group-Propagate 4-bit AND gate"
+  },
+  {
+    "id": "block2/carry_skip_mux2",
+    "type": "sky130_fd_sc_hd__mux2_1",
+    "x": 7000,
+    "y": 13600,
+    "orient": "FS",
+    "func": "Carry-Skip 2:1 MUX (Bypass stage)"
+  },
+  {
+    "id": "block2/fa_0/sum_xor3",
+    "type": "sky130_fd_sc_hd__xor3_1",
+    "x": 10680,
+    "y": 13600,
+    "orient": "FS",
+    "func": "Full-Adder Sum XOR3 gate"
+  },
+  {
+    "id": "block2/fa_0/cout_maj3",
+    "type": "sky130_fd_sc_hd__maj3_1",
+    "x": 14360,
+    "y": 13600,
+    "orient": "FS",
+    "func": "Full-Adder Carry Majority-3 gate"
+  },
+  {
+    "id": "block2/fa_1/sum_xor3",
+    "type": "sky130_fd_sc_hd__xor3_1",
+    "x": 18040,
+    "y": 13600,
+    "orient": "FS",
+    "func": "Full-Adder Sum XOR3 gate"
+  },
+  {
+    "id": "block2/fa_1/cout_maj3",
+    "type": "sky130_fd_sc_hd__maj3_1",
+    "x": 21720,
+    "y": 13600,
+    "orient": "FS",
+    "func": "Full-Adder Carry Majority-3 gate"
+  },
+  {
+    "id": "block2/fa_2/sum_xor3",
+    "type": "sky130_fd_sc_hd__xor3_1",
+    "x": 25400,
+    "y": 13600,
+    "orient": "FS",
+    "func": "Full-Adder Sum XOR3 gate"
+  },
+  {
+    "id": "block2/fa_2/cout_maj3",
+    "type": "sky130_fd_sc_hd__maj3_1",
+    "x": 29080,
+    "y": 13600,
+    "orient": "FS",
+    "func": "Full-Adder Carry Majority-3 gate"
+  },
+  {
+    "id": "block2/fa_3/sum_xor3",
+    "type": "sky130_fd_sc_hd__xor3_1",
+    "x": 32760,
+    "y": 13600,
+    "orient": "FS",
+    "func": "Full-Adder Sum XOR3 gate"
+  },
+  {
+    "id": "block2/fa_3/cout_maj3",
+    "type": "sky130_fd_sc_hd__maj3_1",
+    "x": 36440,
+    "y": 13600,
+    "orient": "FS",
+    "func": "Full-Adder Carry Majority-3 gate"
+  },
+  {
+    "id": "block3/prop_xor_0",
+    "type": "sky130_fd_sc_hd__xor2_1",
+    "x": 40120,
+    "y": 13600,
+    "orient": "FS",
+    "func": "Bit-Propagate XOR2 gate"
+  },
+  {
+    "id": "block3/prop_xor_1",
+    "type": "sky130_fd_sc_hd__xor2_1",
+    "x": 43800,
+    "y": 13600,
+    "orient": "FS",
+    "func": "Bit-Propagate XOR2 gate"
+  },
+  {
+    "id": "block3/prop_xor_2",
+    "type": "sky130_fd_sc_hd__xor2_1",
+    "x": 7000,
+    "y": 16320,
+    "orient": "N",
+    "func": "Bit-Propagate XOR2 gate"
+  },
+  {
+    "id": "block3/prop_xor_3",
+    "type": "sky130_fd_sc_hd__xor2_1",
+    "x": 10680,
+    "y": 16320,
+    "orient": "N",
+    "func": "Bit-Propagate XOR2 gate"
+  },
+  {
+    "id": "block3/group_prop_and4",
+    "type": "sky130_fd_sc_hd__and4_1",
+    "x": 14360,
+    "y": 16320,
+    "orient": "N",
+    "func": "Group-Propagate 4-bit AND gate"
+  },
+  {
+    "id": "block3/carry_skip_mux2",
+    "type": "sky130_fd_sc_hd__mux2_1",
+    "x": 18040,
+    "y": 16320,
+    "orient": "N",
+    "func": "Carry-Skip 2:1 MUX (Bypass stage)"
+  },
+  {
+    "id": "block3/fa_0/sum_xor3",
+    "type": "sky130_fd_sc_hd__xor3_1",
+    "x": 21720,
+    "y": 16320,
+    "orient": "N",
+    "func": "Full-Adder Sum XOR3 gate"
+  },
+  {
+    "id": "block3/fa_0/cout_maj3",
+    "type": "sky130_fd_sc_hd__maj3_1",
+    "x": 25400,
+    "y": 16320,
+    "orient": "N",
+    "func": "Full-Adder Carry Majority-3 gate"
+  },
+  {
+    "id": "block3/fa_1/sum_xor3",
+    "type": "sky130_fd_sc_hd__xor3_1",
+    "x": 29080,
+    "y": 16320,
+    "orient": "N",
+    "func": "Full-Adder Sum XOR3 gate"
+  },
+  {
+    "id": "block3/fa_1/cout_maj3",
+    "type": "sky130_fd_sc_hd__maj3_1",
+    "x": 32760,
+    "y": 16320,
+    "orient": "N",
+    "func": "Full-Adder Carry Majority-3 gate"
+  },
+  {
+    "id": "block3/fa_2/sum_xor3",
+    "type": "sky130_fd_sc_hd__xor3_1",
+    "x": 36440,
+    "y": 16320,
+    "orient": "N",
+    "func": "Full-Adder Sum XOR3 gate"
+  },
+  {
+    "id": "block3/fa_2/cout_maj3",
+    "type": "sky130_fd_sc_hd__maj3_1",
+    "x": 40120,
+    "y": 16320,
+    "orient": "N",
+    "func": "Full-Adder Carry Majority-3 gate"
+  },
+  {
+    "id": "block3/fa_3/sum_xor3",
+    "type": "sky130_fd_sc_hd__xor3_1",
+    "x": 43800,
+    "y": 16320,
+    "orient": "N",
+    "func": "Full-Adder Sum XOR3 gate"
+  },
+  {
+    "id": "block3/fa_3/cout_maj3",
+    "type": "sky130_fd_sc_hd__maj3_1",
+    "x": 7000,
+    "y": 19040,
+    "orient": "FS",
+    "func": "Full-Adder Carry Majority-3 gate"
+  }
+]
