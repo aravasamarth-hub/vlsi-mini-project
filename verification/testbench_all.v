@@ -160,7 +160,7 @@ module testbench_all;
         $display("================================================================================");
 
         if ((rca_errors + cska_errors + cla_errors + csla_errors + bk_errors) == 0) begin
-            $display(">>> OVERALL STATUS: ALL FIVE 16-BIT ARCHITECTURES FORMALLY EQUIVALENT <<<");
+            $display(">>> OVERALL STATUS: ALL FIVE 16-BIT ARCHITECTURES SIMULATION-EQUIVALENT (10,000 VECTORS VERIFIED) <<<");
         end else begin
             $display(">>> OVERALL STATUS: DISCREPANCIES DETECTED IN HARNESS <<<");
         end

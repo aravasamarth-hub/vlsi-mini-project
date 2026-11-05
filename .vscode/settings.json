@@ -1,0 +1,117 @@
+{
+  "// === VLSI HDL & SIMULATION CONFIGURATION ===": "",
+  "verilog.linting.linter": "iverilog",
+  "verilog.linting.iverilog.run": "onSave",
+  "verilog.linting.iverilog.arguments": "-i -Wall -g2005-sv -I ${workspaceFolder}/rtl",
+  "verilog.formatting.verilog-format.settings": "",
+  "files.associations": {
+    "*.v": "verilog",
+    "*.vh": "verilog",
+    "*.sv": "systemverilog",
+    "*.svh": "systemverilog",
+    "*.sdc": "tcl",
+    "*.tcl": "tcl",
+    "*.def": "plaintext",
+    "*.lef": "plaintext",
+    "*.tlef": "plaintext",
+    "*.lib": "plaintext",
+    "*.lyp": "xml",
+    "*.lyt": "xml"
+  },
+  "[verilog]": {
+    "editor.tabSize": 2,
+    "editor.insertSpaces": true,
+    "editor.renderWhitespace": "selection",
+    "editor.quickSuggestions": {
+      "other": true,
+      "comments": false,
+      "strings": false
+    }
+  },
+
+  "// === PYTHON & FASTAPI ENVIRONMENT CONFIGURATION ===": "",
+  "python.defaultInterpreterPath": "${workspaceFolder}/.venv/Scripts/python.exe",
+  "python.terminal.activateEnvironment": true,
+  "python.analysis.autoSearchPaths": true,
+  "python.analysis.diagnosticMode": "workspace",
+  "python.analysis.typeCheckingMode": "basic",
+  "python.testing.pytestEnabled": true,
+  "python.testing.pytestArgs": [
+    "backend"
+  ],
+  "[python]": {
+    "editor.defaultFormatter": "charliermarsh.ruff",
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+      "source.fixAll": "explicit",
+      "source.organizeImports": "explicit"
+    }
+  },
+
+  "// === FRONTEND & WEBGL CONFIGURATION ===": "",
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true,
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.tabSize": 2
+  },
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.tabSize": 2
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.tabSize": 2
+  },
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "typescript.tsdk": "${workspaceFolder}/frontend/node_modules/typescript/lib",
+  "typescript.suggest.completeFunctionCalls": true,
+  "tailwindCSS.includeLanguages": {
+    "typescript": "javascript",
+    "typescriptreact": "html",
+    "javascriptreact": "html"
+  },
+  "tailwindCSS.experimental.classRegex": [
+    ["cva\\(([^)]*)\\)", "[\"'`]([^\"'`]*).*?[\"'`]"],
+    ["cx\\(([^)]*)\\)", "(?:'|\"|`)([^']*)(?:'|\"|`)"]
+  ],
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact"
+  ],
+
+  "// === PERFORMANCE & INDEXING OPTIMIZATIONS ===": "",
+  "files.watcherExclude": {
+    "**/.git/objects/**": true,
+    "**/.git/subtree-cache/**": true,
+    "**/node_modules/**": true,
+    "**/frontend/node_modules/**": true,
+    "**/.venv/**": true,
+    "**/tools/**": true,
+    "**/simulation/waveforms/**": true,
+    "**/submission/*.zip": true,
+    "**/frontend/dist/**": true
+  },
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/frontend/node_modules": true,
+    "**/.venv": true,
+    "**/tools": true,
+    "**/frontend/dist": true,
+    "**/simulation/waveforms/*.vcd": true,
+    "**/submission/*.zip": true
+  },
+  "files.exclude": {
+    "**/.git": false,
+    "**/.venv": false,
+    "**/tools": false,
+    "**/__pycache__": true,
+    "**/*.pyc": true
+  },
+  "git.ignoreLimitWarning": true,
+  "telemetry.telemetryLevel": "off"
+}

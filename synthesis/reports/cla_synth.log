@@ -854,8 +854,8 @@ ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sedfxbp_2
 ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sedfxtp_1".
 ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sedfxtp_2".
 ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sedfxtp_4".
-ABC: Library "sky130_fd_sc_hd__tt_025C_1v80" from "X:\/synthesis/sky130_pdk/sky130_fd_sc_hd__tt_025C_1v80.lib" has 334 cells (94 skipped: 63 seq; 13 tri-state; 18 no func; 0 dont_use; 0 with 2 outputs; 0 with 3+ outputs).  Time =     0.23 sec
-ABC: Memory =   16.01 MB. Time =     0.23 sec
+ABC: Library "sky130_fd_sc_hd__tt_025C_1v80" from "X:\/synthesis/sky130_pdk/sky130_fd_sc_hd__tt_025C_1v80.lib" has 334 cells (94 skipped: 63 seq; 13 tri-state; 18 no func; 0 dont_use; 0 with 2 outputs; 0 with 3+ outputs).  Time =     0.26 sec
+ABC: Memory =   16.01 MB. Time =     0.26 sec
 ABC: Warning: Detected 9 multi-output cells (for example, "sky130_fd_sc_hd__fa_1").
 ABC: + strash 
 ABC: + &get -n 
@@ -949,6 +949,6 @@ Dumping module `\carry_lookahead_adder'.
      of which used for sequential elements: 0.000000 (0.00%)
 
 Warnings: 2 unique messages, 2 total
-End of script. Logfile hash: d0e7add89d
+End of script. Logfile hash: 21d4e4713c
 Yosys 0.70+329 (git sha1 b8d84f823, Release, GNU /usr/bin/x86_64-w64-mingw32-g++ 15.2.1)
 Time spent: 1% 20x opt_expr (0 sec), 1% 17x opt_merge (0 sec), ...

@@ -56,3 +56,4 @@ During the 10,014 cycles of CSKA verification:
 
 ---
 *All tests empirically executed on Windows 11 using native Icarus Verilog 14.0.*
+

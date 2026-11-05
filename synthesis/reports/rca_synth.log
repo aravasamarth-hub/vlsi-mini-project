@@ -707,7 +707,7 @@ Running ABC script: <abc-temp-dir>/abc.script
 ABC: ======== ABC command line "source <abc-temp-dir>/abc.script"
 ABC: + read_blif <abc-temp-dir>/input.blif 
 ABC: + read_lib -w X:\/synthesis/sky130_pdk/sky130_fd_sc_hd__tt_025C_1v80.lib 
-ABC: Parsing finished successfully.  Parsing time =     0.07 sec
+ABC: Parsing finished successfully.  Parsing time =     0.10 sec
 ABC: Scl_LibertyReadGenlib() skipped cell "sky130_fd_sc_hd__decap_12" without logic function.
 ABC: Scl_LibertyReadGenlib() skipped cell "sky130_fd_sc_hd__decap_3" without logic function.
 ABC: Scl_LibertyReadGenlib() skipped cell "sky130_fd_sc_hd__decap_4" without logic function.
@@ -861,6 +861,6 @@ Dumping module `\ripple_carry_adder'.
      of which used for sequential elements: 0.000000 (0.00%)
 
 Warnings: 2 unique messages, 2 total
-End of script. Logfile hash: 1873fed2f0
+End of script. Logfile hash: 093710c1ed
 Yosys 0.70+329 (git sha1 b8d84f823, Release, GNU /usr/bin/x86_64-w64-mingw32-g++ 15.2.1)
 Time spent: 1% 19x opt_expr (0 sec), 1% 16x opt_merge (0 sec), ...

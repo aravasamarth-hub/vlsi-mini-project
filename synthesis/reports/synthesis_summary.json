@@ -3,7 +3,7 @@
     "architecture": "RCA",
     "top_module": "ripple_carry_adder",
     "status": "COMPLETED",
-    "synth_time_sec": 1.07,
+    "synth_time_sec": 2.42,
     "total_cells": 48,
     "cell_area_um2": 440.4224,
     "gate_categories": {
@@ -27,7 +27,7 @@
     "architecture": "CSKA",
     "top_module": "carry_skip_adder",
     "status": "COMPLETED",
-    "synth_time_sec": 1.06,
+    "synth_time_sec": 1.3,
     "total_cells": 48,
     "cell_area_um2": 440.4224,
     "gate_categories": {
@@ -51,7 +51,7 @@
     "architecture": "CLA",
     "top_module": "carry_lookahead_adder",
     "status": "COMPLETED",
-    "synth_time_sec": 1.03,
+    "synth_time_sec": 1.22,
     "total_cells": 65,
     "cell_area_um2": 479.2096,
     "gate_categories": {
@@ -93,7 +93,7 @@
     "architecture": "CSLA",
     "top_module": "carry_select_adder",
     "status": "COMPLETED",
-    "synth_time_sec": 1.0,
+    "synth_time_sec": 1.25,
     "total_cells": 48,
     "cell_area_um2": 440.4224,
     "gate_categories": {
@@ -117,7 +117,7 @@
     "architecture": "BK",
     "top_module": "brent_kung_adder",
     "status": "COMPLETED",
-    "synth_time_sec": 1.07,
+    "synth_time_sec": 1.26,
     "total_cells": 77,
     "cell_area_um2": 506.736,
     "gate_categories": {

@@ -1,9 +1,9 @@
 ================================================================================
 CYBERCORE 3D - OFFICIAL PROJECT SUBMISSION MANIFEST
 Archive: 16bit_carry_skip_adder_sky130_submission.zip
-Generated: 2026-11-05 17:14:19
-Total Packaged Files: 124
-Archive Size: 19.58 MB
+Generated: 2026-11-05 17:28:49
+Total Packaged Files: 128
+Archive Size: 19.59 MB
 ================================================================================
 
 KEY DELIVERABLES INCLUDED:
@@ -18,10 +18,14 @@ KEY DELIVERABLES INCLUDED:
 
 --------------------------------------------------------------------------------
 COMPLETE FILE INVENTORY:
+  .gemini\rules\cybercore_vlsi_rules.md
+  .gemini\skills\vlsi-flow-auditor\SKILL.md
   .gitignore
   3D_VISUALIZATION_GUIDE.md
+  ANTIGRAVITY_OPTIMIZATION_REPORT.md
   DEVELOPMENT_LOG.md
   FINAL_PROJECT_STATUS.md
+  INDEPENDENT_AUDIT_REPORT.md
   INSTALLATION_GUIDE.md
   PROJECT_DOCUMENTATION.md
   README.md

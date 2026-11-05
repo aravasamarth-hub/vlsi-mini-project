@@ -18,3 +18,4 @@ set_load 0.015 [get_ports {SUM[*] Cout}]
 
 # 5. Timing Uncertainty & Margin
 set_clock_uncertainty 0.200 [get_clocks -quiet clk]
+

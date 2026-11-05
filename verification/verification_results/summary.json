@@ -1,48 +1,48 @@
 {
   "CSKA": {
     "status": "PASSED",
-    "compile_time_sec": 0.166,
-    "sim_time_sec": 0.786,
+    "compile_time_sec": 0.539,
+    "sim_time_sec": 0.907,
     "vcd_generated": true,
     "vcd_size_kb": 8008,
     "log_path": "X:simulation/simulation_logs/cska_verification.log"
   },
   "ALL_5_ADDERS": {
     "status": "PASSED",
-    "compile_time_sec": 0.161,
-    "sim_time_sec": 3.493,
+    "compile_time_sec": 0.188,
+    "sim_time_sec": 4.511,
     "vcd_generated": true,
     "vcd_size_kb": 29926,
     "log_path": "X:simulation/simulation_logs/master_5adders_verification.log"
   },
   "RCA": {
     "status": "PASSED",
-    "compile_time_sec": 0.174,
-    "sim_time_sec": 0.68,
+    "compile_time_sec": 0.235,
+    "sim_time_sec": 0.776,
     "vcd_generated": true,
     "vcd_size_kb": 5805,
     "log_path": "X:simulation/simulation_logs/rca_verification.log"
   },
   "CLA": {
     "status": "PASSED",
-    "compile_time_sec": 0.185,
-    "sim_time_sec": 0.627,
+    "compile_time_sec": 0.181,
+    "sim_time_sec": 0.73,
     "vcd_generated": true,
     "vcd_size_kb": 5116,
     "log_path": "X:simulation/simulation_logs/cla_verification.log"
   },
   "CSLA": {
     "status": "PASSED",
-    "compile_time_sec": 0.163,
-    "sim_time_sec": 0.91,
+    "compile_time_sec": 0.137,
+    "sim_time_sec": 1.192,
     "vcd_generated": true,
     "vcd_size_kb": 9585,
     "log_path": "X:simulation/simulation_logs/csla_verification.log"
   },
   "BK": {
     "status": "PASSED",
-    "compile_time_sec": 0.149,
-    "sim_time_sec": 1.085,
+    "compile_time_sec": 0.166,
+    "sim_time_sec": 1.313,
     "vcd_generated": true,
     "vcd_size_kb": 8121,
     "log_path": "X:simulation/simulation_logs/bk_verification.log"
