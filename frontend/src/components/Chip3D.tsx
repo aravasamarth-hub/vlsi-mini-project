@@ -1197,76 +1197,7 @@ export default function Chip3D(props: Readonly<Chip3DProps>) {
           />
         </Canvas>
 
-        {/* Top-Right Overlays Matching the Poster Image */}
-        <div className="absolute top-3 right-3 space-y-2 pointer-events-none max-w-xs z-10 hidden sm:block">
-          {/* 1. Design Summary Card */}
-          <div className="glass-panel p-3 rounded-xl border border-[#00F0FF]/30 bg-[#070D1A]/90 shadow-xl space-y-1 text-[10px]">
-            <div className="flex items-center justify-between pb-1 border-b border-[#1E293B] text-[#00F0FF] font-bold">
-              <span>DESIGN SUMMARY</span>
-              <span>SKY130 CMOS</span>
-            </div>
-            <div className="grid grid-cols-2 gap-x-2 gap-y-0.5 text-[#94A3B8] pt-1">
-              <div>Technology:</div><div className="text-white font-bold">SkyWater 130nm</div>
-              <div>Architecture:</div><div className="text-white font-bold">16-Bit CSKA</div>
-              <div>Blocks:</div><div className="text-white font-bold">4 × 4-Bit</div>
-              <div>Cells:</div><div className="text-[#10B981] font-bold">56 cells (hier)</div>
-              <div>Cell Area:</div><div className="text-white font-bold">760.73 µm²</div>
-              <div>Die Size:</div><div className="text-[#00F0FF] font-bold">45.0 × 35.0 µm</div>
-            </div>
-          </div>
 
-          {/* 2. CSKA 4-Block Carry Flow Card */}
-          <div className="glass-panel p-3 rounded-xl border border-[#FF7A00]/30 bg-[#070D1A]/90 shadow-xl space-y-1.5 text-[10px]">
-            <div className="flex items-center justify-between pb-1 border-b border-[#1E293B] text-[#FF7A00] font-bold">
-              <span>CSKA ARCHITECTURE (4 × 4-BIT)</span>
-              <span>P_group = &P[3:0]</span>
-            </div>
-            <div className="flex items-center justify-between space-x-1 pt-1">
-              {[0, 1, 2, 3].map((b) => {
-                const isSkip = props.telemetry?.blocks?.[b]?.skip_active
-                const isSelected = props.activeBlock === b
-                return (
-                  <div
-                    key={b}
-                    className={`flex-1 p-1 rounded-lg border text-center transition ${
-                      isSkip
-                        ? 'bg-[#FF7A00]/20 border-[#FF7A00] text-[#FF7A00] font-bold'
-                        : isSelected
-                        ? 'bg-[#00F0FF]/20 border-[#00F0FF] text-[#00F0FF]'
-                        : 'bg-[#0A1224] border-[#1E293B] text-[#94A3B8]'
-                    }`}
-                  >
-                    <div className="text-[9px]">Block {b}</div>
-                    <div className="text-[8px] font-bold">{isSkip ? 'SKIP' : 'RIPPLE'}</div>
-                  </div>
-                )
-              })}
-            </div>
-          </div>
-
-          {/* 3. Standard Cell Legend */}
-          <div className="glass-panel p-2.5 rounded-xl border border-[#1E293B] bg-[#070D1A]/90 shadow-xl space-y-1 text-[9px]">
-            <div className="text-[#64748B] font-bold pb-0.5">LEGEND (STANDARD CELLS)</div>
-            <div className="grid grid-cols-2 gap-1">
-              <div className="flex items-center space-x-1.5">
-                <span className="w-2.5 h-2.5 rounded bg-[#10B981] inline-block" />
-                <span className="text-white">FA: Full Adder</span>
-              </div>
-              <div className="flex items-center space-x-1.5">
-                <span className="w-2.5 h-2.5 rounded bg-[#FF7A00] inline-block" />
-                <span className="text-white">MUX: 2:1 Skip</span>
-              </div>
-              <div className="flex items-center space-x-1.5">
-                <span className="w-2.5 h-2.5 rounded bg-[#F59E0B] inline-block" />
-                <span className="text-white">AND4: Propagate</span>
-              </div>
-              <div className="flex items-center space-x-1.5">
-                <span className="w-2.5 h-2.5 rounded bg-[#00F0FF] inline-block" />
-                <span className="text-white">XOR: Bit Prop</span>
-              </div>
-            </div>
-          </div>
-        </div>
 
         {/* Selected Cell Inspector Overlay (Engineering Mode) */}
         {selectedCell && (
@@ -1443,6 +1374,89 @@ export default function Chip3D(props: Readonly<Chip3DProps>) {
           >
             <RotateCcw className="w-3.5 h-3.5" />
           </button>
+        </div>
+      </div>
+      {/* 3-Card Architecture & Summary Dock (Arranged Cleanly Below 3D Viewport) */}
+      <div className="p-3.5 border-t border-[#1E293B] bg-[#050914] grid grid-cols-1 md:grid-cols-3 gap-3 z-10 font-mono">
+        {/* 1. Design Summary Card */}
+        <div className="glass-panel p-3.5 rounded-xl border border-[#00F0FF]/30 bg-[#070D1A]/95 shadow-xl space-y-1.5 text-[11px]">
+          <div className="flex items-center justify-between pb-1 border-b border-[#1E293B] text-[#00F0FF] font-bold">
+            <span className="flex items-center space-x-1.5">
+              <Cpu className="w-3.5 h-3.5 text-[#00F0FF]" />
+              <span>DESIGN SUMMARY</span>
+            </span>
+            <span className="text-[#94A3B8] text-[10px]">SKY130 CMOS</span>
+          </div>
+          <div className="grid grid-cols-2 gap-x-2 gap-y-1 text-[#94A3B8] pt-1">
+            <div>Technology:</div><div className="text-white font-bold">SkyWater 130nm</div>
+            <div>Architecture:</div><div className="text-white font-bold">16-Bit CSKA</div>
+            <div>Blocks:</div><div className="text-white font-bold">4 × 4-Bit</div>
+            <div>Cells:</div><div className="text-[#10B981] font-bold">56 cells (hier)</div>
+            <div>Cell Area:</div><div className="text-white font-bold">760.73 µm²</div>
+            <div>Die Size:</div><div className="text-[#00F0FF] font-bold">45.0 × 35.0 µm</div>
+          </div>
+        </div>
+
+        {/* 2. CSKA 4-Block Carry Flow Card */}
+        <div className="glass-panel p-3.5 rounded-xl border border-[#FF7A00]/30 bg-[#070D1A]/95 shadow-xl space-y-1.5 text-[11px]">
+          <div className="flex items-center justify-between pb-1 border-b border-[#1E293B] text-[#FF7A00] font-bold">
+            <span className="flex items-center space-x-1.5">
+              <Activity className="w-3.5 h-3.5 text-[#FF7A00]" />
+              <span>CSKA ARCHITECTURE (4 × 4-BIT)</span>
+            </span>
+            <span className="text-[10px] text-[#94A3B8]">P_group = &P[3:0]</span>
+          </div>
+          <div className="flex items-center justify-between space-x-1.5 pt-1">
+            {[0, 1, 2, 3].map((b) => {
+              const isSkip = props.telemetry?.blocks?.[b]?.skip_active
+              const isSelected = props.activeBlock === b
+              return (
+                <div
+                  key={b}
+                  onClick={() => props.onSelectBlock(b)}
+                  className={`flex-1 p-1.5 rounded-lg border text-center cursor-pointer transition ${
+                    isSkip
+                      ? 'bg-[#FF7A00]/20 border-[#FF7A00] text-[#FF7A00] font-bold shadow-sm shadow-[#FF7A00]/20'
+                      : isSelected
+                      ? 'bg-[#00F0FF]/20 border-[#00F0FF] text-[#00F0FF] font-bold shadow-sm shadow-[#00F0FF]/20'
+                      : 'bg-[#0A1224] border-[#1E293B] text-[#94A3B8] hover:border-[#334155]'
+                  }`}
+                >
+                  <div className="text-[10px] font-bold">Block {b}</div>
+                  <div className="text-[9px] font-extrabold">{isSkip ? 'SKIP' : 'RIPPLE'}</div>
+                </div>
+              )
+            })}
+          </div>
+        </div>
+
+        {/* 3. Standard Cell Legend */}
+        <div className="glass-panel p-3.5 rounded-xl border border-[#1E293B] bg-[#070D1A]/95 shadow-xl space-y-1.5 text-[11px]">
+          <div className="flex items-center justify-between pb-1 border-b border-[#1E293B] text-[#94A3B8] font-bold">
+            <span className="flex items-center space-x-1.5">
+              <Layers className="w-3.5 h-3.5 text-[#10B981]" />
+              <span>LEGEND (STANDARD CELLS)</span>
+            </span>
+            <span className="text-[10px] text-[#64748B]">LOGIC GATES</span>
+          </div>
+          <div className="grid grid-cols-2 gap-1.5 pt-1">
+            <div className="flex items-center space-x-1.5">
+              <span className="w-2.5 h-2.5 rounded bg-[#10B981] inline-block shrink-0" />
+              <span className="text-white">FA: Full Adder</span>
+            </div>
+            <div className="flex items-center space-x-1.5">
+              <span className="w-2.5 h-2.5 rounded bg-[#FF7A00] inline-block shrink-0" />
+              <span className="text-white">MUX: 2:1 Skip</span>
+            </div>
+            <div className="flex items-center space-x-1.5">
+              <span className="w-2.5 h-2.5 rounded bg-[#F59E0B] inline-block shrink-0" />
+              <span className="text-white">AND4: Propagate</span>
+            </div>
+            <div className="flex items-center space-x-1.5">
+              <span className="w-2.5 h-2.5 rounded bg-[#00F0FF] inline-block shrink-0" />
+              <span className="text-white">XOR: Bit Prop</span>
+            </div>
+          </div>
         </div>
       </div>
     </div>
