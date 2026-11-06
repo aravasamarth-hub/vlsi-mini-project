@@ -173,7 +173,7 @@ export default function App() {
             <div>
               <div className="flex items-center space-x-2">
                 <span className="font-extrabold text-white tracking-widest text-base font-mono glow-cyan">
-                  CYBERCORE 3D
+                  VLSI MINI PROJECT
                 </span>
                 <span className="text-[10px] px-1.5 py-0.5 rounded bg-[#00F0FF]/15 text-[#00F0FF] border border-[#00F0FF]/30 font-bold font-mono">
                   v2.2

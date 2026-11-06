@@ -126,11 +126,11 @@ const STAGES: WorkflowStage[] = [
     title: 'Stage 7: 3D Platform & Documentation',
     subtitle: 'Interactive semiconductor lab and academic defense packaging',
     description:
-      'Constructed CyberCore 3D engineering lab with React 18, Three.js WebGL 2.0, and FastAPI. Integrated realistic QFP package, gull-wing pins, laser-engraved lid, 7-layer explosion, live adder simulation, and 15-slide seminar presentation mode. Authored 8 comprehensive academic markdown reports.',
+      'Constructed VLSI Mini Project engineering lab with React 18, Three.js WebGL 2.0, and FastAPI. Integrated realistic QFP package, gull-wing pins, laser-engraved lid, 7-layer explosion, live adder simulation, and 15-slide seminar presentation mode. Authored 8 comprehensive academic markdown reports.',
     inputs: ['Physical layout DEF/GDS data', 'Verilog simulation binaries', 'Benchmark results'],
     tools: ['React 18', 'Three.js / React Three Fiber', 'FastAPI', 'Vite', 'Uvicorn'],
     commands: ['cd frontend && npm run build', 'python scripts/package_submission.py'],
-    outputs: ['CyberCore 3D Web App (localhost:3000)', '8 Academic Markdown Reports', '16bit_carry_skip_adder_sky130_submission.zip'],
+    outputs: ['VLSI Mini Project Web App (localhost:3000)', '8 Academic Markdown Reports', '16bit_carry_skip_adder_sky130_submission.zip'],
     validation: 'Zero IDE defects (0 SonarLint issues), 100% build pass, reproducible on Win11',
     status: 'COMPLETED'
   }

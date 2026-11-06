@@ -1165,7 +1165,7 @@ export default function Chip3D(props: Readonly<Chip3DProps>) {
           <div>
             <div className="flex items-center space-x-2">
               <span className="font-bold text-white text-sm glow-cyan tracking-wide">
-                CYBERCORE 3D SILICON STUDIO
+                16-BIT CSA 3D SILICON STUDIO
               </span>
               <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-[#FF7A00]/20 text-[#FF7A00] border border-[#FF7A00]/40">
                 SKYWATER 130NM

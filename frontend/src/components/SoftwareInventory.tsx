@@ -43,7 +43,7 @@ const INVENTORY: InventoryItem[] = [
     name: 'NVIDIA GeForce RTX 4050 Laptop GPU',
     version: '6.0 GB GDDR6 VRAM (Driver: 32.0.16.1742)',
     publisherOrDetails: 'NVIDIA Corporation',
-    role: 'Hardware WebGL 2.0 / Three.js 3D acceleration for CyberCore 3D studio',
+    role: 'Hardware WebGL 2.0 / Three.js 3D acceleration for VLSI Mini Project 3D studio',
     status: 'ACTIVE',
     locationOrBinary: 'PCIe Bus / Win32_VideoController'
   },
