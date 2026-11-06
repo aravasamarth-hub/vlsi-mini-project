@@ -22,7 +22,9 @@ import {
   CheckCircle,
   HelpCircle,
   ZoomIn,
-  ZoomOut
+  ZoomOut,
+  Move,
+  Hand
 } from 'lucide-react'
 
 // Props & Types
@@ -945,49 +947,65 @@ function LayerCalloutLeaders({ explosionDistance }: { explosionDistance: number 
 }
 
 // ----------------------------------------------------------------------
-// 7. Smooth Camera Controller with 8 Preset Views
+// 7. Smooth Camera Controller with Dynamic Center & 8 Preset Views
 // ----------------------------------------------------------------------
 function CameraRig({
   viewPreset,
-  controlsRef
+  controlsRef,
+  explosionDistance,
+  fitTrigger
 }: {
   viewPreset: 'iso' | 'top' | 'side' | '3d' | 'arch' | 'transistor' | 'metal' | 'block'
   controlsRef: React.RefObject<any>
+  explosionDistance: number
+  fitTrigger: number
 }) {
   const { camera, gl } = useThree()
-  const targetPos = useRef(new THREE.Vector3(12.5, 10.5, 12.5))
-  const targetLook = useRef(new THREE.Vector3(0, 1.2, 0))
+  const targetPos = useRef(new THREE.Vector3(14, 12, 14))
+  const targetLook = useRef(new THREE.Vector3(0, 3.5, 0))
   const isTransitioning = useRef<boolean>(false)
   const prevPreset = useRef<string>(viewPreset)
+  const prevFitTrigger = useRef<number>(fitTrigger)
 
   useEffect(() => {
-    if (viewPreset === prevPreset.current) return
+    const isNewPreset = viewPreset !== prevPreset.current
+    const isFit = fitTrigger !== prevFitTrigger.current
+
+    if (!isNewPreset && !isFit) return
+
     prevPreset.current = viewPreset
+    prevFitTrigger.current = fitTrigger
+
+    // Dynamically calculate center height based on current exploded stack
+    const centerH = (explosionDistance / 100) * 5.6 + 1.2
+    const distMult = 1 + (explosionDistance / 100) * 0.45
 
     if (viewPreset === 'iso' || viewPreset === '3d') {
-      targetPos.current.set(12.5, 10.5, 12.5)
-      targetLook.current.set(0, 1.2, 0)
+      targetPos.current.set(13.5 * distMult, centerH + 7.5 * distMult, 13.5 * distMult)
+      targetLook.current.set(0, centerH, 0)
     } else if (viewPreset === 'top') {
-      targetPos.current.set(0.01, 16.5, 0)
-      targetLook.current.set(0, 0, 0)
+      targetPos.current.set(0.01, (18.0 + (explosionDistance / 100) * 12) * distMult, 0)
+      targetLook.current.set(0, centerH, 0)
     } else if (viewPreset === 'side') {
-      targetPos.current.set(15.5, 2.8, 0)
-      targetLook.current.set(0, 1.2, 0)
+      targetPos.current.set(18.0 * distMult, centerH, 0)
+      targetLook.current.set(0, centerH, 0)
     } else if (viewPreset === 'arch') {
-      targetPos.current.set(0.01, 8.5, 8.5)
-      targetLook.current.set(0, 1.0, 0)
+      targetPos.current.set(0.01, centerH + 6.0, 10.0 * distMult)
+      targetLook.current.set(0, centerH, 0)
     } else if (viewPreset === 'transistor') {
-      targetPos.current.set(4.5, 3.2, 4.5)
-      targetLook.current.set(0, 0.8, 0)
+      const yTrans = 0.08 + 0.14 + (explosionDistance / 100) * 1.5
+      targetPos.current.set(5.5, yTrans + 2.8, 5.5)
+      targetLook.current.set(0, yTrans, 0)
     } else if (viewPreset === 'metal') {
-      targetPos.current.set(6.0, 7.5, 6.0)
-      targetLook.current.set(0, 2.2, 0)
+      const yMet = (explosionDistance / 100) * 7.0 + 3.0
+      targetPos.current.set(7.5, yMet + 4.0, 7.5)
+      targetLook.current.set(0, yMet, 0)
     } else if (viewPreset === 'block') {
-      targetPos.current.set(-2.8, 4.2, 4.2)
-      targetLook.current.set(-2.8, 1.0, 0)
+      targetPos.current.set(-3.0, centerH + 3.0, 5.0)
+      targetLook.current.set(-2.8, centerH, 0)
     }
     isTransitioning.current = true
-  }, [viewPreset])
+  }, [viewPreset, fitTrigger, explosionDistance])
 
   useEffect(() => {
     const dom = gl.domElement
@@ -1032,7 +1050,72 @@ export default function Chip3D(props: Readonly<Chip3DProps>) {
   const [explanationLevel, setExplanationLevel] = useState<'BEGINNER' | 'ENGINEERING'>('BEGINNER')
   const [selectedCell, setSelectedCell] = useState<any>(null)
   const [searchFilter, setSearchFilter] = useState<string>('')
+  const [controlMode, setControlMode] = useState<'ROTATE' | 'PAN'>('ROTATE')
+  const [fitTrigger, setFitTrigger] = useState<number>(0)
   const controlsRef = useRef<any>(null)
+
+  // Zoom in / out helper
+  const handleZoom = (factor: number) => {
+    if (controlsRef.current) {
+      const camera = controlsRef.current.object
+      const target = controlsRef.current.target
+      const offset = new THREE.Vector3().subVectors(camera.position, target)
+      offset.multiplyScalar(factor)
+      camera.position.addVectors(target, offset)
+      controlsRef.current.update()
+    }
+  }
+
+  // Pan / Nudge helper in screen coordinates
+  const handlePan = (dx: number, dy: number) => {
+    if (controlsRef.current) {
+      const camera = controlsRef.current.object
+      const target = controlsRef.current.target
+      const matrix = new THREE.Matrix4()
+      matrix.extractRotation(camera.matrix)
+      const vX = new THREE.Vector3(1, 0, 0).applyMatrix4(matrix).multiplyScalar(dx)
+      const vY = new THREE.Vector3(0, 1, 0).applyMatrix4(matrix).multiplyScalar(dy)
+      camera.position.add(vX).add(vY)
+      target.add(vX).add(vY)
+      controlsRef.current.update()
+    }
+  }
+
+  // Fit Figure helper
+  const handleFitFigure = () => {
+    setFitTrigger((prev) => prev + 1)
+  }
+
+  // Reset View helper
+  const handleResetView = () => {
+    setViewPreset('iso')
+    setExplosionDistance(50)
+    setControlMode('ROTATE')
+    props.onSelectBlock(-1)
+    setSelectedCell(null)
+    setFitTrigger((prev) => prev + 1)
+    if (controlsRef.current) controlsRef.current.reset()
+  }
+
+  // Keyboard shortcut listener: hold Shift or Space to temporarily activate PAN mode
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if ((e.key === 'Shift' || e.code === 'Space') && !e.repeat) {
+        setControlMode('PAN')
+      }
+    }
+    const handleKeyUp = (e: KeyboardEvent) => {
+      if (e.key === 'Shift' || e.code === 'Space') {
+        setControlMode('ROTATE')
+      }
+    }
+    window.addEventListener('keydown', handleKeyDown)
+    window.addEventListener('keyup', handleKeyUp)
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown)
+      window.removeEventListener('keyup', handleKeyUp)
+    }
+  }, [])
 
   // 10 Layer Visibility Toggles
   const [visibility, setVisibility] = useState<LayerVisibility>({
@@ -1136,13 +1219,23 @@ export default function Chip3D(props: Readonly<Chip3DProps>) {
       </div>
 
       {/* Main 3D Canvas Viewport */}
-      <div id="cybercore-3d-canvas" className="w-full h-[620px] relative bg-[#02050E] overflow-hidden">
+      <div
+        id="cybercore-3d-canvas"
+        className={`w-full h-[620px] relative bg-[#02050E] overflow-hidden ${
+          controlMode === 'PAN' ? 'cursor-move' : 'cursor-grab'
+        }`}
+      >
         <Canvas
           shadows
           gl={{ antialias: true, alpha: true, preserveDrawingBuffer: true }}
-          camera={{ position: [12.5, 10.5, 12.5], fov: 38 }}
+          camera={{ position: [14.0, 12.0, 14.0], fov: 38 }}
         >
-          <CameraRig viewPreset={viewPreset} controlsRef={controlsRef} />
+          <CameraRig
+            viewPreset={viewPreset}
+            controlsRef={controlsRef}
+            explosionDistance={explosionDistance}
+            fitTrigger={fitTrigger}
+          />
 
           {/* Cinematic Studio Lighting */}
           <ambientLight intensity={0.7} />
@@ -1185,17 +1278,146 @@ export default function Chip3D(props: Readonly<Chip3DProps>) {
           {/* 3D Callout Leader Lines (Poster Match) */}
           {showLabels && <LayerCalloutLeaders explosionDistance={explosionDistance} />}
 
-          {/* Orbit Controls */}
+          {/* Orbit Controls with Full Screen-Space Pan & Custom Button Mapping */}
           <OrbitControls
             ref={controlsRef}
             makeDefault
             enableDamping
             dampingFactor={0.06}
-            minDistance={4}
-            maxDistance={32}
-            maxPolarAngle={Math.PI / 2 + 0.12}
+            screenSpacePanning={true}
+            minDistance={2}
+            maxDistance={70}
+            maxPolarAngle={Math.PI * 0.98}
+            mouseButtons={{
+              LEFT: controlMode === 'PAN' ? THREE.MOUSE.PAN : THREE.MOUSE.ROTATE,
+              MIDDLE: THREE.MOUSE.DOLLY,
+              RIGHT: controlMode === 'PAN' ? THREE.MOUSE.ROTATE : THREE.MOUSE.PAN
+            }}
+            touches={{
+              ONE: controlMode === 'PAN' ? THREE.TOUCH.PAN : THREE.TOUCH.ROTATE,
+              TWO: THREE.TOUCH.DOLLY_PAN
+            }}
           />
         </Canvas>
+
+        {/* Top-Left Interaction Mode & Framing HUD Toolbelt */}
+        <div className="absolute top-3 left-3 z-20 flex flex-wrap items-center gap-1.5 p-1.5 rounded-xl border border-[#1E293B] bg-[#070D1A]/90 backdrop-blur-md shadow-xl text-[11px] font-mono">
+          {/* Mode Switcher: Rotate vs Pan */}
+          <div className="flex items-center rounded-lg bg-[#050914] p-0.5 border border-[#1E293B]">
+            <button
+              onClick={() => setControlMode('ROTATE')}
+              className={`px-2.5 py-1 rounded-md flex items-center space-x-1.5 transition font-bold ${
+                controlMode === 'ROTATE'
+                  ? 'bg-[#00F0FF] text-black shadow-md shadow-[#00F0FF]/30'
+                  : 'text-[#94A3B8] hover:text-white'
+              }`}
+              title="Rotate / Orbit: Drag with mouse to rotate 360°"
+            >
+              <RotateCcw className="w-3.5 h-3.5" />
+              <span>ROTATE</span>
+            </button>
+            <button
+              onClick={() => setControlMode('PAN')}
+              className={`px-2.5 py-1 rounded-md flex items-center space-x-1.5 transition font-bold ${
+                controlMode === 'PAN'
+                  ? 'bg-[#FF7A00] text-black shadow-md shadow-[#FF7A00]/30 animate-pulse'
+                  : 'text-[#94A3B8] hover:text-white'
+              }`}
+              title="Hold & Move (Pan): Click & drag to move/position the chip freely"
+            >
+              <Move className="w-3.5 h-3.5" />
+              <span>MOVE / PAN</span>
+            </button>
+          </div>
+
+          <div className="h-4 w-px bg-[#1E293B]" />
+
+          {/* Fit Figure (Frames Complete Stack) */}
+          <button
+            onClick={handleFitFigure}
+            className="px-2.5 py-1 rounded-lg bg-[#0A1224] hover:bg-[#111A2E] text-[#00F0FF] border border-[#00F0FF]/30 hover:border-[#00F0FF] flex items-center space-x-1.5 transition font-bold"
+            title="Auto-center and fit the entire chip height inside screen"
+          >
+            <Maximize2 className="w-3.5 h-3.5" />
+            <span>FIT FIGURE</span>
+          </button>
+
+          {/* Zoom Buttons */}
+          <button
+            onClick={() => handleZoom(0.82)}
+            className="p-1 rounded-lg bg-[#0A1224] hover:bg-[#111A2E] text-[#94A3B8] hover:text-white border border-[#1E293B]"
+            title="Zoom In (+)"
+          >
+            <ZoomIn className="w-3.5 h-3.5" />
+          </button>
+          <button
+            onClick={() => handleZoom(1.22)}
+            className="p-1 rounded-lg bg-[#0A1224] hover:bg-[#111A2E] text-[#94A3B8] hover:text-white border border-[#1E293B]"
+            title="Zoom Out (-)"
+          >
+            <ZoomOut className="w-3.5 h-3.5" />
+          </button>
+        </div>
+
+        {/* Bottom-Left Directional Nudge Pad & Active Interaction Hint */}
+        <div className="absolute bottom-3 left-3 z-20 flex items-center space-x-2">
+          <div className="grid grid-cols-3 gap-0.5 p-1 rounded-xl bg-[#070D1A]/90 border border-[#1E293B] shadow-xl backdrop-blur-md">
+            <div />
+            <button
+              onClick={() => handlePan(0, 2)}
+              className="w-6 h-6 rounded bg-[#0A1224] hover:bg-[#1E293B] text-[#94A3B8] hover:text-white text-[10px] font-bold flex items-center justify-center"
+              title="Move Chip Up"
+            >
+              ▲
+            </button>
+            <div />
+            <button
+              onClick={() => handlePan(-2, 0)}
+              className="w-6 h-6 rounded bg-[#0A1224] hover:bg-[#1E293B] text-[#94A3B8] hover:text-white text-[10px] font-bold flex items-center justify-center"
+              title="Move Chip Left"
+            >
+              ◄
+            </button>
+            <button
+              onClick={handleFitFigure}
+              className="w-6 h-6 rounded bg-[#0A1224] hover:bg-[#00F0FF]/20 text-[#00F0FF] text-[10px] font-bold flex items-center justify-center"
+              title="Center Whole Figure"
+            >
+              ●
+            </button>
+            <button
+              onClick={() => handlePan(2, 0)}
+              className="w-6 h-6 rounded bg-[#0A1224] hover:bg-[#1E293B] text-[#94A3B8] hover:text-white text-[10px] font-bold flex items-center justify-center"
+              title="Move Chip Right"
+            >
+              ►
+            </button>
+            <div />
+            <button
+              onClick={() => handlePan(0, -2)}
+              className="w-6 h-6 rounded bg-[#0A1224] hover:bg-[#1E293B] text-[#94A3B8] hover:text-white text-[10px] font-bold flex items-center justify-center"
+              title="Move Chip Down"
+            >
+              ▼
+            </button>
+            <div />
+          </div>
+
+          <div className="hidden sm:flex items-center space-x-1.5 px-3 py-1.5 rounded-xl bg-[#070D1A]/90 border border-[#1E293B] shadow-xl text-[10px] text-[#94A3B8] font-mono backdrop-blur-md">
+            <Info className="w-3.5 h-3.5 text-[#00F0FF] shrink-0" />
+            <span>
+              {controlMode === 'PAN' ? (
+                <>
+                  <strong className="text-[#FF7A00]">Move / Pan Mode:</strong> Click & drag to hold and reposition chip.
+                </>
+              ) : (
+                <>
+                  <strong className="text-[#00F0FF]">Orbit Mode:</strong> Drag to rotate | Right-click or Shift+drag to move.
+                </>
+              )}
+            </span>
+          </div>
+        </div>
 
 
 
@@ -1234,7 +1456,7 @@ export default function Chip3D(props: Readonly<Chip3DProps>) {
 
         {/* Floating Layer Visibility Drawer */}
         {showLayerDrawer && (
-          <div className="absolute top-4 left-4 w-72 glass-panel p-3.5 rounded-xl border border-[#00F0FF]/35 bg-[#070D1A]/95 shadow-2xl z-20 space-y-2.5 font-mono text-xs">
+          <div className="absolute top-16 left-3 w-72 glass-panel p-3.5 rounded-xl border border-[#00F0FF]/35 bg-[#070D1A]/95 shadow-2xl z-20 space-y-2.5 font-mono text-xs">
             <div className="flex items-center justify-between pb-1.5 border-b border-[#1E293B]">
               <span className="font-bold text-white flex items-center space-x-1.5">
                 <Layers className="w-4 h-4 text-[#00F0FF]" />
@@ -1362,15 +1584,9 @@ export default function Chip3D(props: Readonly<Chip3DProps>) {
           </button>
 
           <button
-            onClick={() => {
-              setViewPreset('iso')
-              setExplosionDistance(50)
-              props.onSelectBlock(-1)
-              setSelectedCell(null)
-              if (controlsRef.current) controlsRef.current.reset()
-            }}
+            onClick={handleResetView}
             className="p-1.5 rounded-xl bg-[#0A1224] border border-[#1E293B] text-[#94A3B8] hover:text-white"
-            title="Reset Scene Camera"
+            title="Reset Scene Camera & Center"
           >
             <RotateCcw className="w-3.5 h-3.5" />
           </button>
