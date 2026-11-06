@@ -6,11 +6,8 @@ import {
   Layers,
   Camera,
   RotateCcw,
-  Sliders,
-  ChevronDown,
   Sparkles,
   Cpu,
-  Search,
   Maximize2,
   Info,
   Activity,
@@ -18,13 +15,10 @@ import {
   Pause,
   Eye,
   EyeOff,
-  Flame,
-  CheckCircle,
   HelpCircle,
   ZoomIn,
   ZoomOut,
-  Move,
-  Hand
+  Move
 } from 'lucide-react'
 
 // Props & Types
@@ -183,7 +177,7 @@ function CircularCircuitPlatform() {
       const isOrange = i % 4 === 0
       lines.push(
         <Line
-          key={i}
+          key={`circ-rad-${i}`}
           points={[new THREE.Vector3(x1, -0.41, z1), new THREE.Vector3(x2, -0.41, z2)]}
           color={isOrange ? '#FF7A00' : '#00F0FF'}
           lineWidth={isOrange ? 1.6 : 0.8}
@@ -215,8 +209,8 @@ function CircularCircuitPlatform() {
       </mesh>
 
       {/* Concentric Glowing Circuit Tracks */}
-      {rings.map((rng, idx) => (
-        <mesh key={idx} position={[0, -0.41, 0]} rotation={[-Math.PI / 2, 0, 0]}>
+      {rings.map((rng) => (
+        <mesh key={`circuit-ring-${rng.rIn}-${rng.rOut}`} position={[0, -0.41, 0]} rotation={[-Math.PI / 2, 0, 0]}>
           <ringGeometry args={[rng.rIn, rng.rOut, 64]} />
           <meshStandardMaterial
             color={rng.color}
@@ -258,8 +252,8 @@ function InterLayerVias({
 
   return (
     <group>
-      {viaCoords.map(([vx, vz], idx) => (
-        <group key={idx} position={[vx, yMid, vz]}>
+      {viaCoords.map(([vx, vz]) => (
+        <group key={`via-${vx}-${vz}`} position={[vx, yMid, vz]}>
           <mesh>
             <cylinderGeometry args={[0.035, 0.035, height, 10]} />
             <meshStandardMaterial
@@ -367,7 +361,7 @@ function DetailedCSKABlock({
         const isCellSelected = selectedCellId === cellId
         return (
           <group
-            key={fIdx}
+            key={cellId}
             position={[-0.38, 0.1, fz]}
             onClick={(e) => {
               e.stopPropagation()
@@ -918,11 +912,11 @@ function LayerCalloutLeaders({ explosionDistance }: { explosionDistance: number 
 
   return (
     <group position={[-4.7, 0, 0]}>
-      {layers.map((ly, idx) => {
+      {layers.map((ly) => {
         const xAnchor = -0.2
         const xStem = -3.2
         return (
-          <group key={idx}>
+          <group key={ly.label}>
             <Line
               points={[new THREE.Vector3(xAnchor, ly.y, 0), new THREE.Vector3(xStem, ly.y, 0)]}
               color={ly.color}

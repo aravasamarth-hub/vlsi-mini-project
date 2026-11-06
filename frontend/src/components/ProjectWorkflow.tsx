@@ -5,12 +5,8 @@ import {
   FileCode,
   Terminal,
   Layers,
-  BarChart2,
   Cpu,
-  ArrowRight,
-  Sparkles,
-  ShieldCheck,
-  ChevronRight
+  ShieldCheck
 } from 'lucide-react'
 
 interface WorkflowStage {
@@ -240,8 +236,8 @@ export default function ProjectWorkflow() {
               <span>INPUTS & PREREQUISITES</span>
             </span>
             <ul className="space-y-1.5">
-              {selectedStage.inputs.map((inp, idx) => (
-                <li key={idx} className="text-xs text-[#94A3B8] flex items-start space-x-1.5">
+              {selectedStage.inputs.map((inp) => (
+                <li key={inp} className="text-xs text-[#94A3B8] flex items-start space-x-1.5">
                   <span className="text-[#00F0FF]">•</span>
                   <span>{inp}</span>
                 </li>
@@ -256,8 +252,8 @@ export default function ProjectWorkflow() {
               <span>SOFTWARE & EDA TOOLS</span>
             </span>
             <ul className="space-y-1.5">
-              {selectedStage.tools.map((tl, idx) => (
-                <li key={idx} className="text-xs text-[#94A3B8] flex items-start space-x-1.5">
+              {selectedStage.tools.map((tl) => (
+                <li key={tl} className="text-xs text-[#94A3B8] flex items-start space-x-1.5">
                   <span className="text-[#FF7A00]">•</span>
                   <span>{tl}</span>
                 </li>
@@ -272,8 +268,8 @@ export default function ProjectWorkflow() {
               <span>GENERATED ARTIFACTS</span>
             </span>
             <ul className="space-y-1.5">
-              {selectedStage.outputs.map((out, idx) => (
-                <li key={idx} className="text-xs text-[#94A3B8] flex items-start space-x-1.5">
+              {selectedStage.outputs.map((out) => (
+                <li key={out} className="text-xs text-[#94A3B8] flex items-start space-x-1.5">
                   <span className="text-[#00DF72]">•</span>
                   <span className="font-mono text-[11px]">{out}</span>
                 </li>
@@ -302,11 +298,11 @@ export default function ProjectWorkflow() {
           </div>
 
           <div className="space-y-1.5">
-            {selectedStage.commands.map((cmd, idx) => (
+            {selectedStage.commands.map((cmd) => (
               <button
-                key={idx}
+                key={cmd}
                 type="button"
-                onClick={() => navigator.clipboard.writeText(cmd)}
+                onClick={() => { void navigator.clipboard.writeText(cmd) }}
                 className="w-full text-left p-2.5 rounded-lg bg-[#070D1A] border border-[#1E293B] hover:border-[#00F0FF]/40 text-[#00F0FF] font-mono text-xs cursor-pointer flex items-center justify-between group transition"
               >
                 <span className="truncate">{cmd}</span>

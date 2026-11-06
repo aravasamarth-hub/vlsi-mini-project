@@ -1,17 +1,9 @@
 import React, { useState } from 'react'
 import {
-  Cpu,
-  Layers,
-  Terminal,
-  FileCode,
-  PackageCheck,
   ShieldCheck,
   Search,
-  ExternalLink,
   Laptop,
-  CheckCircle2,
-  SlidersHorizontal,
-  Code2
+  CheckCircle2
 } from 'lucide-react'
 
 interface InventoryItem {
@@ -65,7 +57,7 @@ const INVENTORY: InventoryItem[] = [
     publisherOrDetails: 'High-speed primary project partition',
     role: 'Instantaneous random I/O for 4.18MB GDSII files, DEF layouts, and VCD waveforms',
     status: 'ACTIVE',
-    locationOrBinary: 'D:\\mini project'
+    locationOrBinary: 'D:/mini project'
   },
   {
     id: 'hw-os',
@@ -75,7 +67,7 @@ const INVENTORY: InventoryItem[] = [
     publisherOrDetails: 'Microsoft Corporation',
     role: 'Host operating system running native Windows EDA toolchain',
     status: 'ACTIVE',
-    locationOrBinary: 'C:\\Windows\\System32'
+    locationOrBinary: 'C:/Windows/System32'
   },
 
   // Languages
@@ -97,7 +89,7 @@ const INVENTORY: InventoryItem[] = [
     publisherOrDetails: 'Python Software Foundation',
     role: 'Floorplanning, DEF generation, KLayout Pya automation, FastAPI backend',
     status: 'VERIFIED',
-    locationOrBinary: 'D:\\mini project\\.venv\\Scripts\\python.exe'
+    locationOrBinary: 'D:/mini project/.venv/Scripts/python.exe'
   },
   {
     id: 'lang-typescript',
@@ -117,7 +109,7 @@ const INVENTORY: InventoryItem[] = [
     publisherOrDetails: 'OpenJS Foundation',
     role: 'Frontend build orchestration, module resolution, and Vite server runtime',
     status: 'VERIFIED',
-    locationOrBinary: 'C:\\Program Files\\nodejs\\node.exe'
+    locationOrBinary: 'C:/Program Files/nodejs/node.exe'
   },
   {
     id: 'lang-tailwind',
@@ -149,7 +141,7 @@ const INVENTORY: InventoryItem[] = [
     publisherOrDetails: 'Stephen Williams (OSS-CAD-Suite)',
     role: 'IEEE 1364 Verilog RTL simulation compiler',
     status: 'VERIFIED',
-    locationOrBinary: 'D:\\mini project\\tools\\oss-cad-suite\\bin\\iverilog.exe'
+    locationOrBinary: 'D:/mini project/tools/oss-cad-suite/bin/iverilog.exe'
   },
   {
     id: 'eda-vvp',
@@ -159,7 +151,7 @@ const INVENTORY: InventoryItem[] = [
     publisherOrDetails: 'OSS-CAD-Suite',
     role: 'High-speed execution engine for compiled testbench binaries (60,038 vectors)',
     status: 'VERIFIED',
-    locationOrBinary: 'D:\\mini project\\tools\\oss-cad-suite\\bin\\vvp.exe'
+    locationOrBinary: 'D:/mini project/tools/oss-cad-suite/bin/vvp.exe'
   },
   {
     id: 'eda-gtkwave',
@@ -169,7 +161,7 @@ const INVENTORY: InventoryItem[] = [
     publisherOrDetails: 'Tony Bybell / OSS-CAD-Suite',
     role: 'Digital VCD waveform visualization and glitch/transition inspection',
     status: 'VERIFIED',
-    locationOrBinary: 'D:\\mini project\\tools\\oss-cad-suite\\bin\\gtkwave.exe'
+    locationOrBinary: 'D:/mini project/tools/oss-cad-suite/bin/gtkwave.exe'
   },
   {
     id: 'eda-yosys',
@@ -179,7 +171,7 @@ const INVENTORY: InventoryItem[] = [
     publisherOrDetails: 'Claire Wolf / YosysHQ',
     role: 'Logic synthesis, hierarchy analysis, and technology mapping to Sky130 HD library',
     status: 'VERIFIED',
-    locationOrBinary: 'D:\\mini project\\tools\\oss-cad-suite\\bin\\yosys.exe'
+    locationOrBinary: 'D:/mini project/tools/oss-cad-suite/bin/yosys.exe'
   },
   {
     id: 'eda-abc',
@@ -199,7 +191,7 @@ const INVENTORY: InventoryItem[] = [
     publisherOrDetails: 'Matthias Köfferlein',
     role: 'DEF placement loading, Python Pya GDSII binary streaming, and mask inspection',
     status: 'VERIFIED',
-    locationOrBinary: 'C:\\Users\\arava\\AppData\\Roaming\\KLayout\\klayout_app.exe'
+    locationOrBinary: 'C:/Users/arava/AppData/Roaming/KLayout/klayout_app.exe'
   },
   {
     id: 'eda-sky130',
@@ -209,7 +201,7 @@ const INVENTORY: InventoryItem[] = [
     publisherOrDetails: 'Google & SkyWater Technology Foundry',
     role: '433 standard cells characterized across PVT (.lib, .lef, .gds)',
     status: 'VERIFIED',
-    locationOrBinary: 'D:\\mini project\\synthesis\\sky130_pdk\\'
+    locationOrBinary: 'D:/mini project/synthesis/sky130_pdk/'
   },
 
   // Python Libraries
@@ -231,7 +223,7 @@ const INVENTORY: InventoryItem[] = [
     publisherOrDetails: 'Encode',
     role: 'Lightning-fast async server hosting FastAPI daemon',
     status: 'ACTIVE',
-    locationOrBinary: 'D:\\mini project\\.venv\\Scripts\\uvicorn.exe'
+    locationOrBinary: 'D:/mini project/.venv/Scripts/uvicorn.exe'
   },
   {
     id: 'py-numpy',
@@ -241,7 +233,7 @@ const INVENTORY: InventoryItem[] = [
     publisherOrDetails: 'NumPy Developers',
     role: 'Mathematical array vectorization for delay modeling and power matrices',
     status: 'ACTIVE',
-    locationOrBinary: 'D:\\mini project\\.venv\\Lib\\site-packages\\numpy'
+    locationOrBinary: 'D:/mini project/.venv/Lib/site-packages/numpy'
   },
   {
     id: 'py-pandas',
@@ -251,7 +243,7 @@ const INVENTORY: InventoryItem[] = [
     publisherOrDetails: 'Pandas Development Team',
     role: 'Tabular aggregation of synthesis reports into synthesis_summary.csv',
     status: 'ACTIVE',
-    locationOrBinary: 'D:\\mini project\\.venv\\Lib\\site-packages\\pandas'
+    locationOrBinary: 'D:/mini project/.venv/Lib/site-packages/pandas'
   },
   {
     id: 'py-pydantic',
@@ -261,7 +253,7 @@ const INVENTORY: InventoryItem[] = [
     publisherOrDetails: 'Pydantic Services Inc.',
     role: 'Typed data schemas for REST API simulation payloads',
     status: 'ACTIVE',
-    locationOrBinary: 'D:\\mini project\\.venv\\Lib\\site-packages\\pydantic'
+    locationOrBinary: 'D:/mini project/.venv/Lib/site-packages/pydantic'
   },
   {
     id: 'py-pytest',
@@ -271,7 +263,7 @@ const INVENTORY: InventoryItem[] = [
     publisherOrDetails: 'Holger Krekel et al.',
     role: 'Automated test execution harness for Python analysis routines',
     status: 'ACTIVE',
-    locationOrBinary: 'D:\\mini project\\.venv\\Lib\\site-packages\\pytest'
+    locationOrBinary: 'D:/mini project/.venv/Lib/site-packages/pytest'
   },
   {
     id: 'py-matplotlib',
@@ -281,7 +273,7 @@ const INVENTORY: InventoryItem[] = [
     publisherOrDetails: 'John D. Hunter et al.',
     role: 'Generation of 6 high-resolution publication charts in analysis/graphs/',
     status: 'ACTIVE',
-    locationOrBinary: 'D:\\mini project\\.venv\\Lib\\site-packages\\matplotlib'
+    locationOrBinary: 'D:/mini project/.venv/Lib/site-packages/matplotlib'
   },
   {
     id: 'py-streamlit',
@@ -365,7 +357,7 @@ const INVENTORY: InventoryItem[] = [
     publisherOrDetails: 'mshr-h (ID: mshr-h.veriloghdl)',
     role: 'IEEE Verilog syntax highlighting, linter integration, and symbol navigation',
     status: 'INSTALLED',
-    locationOrBinary: 'C:\\Users\\arava\\.antigravity-ide\\extensions\\mshr-h.veriloghdl-1.29.0-universal'
+    locationOrBinary: 'C:/Users/arava/.antigravity-ide/extensions/mshr-h.veriloghdl-1.29.0-universal'
   },
   {
     id: 'ext-rainbow-csv',
@@ -375,7 +367,7 @@ const INVENTORY: InventoryItem[] = [
     publisherOrDetails: 'mechatroner (ID: mechatroner.rainbow-csv)',
     role: 'Colorized tabular column inspection of synthesis_summary.csv and benchmark results',
     status: 'INSTALLED',
-    locationOrBinary: 'C:\\Users\\arava\\.antigravity-ide\\extensions\\mechatroner.rainbow-csv-3.24.1-universal'
+    locationOrBinary: 'C:/Users/arava/.antigravity-ide/extensions/mechatroner.rainbow-csv-3.24.1-universal'
   },
   {
     id: 'ext-sonarlint',
@@ -385,7 +377,7 @@ const INVENTORY: InventoryItem[] = [
     publisherOrDetails: 'SonarSource (ID: sonarsource.sonarlint-vscode)',
     role: 'Static code auditing, security flaw detection, and clean TypeScript standards',
     status: 'INSTALLED',
-    locationOrBinary: 'C:\\Users\\arava\\.antigravity-ide\\extensions\\sonarsource.sonarlint-vscode-6.2.0-win32-x64'
+    locationOrBinary: 'C:/Users/arava/.antigravity-ide/extensions/sonarsource.sonarlint-vscode-6.2.0-win32-x64'
   },
   {
     id: 'ext-tailwind',
@@ -395,7 +387,7 @@ const INVENTORY: InventoryItem[] = [
     publisherOrDetails: 'Tailwind Labs (ID: bradlc.vscode-tailwindcss)',
     role: 'Intelligent class autocomplete, linting, and CSS hover previews',
     status: 'INSTALLED',
-    locationOrBinary: 'C:\\Users\\arava\\.antigravity-ide\\extensions\\bradlc.vscode-tailwindcss-0.16.0-universal'
+    locationOrBinary: 'C:/Users/arava/.antigravity-ide/extensions/bradlc.vscode-tailwindcss-0.16.0-universal'
   },
   {
     id: 'ext-prettier',
@@ -405,7 +397,7 @@ const INVENTORY: InventoryItem[] = [
     publisherOrDetails: 'Prettier (ID: esbenp.prettier-vscode)',
     role: 'Automated formatting across TypeScript, CSS, JSON, and Markdown',
     status: 'INSTALLED',
-    locationOrBinary: 'C:\\Users\\arava\\.antigravity-ide\\extensions\\esbenp.prettier-vscode-12.4.0-universal'
+    locationOrBinary: 'C:/Users/arava/.antigravity-ide/extensions/esbenp.prettier-vscode-12.4.0-universal'
   },
   {
     id: 'ext-eslint',
@@ -415,7 +407,7 @@ const INVENTORY: InventoryItem[] = [
     publisherOrDetails: 'Microsoft (ID: dbaeumer.vscode-eslint)',
     role: 'JavaScript/TypeScript linting and style enforcement',
     status: 'INSTALLED',
-    locationOrBinary: 'C:\\Users\\arava\\.antigravity-ide\\extensions\\dbaeumer.vscode-eslint-3.0.34-universal'
+    locationOrBinary: 'C:/Users/arava/.antigravity-ide/extensions/dbaeumer.vscode-eslint-3.0.34-universal'
   },
   {
     id: 'ext-errorlens',
@@ -425,7 +417,7 @@ const INVENTORY: InventoryItem[] = [
     publisherOrDetails: 'usernamehw (ID: usernamehw.errorlens)',
     role: 'Inline highlight of diagnostic errors, warnings, and type hints',
     status: 'INSTALLED',
-    locationOrBinary: 'C:\\Users\\arava\\.antigravity-ide\\extensions\\usernamehw.errorlens-3.30.0-universal'
+    locationOrBinary: 'C:/Users/arava/.antigravity-ide/extensions/usernamehw.errorlens-3.30.0-universal'
   },
   {
     id: 'ext-gitlens',
@@ -435,7 +427,7 @@ const INVENTORY: InventoryItem[] = [
     publisherOrDetails: 'GitKraken (ID: eamodio.gitlens)',
     role: 'Line-by-line Git blame, repository telemetry, and revision navigation',
     status: 'INSTALLED',
-    locationOrBinary: 'C:\\Users\\arava\\.antigravity-ide\\extensions\\eamodio.gitlens-19.5.0-universal'
+    locationOrBinary: 'C:/Users/arava/.antigravity-ide/extensions/eamodio.gitlens-19.5.0-universal'
   },
   {
     id: 'ext-gitgraph',
@@ -445,7 +437,7 @@ const INVENTORY: InventoryItem[] = [
     publisherOrDetails: 'mhutchie (ID: mhutchie.git-graph)',
     role: 'Interactive graphical visualization of repository commit topology',
     status: 'INSTALLED',
-    locationOrBinary: 'C:\\Users\\arava\\.antigravity-ide\\extensions\\mhutchie.git-graph-1.30.0-universal'
+    locationOrBinary: 'C:/Users/arava/.antigravity-ide/extensions/mhutchie.git-graph-1.30.0-universal'
   },
   {
     id: 'ext-python',
@@ -455,7 +447,7 @@ const INVENTORY: InventoryItem[] = [
     publisherOrDetails: 'Microsoft (ID: ms-python.python)',
     role: 'Python language server, environment manager, and script execution',
     status: 'INSTALLED',
-    locationOrBinary: 'C:\\Users\\arava\\.antigravity-ide\\extensions\\ms-python.python-2026.4.0-universal'
+    locationOrBinary: 'C:/Users/arava/.antigravity-ide/extensions/ms-python.python-2026.4.0-universal'
   },
   {
     id: 'ext-ruff',
@@ -465,7 +457,7 @@ const INVENTORY: InventoryItem[] = [
     publisherOrDetails: 'Astral Software (ID: charliermarsh.ruff)',
     role: 'Ultra-fast Python static analysis and linting',
     status: 'INSTALLED',
-    locationOrBinary: 'C:\\Users\\arava\\.antigravity-ide\\extensions\\charliermarsh.ruff-2026.92.0-win32-x64'
+    locationOrBinary: 'C:/Users/arava/.antigravity-ide/extensions/charliermarsh.ruff-2026.92.0-win32-x64'
   },
   {
     id: 'ext-markdownlint',
@@ -475,7 +467,7 @@ const INVENTORY: InventoryItem[] = [
     publisherOrDetails: 'David Anson (ID: davidanson.vscode-markdownlint)',
     role: 'Markdown style and syntax validation across all academic reports',
     status: 'INSTALLED',
-    locationOrBinary: 'C:\\Users\\arava\\.antigravity-ide\\extensions\\davidanson.vscode-markdownlint-0.62.1-universal'
+    locationOrBinary: 'C:/Users/arava/.antigravity-ide/extensions/davidanson.vscode-markdownlint-0.62.1-universal'
   }
 ]
 

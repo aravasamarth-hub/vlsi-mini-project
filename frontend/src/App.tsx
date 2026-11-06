@@ -11,7 +11,6 @@ import {
   Activity,
   FileCode,
   Code2,
-  Settings,
   Waves,
   PlayCircle,
   RefreshCw,
@@ -23,7 +22,6 @@ import {
   CheckCircle2,
   X,
   Copy,
-  ExternalLink,
   Terminal
 } from 'lucide-react'
 
@@ -795,8 +793,8 @@ export default function App() {
                   { name: 'carry_lookahead_adder.vcd', size: '5.24 MB', desc: '16-bit CLA simulation' },
                   { name: 'carry_select_adder.vcd', size: '9.82 MB', desc: '16-bit CSLA simulation' },
                   { name: 'brent_kung_adder.vcd', size: '8.32 MB', desc: '16-bit Brent-Kung parallel prefix' },
-                ].map((w, idx) => (
-                  <div key={idx} className="p-2 rounded-lg bg-[#070D1A] border border-[#1E293B] flex items-center justify-between">
+                ].map((w) => (
+                  <div key={w.name} className="p-2 rounded-lg bg-[#070D1A] border border-[#1E293B] flex items-center justify-between">
                     <div>
                       <span className="text-white font-bold block">{w.name}</span>
                       <span className="text-[#64748B] text-[9px]">{w.desc}</span>
@@ -815,8 +813,10 @@ export default function App() {
               </div>
               <button
                 onClick={() => {
-                  navigator.clipboard.writeText('gtkwave simulation/waveforms/carry_skip_adder.vcd')
-                  triggerNotice('Copied GTKWave CLI command to clipboard!')
+                  navigator.clipboard
+                    .writeText('gtkwave simulation/waveforms/carry_skip_adder.vcd')
+                    .then(() => triggerNotice('Copied GTKWave CLI command to clipboard!'))
+                    .catch(() => triggerNotice('Clipboard copy failed'))
                 }}
                 className="px-2.5 py-1 rounded bg-[#1E293B] hover:bg-[#334155] text-white text-[10px] flex items-center space-x-1 shrink-0 transition"
               >
