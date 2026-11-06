@@ -30,7 +30,7 @@
   },
 
   "// === PYTHON & FASTAPI ENVIRONMENT CONFIGURATION ===": "",
-  "python.defaultInterpreterPath": "${workspaceFolder}/.venv/Scripts/python.exe",
+  "python.defaultInterpreterPath": ".venv/Scripts/python.exe",
   "python.terminal.activateEnvironment": true,
   "python.analysis.autoSearchPaths": true,
   "python.analysis.diagnosticMode": "workspace",
@@ -166,6 +166,10 @@
     "**/*.pyc": true
   },
   "git.ignoreLimitWarning": true,
-  "telemetry.telemetryLevel": "off"
+  "telemetry.telemetryLevel": "off",
+
+  "// === SNYK SECURITY CONFIGURATION ===": "",
+  "snyk.advanced.automaticDependencyManagement": false,
+  "snyk.scanningMode": "manual"
 }
 
