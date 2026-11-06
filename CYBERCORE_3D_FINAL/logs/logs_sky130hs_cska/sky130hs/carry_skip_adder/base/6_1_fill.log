@@ -1,0 +1,14 @@
+OpenROAD unknown 
+Features included (+) or not (-): -GPU +GUI
+This program is licensed under the BSD-3 license. See the LICENSE file for details.
+Components of this program may be licensed under more restrictive licenses which must be honored.
+[INFO ORD-0030] Using 4 thread(s).
+read_liberty ./objects/binary_libs/sky130hs/sky130_fd_sc_hs__tt_025C_1v80@72103677-1793979001-3fd6197f.blib
+read_db ./results/sky130hs/carry_skip_adder/base/5_route.odb
+read_sdc ./results/sky130hs/carry_skip_adder/base/5_route.sdc
+source /OpenROAD-flow-scripts/flow/platforms/sky130hs/setRC.tcl
+exec cp ./results/sky130hs/carry_skip_adder/base/5_route.odb ./results/sky130hs/carry_skip_adder/base/6_1_fill.odb
+Elapsed time: 0:00.62[h:]min:sec. CPU time: user 0.53 sys 0.14 (107%). Peak memory: 139260KB.
+Log                    Ext     Elapsed      CPU     CPU/ Peak Mem sha1sum
+                                     s        s  Elapsed       MB [0:10)
+6_1_fill               .odb          0        1     1.08      135 5c78dced9d

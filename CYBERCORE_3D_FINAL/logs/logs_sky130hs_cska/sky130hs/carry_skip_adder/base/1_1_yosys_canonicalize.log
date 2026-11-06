@@ -1,0 +1,26 @@
+Yosys 0.68+post (git sha1 UNKNOWN, Release, GNU /usr/local/bin/wrapped-cc/g++ 15.2.0)
+Using ABC speed script.
+1. Executing Liberty frontend: /OpenROAD-flow-scripts/flow/platforms/sky130hs/lib/sky130_fd_sc_hs__tt_025C_1v80.lib
+2. Executing Liberty frontend: /OpenROAD-flow-scripts/flow/platforms/sky130hs/lib/sky130_fd_sc_hs__tt_025C_1v80.lib
+3. Executing Verilog-2005 frontend: /OpenROAD-flow-scripts/flow/designs/src/carry_skip_adder/carry_skip_adder.v
+4. Executing Verilog-2005 frontend: /OpenROAD-flow-scripts/flow/designs/src/carry_skip_adder/carry_skip_block_4bit.v
+5. Executing Verilog-2005 frontend: /OpenROAD-flow-scripts/flow/designs/src/carry_skip_adder/full_adder.v
+6. Executing Verilog-2005 frontend: /OpenROAD-flow-scripts/flow/designs/src/carry_skip_adder/half_adder.v
+7. Executing Verilog-2005 frontend: /OpenROAD-flow-scripts/flow/platforms/sky130hs/cells_clkgate_hs.v
+8. Executing HIERARCHY pass (managing design hierarchy).
+9. Executing AST frontend in derive mode using pre-parsed AST for module `\carry_skip_adder'.
+9.1. Analyzing design hierarchy..
+9.2. Executing AST frontend in derive mode using pre-parsed AST for module `\carry_skip_block_4bit'.
+9.3. Analyzing design hierarchy..
+9.4. Executing AST frontend in derive mode using pre-parsed AST for module `\full_adder'.
+9.5. Analyzing design hierarchy..
+9.6. Analyzing design hierarchy..
+10. Executing OPT_CLEAN pass (remove unused cells and wires).
+11. Executing RTLIL backend.
+End of script. Logfile hash: 1d13eda477, time: 0.94s, user: 0.69s, system: 0.20s, MEM: 119.14 MB peak
+Yosys 0.68+post (git sha1 UNKNOWN, Release, GNU /usr/local/bin/wrapped-cc/g++ 15.2.0)
+Time spent: 94% 4x read_liberty (0 sec), 2% 2x write_rtlil (0 sec), ...
+Elapsed time: 0:00.96[h:]min:sec. CPU time: user 0.72 sys 0.22 (98%). Peak memory: 126176KB.
+Log                    Ext     Elapsed      CPU     CPU/ Peak Mem sha1sum
+                                     s        s  Elapsed       MB [0:10)
+1_1_yosys_canonicalize .rtlil        0        1     0.98      123 791e4e899d

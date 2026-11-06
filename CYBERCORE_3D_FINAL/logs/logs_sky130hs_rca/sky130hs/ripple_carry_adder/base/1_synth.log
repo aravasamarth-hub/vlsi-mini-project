@@ -1,0 +1,25 @@
+OpenROAD unknown 
+Features included (+) or not (-): -GPU +GUI
+This program is licensed under the BSD-3 license. See the LICENSE file for details.
+Components of this program may be licensed under more restrictive licenses which must be honored.
+[INFO ORD-0030] Using 4 thread(s).
+read_liberty ./objects/binary_libs/sky130hs/sky130_fd_sc_hs__tt_025C_1v80@72103677-1793979001-3fd6197f.blib
+[INFO ODB-0227] LEF file: /OpenROAD-flow-scripts/flow/platforms/sky130hs/lef/sky130_fd_sc_hs.tlef, created 11 layers, 25 vias
+[WARNING ODB-0220] WARNING (LEFPARS-2007): NAMESCASESENSITIVE statement is obsolete in version 5.6 and later.
+The LEF parser will ignore this statement.
+To avoid this warning in the future, remove this statement from the LEF file with version 5.6 or later. See file /OpenROAD-flow-scripts/flow/platforms/sky130hs/lef/sky130_fd_sc_hs_merged.lef at line 18.
+
+[INFO ODB-0227] LEF file: /OpenROAD-flow-scripts/flow/platforms/sky130hs/lef/sky130_fd_sc_hs_merged.lef, created 390 library cells
+link_design ripple_carry_adder
+read_sdc ./results/sky130hs/ripple_carry_adder/base/1_2_yosys.sdc
+source /OpenROAD-flow-scripts/flow/platforms/sky130hs/setRC.tcl
+eliminate_dead_logic
+Removed 0 unused instances and 0 unused nets.
+Design area 460 um^2 100% utilization.
+write_db ./results/sky130hs/ripple_carry_adder/base/1_synth.odb
+write_sdc -no_timestamp ./results/sky130hs/ripple_carry_adder/base/1_synth.sdc
+Elapsed time: 0:01.29[h:]min:sec. CPU time: user 0.99 sys 0.27 (97%). Peak memory: 139188KB.
+Log                    Ext     Elapsed      CPU     CPU/ Peak Mem sha1sum
+                                     s        s  Elapsed       MB [0:10)
+1_synth                .odb          1        1     0.98      135 b3c4b6d645
+1_synth                .sdc                                       9ef6b516ca

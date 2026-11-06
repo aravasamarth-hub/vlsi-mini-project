@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import KLayoutSiliconViewer from './KLayoutSiliconViewer'
 import {
   Layers,
   HardDrive,
@@ -517,6 +518,7 @@ const HIER_COMPONENTS = [
 ]
 
 export default function PhysicalDesignViewer() {
+  const [engineMode, setEngineMode] = useState<'OPENROAD_GDS' | 'ACADEMIC_DEF'>('OPENROAD_GDS')
   const [archMode, setArchMode] = useState<'HIERARCHICAL' | 'FLATTENED'>('HIERARCHICAL')
   const [selectedCell, setSelectedCell] = useState<any>(HIER_COMPONENTS[5]) // default to MUX
   const [viewTab, setViewTab] = useState<'MAP' | 'DEF'>('MAP')
@@ -541,6 +543,47 @@ export default function PhysicalDesignViewer() {
 
   return (
     <div className="space-y-6 font-mono text-xs">
+      {/* Master Engine Mode Switcher */}
+      <div className="flex flex-wrap items-center justify-between p-2 rounded-2xl bg-[#060A14] border border-[#00F0FF]/30 shadow-xl gap-2">
+        <div className="flex items-center space-x-2">
+          <button
+            onClick={() => setEngineMode('OPENROAD_GDS')}
+            className={`px-4 py-2 rounded-xl font-bold flex items-center space-x-2 transition ${
+              engineMode === 'OPENROAD_GDS'
+                ? 'bg-gradient-to-r from-[#00F0FF] to-[#0088FF] text-black shadow-lg shadow-[#00F0FF]/30'
+                : 'text-[#94A3B8] hover:text-white'
+            }`}
+          >
+            <Layers className="w-4 h-4" />
+            <span>OPENROAD ROUTED GDSII (KLAYOUT SILICON VIEWER)</span>
+            <span className="px-1.5 py-0.5 rounded bg-black/30 text-black text-[9px] font-extrabold">RECOMMENDED</span>
+          </button>
+
+          <button
+            onClick={() => setEngineMode('ACADEMIC_DEF')}
+            className={`px-4 py-2 rounded-xl font-bold flex items-center space-x-2 transition ${
+              engineMode === 'ACADEMIC_DEF'
+                ? 'bg-[#1E293B] text-white border border-[#334155]'
+                : 'text-[#64748B] hover:text-white'
+            }`}
+          >
+            <Cpu className="w-4 h-4" />
+            <span>HISTORICAL ACADEMIC PLACEMENT (56/48 CELLS)</span>
+          </button>
+        </div>
+
+        <div className="hidden md:flex items-center space-x-2 text-[11px] text-[#94A3B8] pr-3">
+          <span>Active View:</span>
+          <span className="text-[#00F0FF] font-bold">
+            {engineMode === 'OPENROAD_GDS' ? 'Sky130 Complete Route (DEF/GDSII)' : 'Sky130 HD Placement-Only'}
+          </span>
+        </div>
+      </div>
+
+      {engineMode === 'OPENROAD_GDS' ? (
+        <KLayoutSiliconViewer />
+      ) : (
+        <div className="space-y-6">
       {/* Top Header */}
       <div className="glass-panel p-6 rounded-2xl border border-[#00F0FF]/25 shadow-2xl space-y-4">
         <div className="flex flex-wrap items-center justify-between pb-4 border-b border-[#1E293B] gap-4">
@@ -1076,6 +1119,8 @@ COMPONENTS 48 ;
 END COMPONENTS
 END DESIGN`}
           </pre>
+        </div>
+      )}
         </div>
       )}
     </div>

@@ -417,6 +417,43 @@ def get_waveforms_info():
     }
 
 
+@app.get("/api/physical-layout/{design_key}")
+def get_physical_layout(design_key: str):
+    """Returns parsed OpenROAD DEF layout geometry including cells, wires, pins, and stripes."""
+    json_path = os.path.join(PROJECT_ROOT, "frontend", "src", "data", "openroad_physical_layouts.json")
+    if not os.path.exists(json_path):
+        raise HTTPException(status_code=404, detail="Layout database not found")
+    with open(json_path, "r", encoding="utf-8") as f:
+        data = json.load(f)
+    if design_key not in data:
+        raise HTTPException(status_code=404, detail=f"Design {design_key} not found. Available: {list(data.keys())}")
+    return data[design_key]
+
+class LaunchKLayoutRequest(BaseModel):
+    design: str = Field("hs_cska", description="Design key: hs_cska, hd_cska, hs_rca, hd_rca")
+
+@app.post("/api/launch-klayout")
+def launch_klayout_gui(req: LaunchKLayoutRequest):
+    """Launches KLayout with the selected design GDS and layer properties via WSL."""
+    design_map = {
+        "hs_cska": ("/mnt/d/mini project/CYBERCORE_3D_FINAL/physical_design/sky130hs_cska/6_final.gds", "/mnt/d/mini project/CYBERCORE_3D_FINAL/physical_design/sky130hs.lyp"),
+        "hd_cska": ("/mnt/d/mini project/CYBERCORE_3D_FINAL/physical_design/sky130hd_cska/6_final.gds", "/mnt/d/mini project/CYBERCORE_3D_FINAL/physical_design/sky130hd.lyp"),
+        "hs_rca": ("/mnt/d/mini project/CYBERCORE_3D_FINAL/physical_design/sky130hs_rca/6_final.gds", "/mnt/d/mini project/CYBERCORE_3D_FINAL/physical_design/sky130hs.lyp"),
+        "hd_rca": ("/mnt/d/mini project/CYBERCORE_3D_FINAL/physical_design/sky130hd_rca/6_final.gds", "/mnt/d/mini project/CYBERCORE_3D_FINAL/physical_design/sky130hd.lyp"),
+    }
+    target = design_map.get(req.design.lower())
+    if not target:
+        raise HTTPException(status_code=400, detail=f"Invalid design '{req.design}'. Choose from {list(design_map.keys())}")
+    
+    gds_path, lyp_path = target
+    try:
+        # Launch non-blocking
+        subprocess.Popen(["wsl", "klayout", gds_path, "-l", lyp_path], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+        return {"status": "LAUNCHED", "design": req.design, "gds": gds_path, "lyp": lyp_path}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Failed to launch KLayout: {str(e)}")
+
+
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run("app:app", host="0.0.0.0", port=8000, reload=True)

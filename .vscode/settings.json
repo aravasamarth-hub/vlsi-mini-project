@@ -30,11 +30,15 @@
   },
 
   "// === PYTHON & FASTAPI ENVIRONMENT CONFIGURATION ===": "",
-  "python.defaultInterpreterPath": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
+  "python.defaultInterpreterPath": ".venv\\Scripts\\python.exe",
   "python.terminal.activateEnvironment": true,
   "python.analysis.autoSearchPaths": true,
   "python.analysis.diagnosticMode": "workspace",
   "python.analysis.typeCheckingMode": "basic",
+  "python.analysis.extraPaths": [
+    "${workspaceFolder}",
+    "${workspaceFolder}/backend"
+  ],
   "python.testing.pytestEnabled": true,
   "python.testing.pytestArgs": [
     "backend"
@@ -171,6 +175,9 @@
   "// === SNYK SECURITY CONFIGURATION ===": "",
   "snyk.advanced.automaticDependencyManagement": false,
   "snyk.manageBinariesAutomatically": false,
-  "snyk.scanningMode": "manual"
+  "snyk.scanningMode": "manual",
+  "snyk.features.openIssuesReport": false,
+  "snyk.enableCodeSecurity": false,
+  "snyk.enableCodeQuality": false
 }
 

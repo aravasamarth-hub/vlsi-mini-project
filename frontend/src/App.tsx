@@ -450,7 +450,7 @@ export default function App() {
                     telemetry={telemetry}
                     simulating={simulating}
                     onTabChange={(t) => {
-                      if (t === 'Layout (DEF/GDS)') setActiveTab('PHY')
+                      if (t === 'Layout (GDS)' || t === 'Layout (DEF/GDS)') setActiveTab('PHY')
                       if (t === 'Internal Architecture') setActiveTab('VIS')
                     }}
                   />

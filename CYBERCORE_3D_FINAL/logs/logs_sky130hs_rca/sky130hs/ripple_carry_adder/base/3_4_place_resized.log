@@ -1,0 +1,44 @@
+OpenROAD unknown 
+Features included (+) or not (-): -GPU +GUI
+This program is licensed under the BSD-3 license. See the LICENSE file for details.
+Components of this program may be licensed under more restrictive licenses which must be honored.
+[INFO ORD-0030] Using 4 thread(s).
+read_liberty ./objects/binary_libs/sky130hs/sky130_fd_sc_hs__tt_025C_1v80@72103677-1793979001-3fd6197f.blib
+read_db ./results/sky130hs/ripple_carry_adder/base/3_3_place_gp.odb
+read_sdc ./results/sky130hs/ripple_carry_adder/base/2_floorplan.sdc
+source /OpenROAD-flow-scripts/flow/platforms/sky130hs/setRC.tcl
+estimate_parasitics
+Perform buffer insertion and gate resizing...
+repair_design -verbose -match_cell_footprint
+Iteration |   Area    | Resized | Buffers | Nets repaired | Remaining
+---------------------------------------------------------------------
+        0 |     +0.0% |       0 |       0 |             0 |       115
+       10 |     +0.0% |       0 |       0 |             0 |       105
+       20 |     +0.0% |       0 |       0 |             0 |        95
+       30 |     +0.0% |       0 |       0 |             0 |        85
+       40 |     +0.0% |       0 |       0 |             0 |        75
+       50 |     +0.0% |       0 |       0 |             0 |        65
+       60 |     +0.0% |       0 |       0 |             0 |        55
+       70 |     +0.0% |       0 |       0 |             0 |        45
+       80 |     +0.0% |       0 |       0 |             0 |        35
+       90 |     +0.0% |       0 |       0 |             0 |        25
+      100 |     +0.0% |       0 |       0 |             0 |        15
+      110 |     +0.0% |       0 |       0 |             0 |         5
+    final |     +0.0% |       0 |       0 |             0 |         0
+---------------------------------------------------------------------
+[INFO RSZ-0504] Runtime: 0.04s
+Floating nets: 
+Report metrics stage 3, resizer...
+No registers in design
+
+==========================================================================
+resizer report_design_area
+--------------------------------------------------------------------------
+Design area 814 um^2 48% utilization.
+Instance count before 87, after 87
+Pin count before 180, after 180
+write_db ./results/sky130hs/ripple_carry_adder/base/3_4_place_resized.odb
+Elapsed time: 0:01.65[h:]min:sec. CPU time: user 1.35 sys 0.34 (102%). Peak memory: 252804KB.
+Log                    Ext     Elapsed      CPU     CPU/ Peak Mem sha1sum
+                                     s        s  Elapsed       MB [0:10)
+3_4_place_resized      .odb          1        2     1.02      246 1000efbee9
