@@ -1,0 +1,55 @@
+OpenROAD unknown 
+Features included (+) or not (-): -GPU +GUI
+This program is licensed under the BSD-3 license. See the LICENSE file for details.
+Components of this program may be licensed under more restrictive licenses which must be honored.
+[INFO ORD-0030] Using 4 thread(s).
+read_liberty ./objects/binary_libs/sky130hd/sky130_fd_sc_hd__tt_025C_1v80@12800135-1793979001-ed1652ed.blib
+read_db ./results/sky130hd/ripple_carry_adder/base/3_place.odb
+read_sdc ./results/sky130hd/ripple_carry_adder/base/3_place.sdc
+source /OpenROAD-flow-scripts/flow/platforms/sky130hd/setRC.tcl
+clock_tree_synthesis -sink_clustering_enable -repair_clock_nets
+[INFO CTS-0050] Root buffer is sky130_fd_sc_hd__clkbuf_4.
+[INFO CTS-0051] Sink buffer is sky130_fd_sc_hd__clkbuf_8.
+[INFO CTS-0052] The following clock buffers will be used for CTS:
+                    sky130_fd_sc_hd__clkbuf_4
+                    sky130_fd_sc_hd__clkbuf_8
+[INFO CTS-0049] Characterization buffer is sky130_fd_sc_hd__clkbuf_8.
+[WARNING CTS-0083] No clock nets have been found.
+[INFO CTS-0008] TritonCTS found 0 clock nets.
+[WARNING CTS-0082] No valid clock nets in the design.
+[INFO CTS-0500] Runtime: 0.57s
+estimate_parasitics
+detailed_placement -quiet
+[INFO DPL-0009] Utilization: 45.5%
+[INFO DPL-0501] Legalized with 0 moves: displacement total 42.3 u, max 7.4 u; HPWL 1443.9 -> 1474.2 u (+2.1 %).
+[INFO DPL-0500] Runtime: 0.00s
+estimate_parasitics
+Warning: master sky130_ef_sc_hd__decap_12 has signal pins but no liberty cell
+repair_timing -setup_margin 0 -hold_margin 0 -repair_tns 100 -match_cell_footprint -verbose
+[INFO RSZ-0100] Repair move sequence: UnbufferMove SizeUpMove SwapPinsMove BufferMove CloneMove SplitLoadMove 
+[INFO RSZ-0098] No setup violations found
+[INFO RSZ-0505] Runtime: 0.07s
+[INFO RSZ-0033] No hold violations found.
+[INFO RSZ-0506] Runtime: 0.00s
+Warning: master sky130_ef_sc_hd__decap_12 has signal pins but no liberty cell
+Elapsed time: 0:00.57[h:]min:sec. CPU time: user 0.46 sys 0.07 (95%). Peak memory: 20324KB.
+Repair timing output passed lec test
+detailed_placement -quiet
+[INFO DPL-0009] Utilization: 45.5%
+[INFO DPL-0501] Legalized with 0 moves: displacement total 0.0 u, max 0.0 u; HPWL 1474.2 -> 1474.2 u (+0.0 %).
+[INFO DPL-0500] Runtime: 0.00s
+check_placement -placeable -verbose
+estimate_parasitics
+Report metrics stage 4, cts final...
+No registers in design
+
+==========================================================================
+cts final report_design_area
+--------------------------------------------------------------------------
+Design area 526 um^2 45% utilization.
+write_db ./results/sky130hd/ripple_carry_adder/base/4_1_cts.odb
+write_sdc -no_timestamp ./results/sky130hd/ripple_carry_adder/base/4_cts.sdc
+Elapsed time: 0:02.88[h:]min:sec. CPU time: user 2.48 sys 0.45 (101%). Peak memory: 251392KB.
+Log                    Ext     Elapsed      CPU     CPU/ Peak Mem sha1sum
+                                     s        s  Elapsed       MB [0:10)
+4_1_cts                .odb          0        1     0.93       19 b1c8f2052f

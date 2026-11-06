@@ -1,0 +1,53 @@
+OpenROAD unknown 
+Features included (+) or not (-): -GPU +GUI
+This program is licensed under the BSD-3 license. See the LICENSE file for details.
+Components of this program may be licensed under more restrictive licenses which must be honored.
+[INFO ORD-0030] Using 4 thread(s).
+read_liberty ./objects/binary_libs/sky130hs/sky130_fd_sc_hs__tt_025C_1v80@72103677-1793979001-3fd6197f.blib
+read_db ./results/sky130hs/carry_skip_adder/base/3_place.odb
+read_sdc ./results/sky130hs/carry_skip_adder/base/3_place.sdc
+source /OpenROAD-flow-scripts/flow/platforms/sky130hs/setRC.tcl
+clock_tree_synthesis -sink_clustering_enable -repair_clock_nets
+[INFO CTS-0050] Root buffer is sky130_fd_sc_hs__clkbuf_4.
+[INFO CTS-0051] Sink buffer is sky130_fd_sc_hs__clkbuf_8.
+[INFO CTS-0052] The following clock buffers will be used for CTS:
+                    sky130_fd_sc_hs__clkbuf_4
+                    sky130_fd_sc_hs__clkbuf_8
+[INFO CTS-0049] Characterization buffer is sky130_fd_sc_hs__clkbuf_8.
+[WARNING CTS-0083] No clock nets have been found.
+[INFO CTS-0008] TritonCTS found 0 clock nets.
+[WARNING CTS-0082] No valid clock nets in the design.
+[INFO CTS-0500] Runtime: 0.85s
+estimate_parasitics
+detailed_placement -quiet
+[INFO DPL-0009] Utilization: 64.6%
+[INFO DPL-0501] Legalized with 0 moves: displacement total 56.2 u, max 4.3 u; HPWL 1392.1 -> 1440.3 u (+3.5 %).
+[INFO DPL-0500] Runtime: 0.00s
+estimate_parasitics
+repair_timing -setup_margin 0 -hold_margin 0 -repair_tns 100 -match_cell_footprint -verbose
+[INFO RSZ-0100] Repair move sequence: UnbufferMove SizeUpMove SwapPinsMove BufferMove CloneMove SplitLoadMove 
+[INFO RSZ-0098] No setup violations found
+[INFO RSZ-0505] Runtime: 0.10s
+[INFO RSZ-0033] No hold violations found.
+[INFO RSZ-0506] Runtime: 0.00s
+Elapsed time: 0:02.41[h:]min:sec. CPU time: user 2.44 sys 0.14 (107%). Peak memory: 20264KB.
+Repair timing output passed lec test
+detailed_placement -quiet
+[INFO DPL-0009] Utilization: 64.6%
+[INFO DPL-0501] Legalized with 0 moves: displacement total 0.0 u, max 0.0 u; HPWL 1440.3 -> 1440.3 u (+0.0 %).
+[INFO DPL-0500] Runtime: 0.00s
+check_placement -placeable -verbose
+estimate_parasitics
+Report metrics stage 4, cts final...
+No registers in design
+
+==========================================================================
+cts final report_design_area
+--------------------------------------------------------------------------
+Design area 1127 um^2 65% utilization.
+write_db ./results/sky130hs/carry_skip_adder/base/4_1_cts.odb
+write_sdc -no_timestamp ./results/sky130hs/carry_skip_adder/base/4_cts.sdc
+Elapsed time: 0:05.87[h:]min:sec. CPU time: user 5.40 sys 0.74 (104%). Peak memory: 277776KB.
+Log                    Ext     Elapsed      CPU     CPU/ Peak Mem sha1sum
+                                     s        s  Elapsed       MB [0:10)
+4_1_cts                .odb          2        3     1.07       19 68a122d6d1

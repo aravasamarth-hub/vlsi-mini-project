@@ -30,6 +30,7 @@
   },
 
   "// === PYTHON & FASTAPI ENVIRONMENT CONFIGURATION ===": "",
+  "python.defaultInterpreterPath": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
   "python.terminal.activateEnvironment": true,
   "python.analysis.autoSearchPaths": true,
   "python.analysis.diagnosticMode": "workspace",
@@ -169,6 +170,7 @@
 
   "// === SNYK SECURITY CONFIGURATION ===": "",
   "snyk.advanced.automaticDependencyManagement": false,
+  "snyk.manageBinariesAutomatically": false,
   "snyk.scanningMode": "manual"
 }
 
