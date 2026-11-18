@@ -231,13 +231,9 @@ export default function KLayoutSiliconViewer() {
     setHighlightMacro(null)
   }
 
-  const handleLaunchDesktopKLayout = async (engine: 'windows' | 'wsl' = 'windows') => {
+  const handleLaunchDesktopKLayout = async (engine: 'auto' | 'wsl' | 'windows' = 'auto') => {
     setIsLaunchingKLayout(true)
-    setLaunchMessage(
-      engine === 'windows'
-        ? 'Opening native Windows KLayout desktop app...'
-        : 'Launching KLayout via WSL Linux...'
-    )
+    setLaunchMessage('Launching KLayout 0.28.16 GDS viewer...')
     try {
       const designParam = selectedDesignKey.replace('sky130', '')
       const res = await fetch('http://127.0.0.1:8000/api/launch-klayout', {
@@ -336,24 +332,24 @@ export default function KLayoutSiliconViewer() {
             ))}
           </div>
 
-          {/* Launch Native KLayout Button */}
+          {/* Launch Desktop KLayout Button */}
           <div className="flex items-center space-x-1">
+            <button
+              onClick={() => handleLaunchDesktopKLayout('auto')}
+              disabled={isLaunchingKLayout}
+              className="px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-[#FF7A00] to-[#EA580C] text-black font-bold text-[11px] flex items-center space-x-1.5 shadow-lg shadow-[#FF7A00]/25 hover:opacity-90 active:scale-95 transition"
+              title="Launch genuine KLayout 0.28.16 GUI desktop window"
+            >
+              <Play className="w-3.5 h-3.5 fill-black" />
+              <span>LAUNCH KLAYOUT GUI</span>
+            </button>
             <button
               onClick={() => handleLaunchDesktopKLayout('windows')}
               disabled={isLaunchingKLayout}
-              className="px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-[#FF7A00] to-[#EA580C] text-black font-bold text-[11px] flex items-center space-x-1.5 shadow-lg shadow-[#FF7A00]/25 hover:opacity-90 active:scale-95 transition"
-              title="Launch native Windows KLayout desktop app directly (fast & smooth)"
-            >
-              <Play className="w-3.5 h-3.5 fill-black" />
-              <span>OPEN WINDOWS KLAYOUT</span>
-            </button>
-            <button
-              onClick={() => handleLaunchDesktopKLayout('wsl')}
-              disabled={isLaunchingKLayout}
               className="px-2 py-1.5 rounded-xl bg-[#0A1224] text-[#94A3B8] hover:text-white border border-[#1E293B] font-bold text-[10px]"
-              title="Launch via WSL Linux if preferred"
+              title="Launch via Windows native executable"
             >
-              WSL
+              WIN
             </button>
           </div>
         </div>

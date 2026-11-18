@@ -431,48 +431,51 @@ def get_physical_layout(design_key: str):
 
 class LaunchKLayoutRequest(BaseModel):
     design: str = Field("hs_cska", description="Design key: hs_cska, hd_cska, hs_rca, hd_rca")
-    engine: str = Field("auto", description="Execution engine: auto, windows, or wsl")
+    engine: str = Field("auto", description="Execution engine: auto, wsl, or windows")
 
 @app.post("/api/launch-klayout")
 def launch_klayout_gui(req: LaunchKLayoutRequest):
-    """Launches genuine KLayout desktop GUI natively on Windows or via WSL."""
+    """Launches genuine KLayout desktop GUI natively with full WSLg/Windows display support."""
     dkey = req.design.lower()
     if not dkey.startswith("sky130"):
         dkey = f"sky130{dkey}"
     
-    # 1. Windows native paths
+    # Paths for WSL and Windows
+    wsl_gds = f"/mnt/d/mini project/CYBERCORE_3D_FINAL/physical_design/{dkey}/6_final.gds"
+    wsl_lyp = f"/mnt/d/mini project/CYBERCORE_3D_FINAL/physical_design/{'sky130hs.lyp' if 'hs' in dkey else 'sky130hd.lyp'}"
+
     win_klayout = r"C:\Users\arava\AppData\Roaming\KLayout\klayout_app.exe"
     win_gds = os.path.normpath(os.path.join(PROJECT_ROOT, "CYBERCORE_3D_FINAL", "physical_design", dkey, "6_final.gds"))
     win_lyp = os.path.normpath(os.path.join(PROJECT_ROOT, "CYBERCORE_3D_FINAL", "physical_design", "sky130hs.lyp" if "hs" in dkey else "sky130hd.lyp"))
 
-    # 2. WSL paths fallback
-    wsl_gds = f"/mnt/d/mini project/CYBERCORE_3D_FINAL/physical_design/{dkey}/6_final.gds"
-    wsl_lyp = f"/mnt/d/mini project/CYBERCORE_3D_FINAL/physical_design/{'sky130hs.lyp' if 'hs' in dkey else 'sky130hd.lyp'}"
-
-    use_windows = (req.engine == "windows") or (req.engine == "auto" and os.path.exists(win_klayout))
-
     try:
-        if use_windows and os.path.exists(win_gds) and os.path.exists(win_lyp):
-            # Launch Windows native KLayout detached so it doesn't block FastAPI
-            DETACHED_PROCESS = 0x00000008
-            subprocess.Popen(
-                [win_klayout, win_gds, "-l", win_lyp],
-                creationflags=DETACHED_PROCESS,
-                close_fds=True
-            )
+        # Default to WSLg (KLayout 0.28.16 is verified in Ubuntu-24.04)
+        if req.engine == "windows" and os.path.exists(win_klayout):
+            # Launch via cmd start to ensure foreground interactive session
+            cmd = f'start "" "{win_klayout}" "{win_gds}" -l "{win_lyp}"'
+            subprocess.Popen(["cmd.exe", "/c", cmd], shell=True)
             return {
                 "status": "LAUNCHED_WINDOWS",
-                "engine": "Native Windows KLayout 0.28+",
+                "engine": "Windows KLayout (cmd start)",
                 "design": dkey,
                 "gds": win_gds,
                 "lyp": win_lyp
             }
         else:
-            # Fallback to WSL
-            subprocess.Popen(["wsl", "klayout", wsl_gds, "-l", wsl_lyp], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+            # Launch in WSL with complete WSLg X11 and Wayland display environment
+            wsl_cmd = (
+                f"export DISPLAY=:0; export WAYLAND_DISPLAY=wayland-0; "
+                f"export XDG_RUNTIME_DIR=/mnt/wslg/runtime-dir; export PULSE_SERVER=/mnt/wslg/PulseServer; "
+                f"nohup klayout '{wsl_gds}' -l '{wsl_lyp}' > /tmp/klayout_launch.log 2>&1 &"
+            )
+            subprocess.Popen(
+                ["wsl", "-d", "Ubuntu-24.04", "--", "bash", "-c", wsl_cmd],
+                stdout=subprocess.DEVNULL,
+                stderr=subprocess.DEVNULL
+            )
             return {
                 "status": "LAUNCHED_WSL",
-                "engine": "WSL Linux KLayout",
+                "engine": "KLayout 0.28.16 (WSLg Hardware Accelerated)",
                 "design": dkey,
                 "gds": wsl_gds,
                 "lyp": wsl_lyp
