@@ -231,26 +231,32 @@ export default function KLayoutSiliconViewer() {
     setHighlightMacro(null)
   }
 
-  const handleLaunchDesktopKLayout = async () => {
+  const handleLaunchDesktopKLayout = async (engine: 'windows' | 'wsl' = 'windows') => {
     setIsLaunchingKLayout(true)
-    setLaunchMessage('Launching genuine KLayout 0.28.16 GUI window via WSL...')
+    setLaunchMessage(
+      engine === 'windows'
+        ? 'Opening native Windows KLayout desktop app...'
+        : 'Launching KLayout via WSL Linux...'
+    )
     try {
       const designParam = selectedDesignKey.replace('sky130', '')
       const res = await fetch('http://127.0.0.1:8000/api/launch-klayout', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ design: designParam })
+        body: JSON.stringify({ design: designParam, engine })
       })
       const data = await res.json()
       if (res.ok) {
-        setLaunchMessage(`KLayout window opened for ${selectedDesignKey}! Check Windows taskbar / WSLg.`)
+        setLaunchMessage(
+          `✅ ${data.engine || 'KLayout'} opened successfully for ${selectedDesignKey}! Check taskbar.`
+        )
       } else {
         setLaunchMessage(`Failed: ${data.detail || 'Error'}`)
       }
     } catch {
-      setLaunchMessage('Backend offline: Use .\\scripts\\view_layout.bat in terminal.')
+      setLaunchMessage('Backend offline: Make sure FastAPI backend is running.')
     } finally {
-      setTimeout(() => setLaunchMessage(null), 4000)
+      setTimeout(() => setLaunchMessage(null), 5000)
       setIsLaunchingKLayout(false)
     }
   }
@@ -331,15 +337,25 @@ export default function KLayoutSiliconViewer() {
           </div>
 
           {/* Launch Native KLayout Button */}
-          <button
-            onClick={handleLaunchDesktopKLayout}
-            disabled={isLaunchingKLayout}
-            className="px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-[#FF7A00] to-[#EA580C] text-black font-bold text-[11px] flex items-center space-x-1.5 shadow-lg shadow-[#FF7A00]/25 hover:opacity-90 active:scale-95 transition"
-            title="Launch genuine KLayout desktop window in Windows 11 via WSLg"
-          >
-            <Play className="w-3.5 h-3.5 fill-black" />
-            <span>OPEN DESKTOP KLAYOUT</span>
-          </button>
+          <div className="flex items-center space-x-1">
+            <button
+              onClick={() => handleLaunchDesktopKLayout('windows')}
+              disabled={isLaunchingKLayout}
+              className="px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-[#FF7A00] to-[#EA580C] text-black font-bold text-[11px] flex items-center space-x-1.5 shadow-lg shadow-[#FF7A00]/25 hover:opacity-90 active:scale-95 transition"
+              title="Launch native Windows KLayout desktop app directly (fast & smooth)"
+            >
+              <Play className="w-3.5 h-3.5 fill-black" />
+              <span>OPEN WINDOWS KLAYOUT</span>
+            </button>
+            <button
+              onClick={() => handleLaunchDesktopKLayout('wsl')}
+              disabled={isLaunchingKLayout}
+              className="px-2 py-1.5 rounded-xl bg-[#0A1224] text-[#94A3B8] hover:text-white border border-[#1E293B] font-bold text-[10px]"
+              title="Launch via WSL Linux if preferred"
+            >
+              WSL
+            </button>
+          </div>
         </div>
       </div>
 
@@ -551,7 +567,7 @@ export default function KLayoutSiliconViewer() {
                 ref={svgRef}
                 width="100%"
                 height="100%"
-                viewBox={`${die.x1 - 4000} ${die.y1 - 4000} ${dieW + 8000} ${dieH + 8000}`}
+                viewBox={`${die.x1 - 2500} ${die.y1 - 2000} ${dieW + 5000} ${dieH + 6500}`}
                 style={{
                   transform: `translate(${pan.x}px, ${pan.y}px) scale(${zoom})`,
                   transformOrigin: 'center center',
@@ -785,7 +801,7 @@ export default function KLayoutSiliconViewer() {
 
                 {/* 8. 4 µm Scale Ruler at Bottom-Left of Die (Exact Match to Photo 1) */}
                 {activeLayers.ruler && (
-                  <g transform={`translate(${die.x1 + 1000}, ${die.y1 - 1800})`}>
+                  <g transform={`translate(${die.x1 + 1000}, ${die.y2 + 2000})`}>
                     {/* Horizontal Ruler Bar 4 µm = 4000 nm */}
                     <line x1="0" y1="0" x2="4000" y2="0" stroke="#000000" strokeWidth="120" />
                     {/* Left Tick */}

@@ -431,25 +431,52 @@ def get_physical_layout(design_key: str):
 
 class LaunchKLayoutRequest(BaseModel):
     design: str = Field("hs_cska", description="Design key: hs_cska, hd_cska, hs_rca, hd_rca")
+    engine: str = Field("auto", description="Execution engine: auto, windows, or wsl")
 
 @app.post("/api/launch-klayout")
 def launch_klayout_gui(req: LaunchKLayoutRequest):
-    """Launches KLayout with the selected design GDS and layer properties via WSL."""
-    design_map = {
-        "hs_cska": ("/mnt/d/mini project/CYBERCORE_3D_FINAL/physical_design/sky130hs_cska/6_final.gds", "/mnt/d/mini project/CYBERCORE_3D_FINAL/physical_design/sky130hs.lyp"),
-        "hd_cska": ("/mnt/d/mini project/CYBERCORE_3D_FINAL/physical_design/sky130hd_cska/6_final.gds", "/mnt/d/mini project/CYBERCORE_3D_FINAL/physical_design/sky130hd.lyp"),
-        "hs_rca": ("/mnt/d/mini project/CYBERCORE_3D_FINAL/physical_design/sky130hs_rca/6_final.gds", "/mnt/d/mini project/CYBERCORE_3D_FINAL/physical_design/sky130hs.lyp"),
-        "hd_rca": ("/mnt/d/mini project/CYBERCORE_3D_FINAL/physical_design/sky130hd_rca/6_final.gds", "/mnt/d/mini project/CYBERCORE_3D_FINAL/physical_design/sky130hd.lyp"),
-    }
-    target = design_map.get(req.design.lower())
-    if not target:
-        raise HTTPException(status_code=400, detail=f"Invalid design '{req.design}'. Choose from {list(design_map.keys())}")
+    """Launches genuine KLayout desktop GUI natively on Windows or via WSL."""
+    dkey = req.design.lower()
+    if not dkey.startswith("sky130"):
+        dkey = f"sky130{dkey}"
     
-    gds_path, lyp_path = target
+    # 1. Windows native paths
+    win_klayout = r"C:\Users\arava\AppData\Roaming\KLayout\klayout_app.exe"
+    win_gds = os.path.normpath(os.path.join(PROJECT_ROOT, "CYBERCORE_3D_FINAL", "physical_design", dkey, "6_final.gds"))
+    win_lyp = os.path.normpath(os.path.join(PROJECT_ROOT, "CYBERCORE_3D_FINAL", "physical_design", "sky130hs.lyp" if "hs" in dkey else "sky130hd.lyp"))
+
+    # 2. WSL paths fallback
+    wsl_gds = f"/mnt/d/mini project/CYBERCORE_3D_FINAL/physical_design/{dkey}/6_final.gds"
+    wsl_lyp = f"/mnt/d/mini project/CYBERCORE_3D_FINAL/physical_design/{'sky130hs.lyp' if 'hs' in dkey else 'sky130hd.lyp'}"
+
+    use_windows = (req.engine == "windows") or (req.engine == "auto" and os.path.exists(win_klayout))
+
     try:
-        # Launch non-blocking
-        subprocess.Popen(["wsl", "klayout", gds_path, "-l", lyp_path], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-        return {"status": "LAUNCHED", "design": req.design, "gds": gds_path, "lyp": lyp_path}
+        if use_windows and os.path.exists(win_gds) and os.path.exists(win_lyp):
+            # Launch Windows native KLayout detached so it doesn't block FastAPI
+            DETACHED_PROCESS = 0x00000008
+            subprocess.Popen(
+                [win_klayout, win_gds, "-l", win_lyp],
+                creationflags=DETACHED_PROCESS,
+                close_fds=True
+            )
+            return {
+                "status": "LAUNCHED_WINDOWS",
+                "engine": "Native Windows KLayout 0.28+",
+                "design": dkey,
+                "gds": win_gds,
+                "lyp": win_lyp
+            }
+        else:
+            # Fallback to WSL
+            subprocess.Popen(["wsl", "klayout", wsl_gds, "-l", wsl_lyp], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+            return {
+                "status": "LAUNCHED_WSL",
+                "engine": "WSL Linux KLayout",
+                "design": dkey,
+                "gds": wsl_gds,
+                "lyp": wsl_lyp
+            }
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Failed to launch KLayout: {str(e)}")
 
